@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace ga_forms
 {
-    public partial class MainPage : ContentPage
+    public partial class AppShell : Xamarin.Forms.Shell
     {
-        public MainPage()
+        public AppShell()
         {
             InitializeComponent();
         }
