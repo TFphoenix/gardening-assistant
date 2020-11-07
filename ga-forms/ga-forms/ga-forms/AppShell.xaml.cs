@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+//using ga_forms.ViewModels;
+using ga_forms.Views;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace ga_forms
 {
