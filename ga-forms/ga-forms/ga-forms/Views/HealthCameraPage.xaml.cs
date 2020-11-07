@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace ga_forms.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-public partial class PlantDetailPage : ContentPage
+public partial class HealthCameraPage : ContentPage
 {
-    public PlantDetailPage()
+    public HealthCameraPage()
     {
         InitializeComponent();
     }

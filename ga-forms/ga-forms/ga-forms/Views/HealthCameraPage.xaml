@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ga_forms.Views.PlantDetailPage">
+             x:Class="ga_forms.Views.HealthCameraPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Plant Detail Page"
+            <Label Text="Health Camera Page"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
         </StackLayout>

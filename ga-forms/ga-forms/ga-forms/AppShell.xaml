@@ -32,7 +32,7 @@
     <TabBar>
         <ShellContent Title="Home" Icon="tab_home.png" Route="HomePage" ContentTemplate="{DataTemplate views:HomePage}" />
         <ShellContent Title="Plants" Icon="tab_plants.png" Route="PlantsPage" ContentTemplate="{DataTemplate views:PlantsPage}" />
-        <ShellContent Title="Health" Icon="tab_health.png" Route="PlantHealthPage" ContentTemplate="{DataTemplate views:PlantHealthPage}" />
+        <ShellContent Title="Health" Icon="tab_health.png" Route="HealthCameraPage" ContentTemplate="{DataTemplate views:HealthCameraPage}" />
         <ShellContent Title="Decorate" Icon="tab_decorate.png" Route="DecoratePage" ContentTemplate="{DataTemplate views:DecoratePage}" />
     </TabBar>
 
@@ -40,7 +40,7 @@
         If you would like to navigate to this content you can do so by calling
         await Shell.Current.GoToAsync("//PlantDetailPage");
     -->
-    <ShellContent Route="PlantDetailPage" ContentTemplate="{DataTemplate views:PlantDetailPage}" />
+    <ShellContent Route="PlantDetailPage" ContentTemplate="{DataTemplate views:PlantsDetailPage}" />
 
 
 </Shell>

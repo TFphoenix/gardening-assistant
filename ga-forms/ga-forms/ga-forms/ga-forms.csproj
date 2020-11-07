@@ -28,6 +28,12 @@
     <Compile Update="Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\HealthCameraPage.xaml.cs">
+      <DependentUpon>HealthCameraPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\PlantsDetailPage.xaml.cs">
+      <DependentUpon>PlantsDetailPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -37,10 +43,10 @@
     <EmbeddedResource Update="Views\DecoratePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\PlantDetailPage.xaml">
+    <EmbeddedResource Update="Views\PlantsDetailPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\PlantHealthPage.xaml">
+    <EmbeddedResource Update="Views\HealthCameraPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\PlantsPage.xaml">
