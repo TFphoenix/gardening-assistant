@@ -8,10 +8,19 @@
     <Application.Resources>
         <ResourceDictionary>
             <Color x:Key="Light">#d8f3dc</Color>
+            <Color x:Key="Light1">#B7E4C7</Color>
+            <Color x:Key="Light2">#95D5B2</Color>
+            <Color x:Key="Light3">#74C69D</Color>
             <Color x:Key="Medium">#52b788</Color>
             <Color x:Key="Dark">#40916c</Color>
+            <Color x:Key="Dark1">#2D6A4F</Color>
+            <Color x:Key="Dark2">#1B4332</Color>
+            <Color x:Key="Dark3">#081C15</Color>
+            <Color x:Key="NeutralDark">#1c1c1c</Color>
+            <Color x:Key="NeutralLight">#f8f8f8</Color>
+
             <Style TargetType="Button">
-                <Setter Property="TextColor" Value="White"></Setter>
+                <Setter Property="TextColor" Value="{StaticResource NeutralDark}"></Setter>
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
                         <VisualStateGroup x:Name="CommonStates">
