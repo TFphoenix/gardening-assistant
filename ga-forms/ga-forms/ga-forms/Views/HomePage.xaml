@@ -5,8 +5,8 @@
              Shell.NavBarIsVisible="false"
              Visual="Material">
 
-    <StackLayout>
-        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
+    <StackLayout BackgroundColor="{StaticResource Light}">
+        <Frame BackgroundColor="{StaticResource Dark}" Padding="24" CornerRadius="0">
             <Label Text="Welcome to Xamarin.Forms!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
         </Frame>
         <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
