@@ -15,6 +15,7 @@ public partial class HealthCameraPage : ContentPage
     public HealthCameraPage()
     {
         InitializeComponent();
+        CameraButton.Margin = new Thickness(0, 0, 0, 30);
     }
 }
 }

@@ -7,6 +7,8 @@
     -->
     <Application.Resources>
         <ResourceDictionary>
+
+            <!--Colors-->
             <Color x:Key="Light">#d8f3dc</Color>
             <Color x:Key="Light1">#B7E4C7</Color>
             <Color x:Key="Light2">#95D5B2</Color>
@@ -19,17 +21,18 @@
             <Color x:Key="NeutralDark">#1c1c1c</Color>
             <Color x:Key="NeutralLight">#f8f8f8</Color>
 
+            <!--Button-->
             <Style TargetType="Button">
                 <Setter Property="TextColor" Value="{StaticResource NeutralDark}"></Setter>
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
-                        <VisualStateGroup x:Name="CommonStates">
-                            <VisualState x:Name="Normal">
+                        <VisualStateGroup x:Name="ButtonCommonStates">
+                            <VisualState x:Name="ButtonNormal">
                                 <VisualState.Setters>
                                     <Setter Property="BackgroundColor" Value="{StaticResource Light}" />
                                 </VisualState.Setters>
                             </VisualState>
-                            <VisualState x:Name="Disabled">
+                            <VisualState x:Name="ButtonDisabled">
                                 <VisualState.Setters>
                                     <Setter Property="BackgroundColor" Value="#332196F3" />
                                 </VisualState.Setters>
@@ -38,6 +41,27 @@
                     </VisualStateGroupList>
                 </Setter>
             </Style>
+
+            <!--ImageButton-->
+            <Style TargetType="ImageButton">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="ImageButtonCommonStates">
+                            <VisualState x:Name="ImageButtonNormal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource Light}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="ImageButtonDisabled">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#332196F3" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

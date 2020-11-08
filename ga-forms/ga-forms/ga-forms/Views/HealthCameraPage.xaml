@@ -3,17 +3,49 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ga_forms.Views.HealthCameraPage"
              xmlns:vm="clr-namespace:ga_forms.ViewModels"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             Shell.NavBarIsVisible="false"
+             Shell.TabBarIsVisible="false">
 
     <ContentPage.BindingContext>
         <vm:HealthCameraViewModel />
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Health Camera Page"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <!--CameraView-->
+            <Image Grid.Row="0" Source="user64.png"/>
+
+            <!--TabBar-->
+            <FlexLayout Grid.Row="1" 
+                        Direction="Row" AlignItems="Center" JustifyContent="SpaceEvenly"
+                        BackgroundColor="{StaticResource Light2}">
+                <Button Command="{Binding GoBackCommand}" ImageSource="tab_back.png"
+                        WidthRequest="120" HeightRequest="60"
+                        BackgroundColor="{StaticResource Light2}"/>
+                <ImageButton
+                    x:Name="CameraButton"
+                    Command="{Binding TakeSnapshotCommand}"
+                    WidthRequest      ="80"
+                    HeightRequest     ="80"
+                    CornerRadius      ="40"
+                    VerticalOptions   ="Center"
+                    HorizontalOptions ="Center"
+                    Source="camera64.png"
+                    Padding="20"
+                    BackgroundColor   ="{StaticResource Medium}"/>
+                <Button Command="{Binding UploadCommand}" ImageSource="tab_upload.png"
+                        WidthRequest="120" HeightRequest="60"
+                        BackgroundColor="{StaticResource Light2}"/>
+            </FlexLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
