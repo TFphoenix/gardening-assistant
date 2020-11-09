@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" 
+             x:Class="ga_forms.Views.HealthResultsPage"
+             Visual="Material"
+             Shell.NavBarIsVisible="false"
+             Shell.TabBarIsVisible="false">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <!--ResultsView-->
+            
+            <Image Grid.Row="0" Grid.Column="0" Source="tab_plants.png" Margin="0, 20, 0, 0"/>
+            <Image Grid.Row="0" Grid.Column="1" Source="tab_plants.png" Margin="0, 20, 0, 0"/>
+            
+            <!--DiseasesListView-->
+            <!--<ScrollView Grid.Row="1" Margin="10">
+                <StackLayout>
+                    <Expander>
+                        <Expander.Header>
+                            <Label Text="Baboon"
+               FontAttributes="Bold"
+               FontSize="Medium" />
+                        </Expander.Header>
+                        <Grid Padding="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Image Source="http://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Papio_anubis_%28Serengeti%2C_2009%29.jpg/200px-Papio_anubis_%28Serengeti%2C_2009%29.jpg"
+               Aspect="AspectFill"
+               HeightRequest="120"
+               WidthRequest="120" />
+                            <Label Grid.Column="1"
+               Text="Baboons are African and Arabian Old World monkeys belonging to the genus Papio, part of the subfamily Cercopithecinae."
+               FontAttributes="Italic" />
+                        </Grid>
+                    </Expander>
+                </StackLayout>
+            </ScrollView>-->
+
+            <!--TabBar-->
+            <FlexLayout Grid.Row="2" Grid.ColumnSpan="2" 
+                        Direction="Row" AlignItems="Center" JustifyContent="SpaceEvenly"
+                        BackgroundColor="{StaticResource Light2}">
+                <ImageButton Command="{Binding GoBackCommand}" Source="tab_back.png"
+                         WidthRequest="80" HeightRequest="60" Padding="15"
+                         CornerRadius="30" VerticalOptions="Center" HorizontalOptions="Center"
+                         BackgroundColor="{StaticResource Light2}"/>
+                <Button
+                    x:Name="CameraButton"
+                    WidthRequest="80" HeightRequest="80"
+                    CornerRadius="40" VerticalOptions="Center" HorizontalOptions="Center"
+                    ImageSource="save.png"
+                    BackgroundColor   ="{StaticResource Medium}"/>
+                <ImageButton Source="tab_home.png"
+                        WidthRequest="80" HeightRequest="60" Padding="15"
+                        CornerRadius="30" VerticalOptions="Center" HorizontalOptions="Center"
+                        BackgroundColor="{StaticResource Light2}"/>
+            </FlexLayout>
+        </Grid>
+        
+    </ContentPage.Content>
+</ContentPage>
