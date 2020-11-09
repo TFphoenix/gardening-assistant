@@ -8,6 +8,7 @@ namespace ga_forms
     {
         public App()
         {
+            
             InitializeComponent();
 
             MainPage = new AppShell();

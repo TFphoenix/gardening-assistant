@@ -32,30 +32,26 @@
             <Image Grid.Row="0" Grid.Column="1" Source="tab_plants.png" Margin="0, 20, 0, 0"/>
             
             <!--DiseasesListView-->
-            <!--<ScrollView Grid.Row="1" Margin="10">
+
+            <ScrollView Grid.Row="1" Margin="10">
                 <StackLayout>
                     <Expander>
                         <Expander.Header>
-                            <Label Text="Baboon"
-               FontAttributes="Bold"
-               FontSize="Medium" />
+                            <Label Text="Disease1" FontAttributes="Bold" FontSize="Medium" />
                         </Expander.Header>
                         <Grid Padding="10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <Image Source="http://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Papio_anubis_%28Serengeti%2C_2009%29.jpg/200px-Papio_anubis_%28Serengeti%2C_2009%29.jpg"
-               Aspect="AspectFill"
-               HeightRequest="120"
-               WidthRequest="120" />
+                            <Image Source="save.png" Aspect="AspectFill" HeightRequest="120" WidthRequest="120" />
                             <Label Grid.Column="1"
                Text="Baboons are African and Arabian Old World monkeys belonging to the genus Papio, part of the subfamily Cercopithecinae."
                FontAttributes="Italic" />
                         </Grid>
                     </Expander>
                 </StackLayout>
-            </ScrollView>-->
+            </ScrollView>
 
             <!--TabBar-->
             <FlexLayout Grid.Row="2" Grid.ColumnSpan="2" 
