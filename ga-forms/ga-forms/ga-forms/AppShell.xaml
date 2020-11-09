@@ -20,8 +20,8 @@
                 <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
                 <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
                 <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Medium}" />
-                <Setter Property="Shell.TabBarForegroundColor" Value="#132a13"/>
-                <Setter Property="Shell.TabBarUnselectedColor" Value="#132a13"/>
+                <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource Dark3}"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource Dark3}"/>
                 <Setter Property="Shell.TabBarTitleColor" Value="#d8f3dc"/>
             </Style>
             <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
@@ -35,10 +35,10 @@
         <ShellContent Title="Health" Icon="tab_health.png" Route="HealthCameraPage" ContentTemplate="{DataTemplate views:HealthCameraPage}" />
         <ShellContent Title="Decorate" Icon="tab_decorate.png" Route="DecoratePage" ContentTemplate="{DataTemplate views:DecoratePage}" />
     </TabBar>
-    
+
     <ShellContent Route="HealthResultsPage" ContentTemplate="{DataTemplate views:HealthResultsPage}" />
     <ShellContent Route="HealthSelectionPage" ContentTemplate="{DataTemplate views:HealthSelectionPage}" />
-    
+
     <!--
         If you would like to navigate to this content you can do so by calling
         await Shell.Current.GoToAsync("//PlantDetailPage");

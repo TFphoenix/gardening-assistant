@@ -17,7 +17,8 @@
             <Color x:Key="Dark">#40916c</Color>
             <Color x:Key="Dark1">#2D6A4F</Color>
             <Color x:Key="Dark2">#1B4332</Color>
-            <Color x:Key="Dark3">#081C15</Color>
+            <Color x:Key="Dark3">#132A13</Color>
+            <Color x:Key="Dark4">#081C15</Color>
             <Color x:Key="NeutralDark">#1c1c1c</Color>
             <Color x:Key="NeutralLight">#f8f8f8</Color>
 
