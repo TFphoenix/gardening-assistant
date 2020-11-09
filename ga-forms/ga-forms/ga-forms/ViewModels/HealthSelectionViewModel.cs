@@ -6,29 +6,24 @@ using Xamarin.Forms;
 
 namespace ga_forms.ViewModels
 {
-    class HealthResultsViewModel : ViewModel
+    class HealthSelectionViewModel : ViewModel
     {
         public Command GoBackCommand { get; }
-        public Command GoHomeCommand { get; }
         public Command SaveCommand { get; }
-        public HealthResultsViewModel()
+        public HealthSelectionViewModel()
         {
-            Title = "Health Results Page";
+            Title = "Health Selection Page";
             GoBackCommand = new Command(OnBack);
-            GoHomeCommand = new Command(OnHome);
             SaveCommand = new Command(OnSave);
         }
         private async void OnBack(object obj)
         {
-            await Shell.Current.GoToAsync($"//{nameof(HealthSelectionPage)}");
+            await Shell.Current.GoToAsync($"//{nameof(HealthCameraPage)}");
         }
-        private async void OnHome(object obj)
-        {
-            await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
-        }
+       
         private async void OnSave(object obj)
         {
-            // TODO
+            await Shell.Current.GoToAsync($"//{nameof(HealthResultsPage)}"); 
         }
     }
 }

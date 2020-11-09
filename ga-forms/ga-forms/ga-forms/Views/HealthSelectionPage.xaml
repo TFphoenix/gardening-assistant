@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:ga_forms.ViewModels"
+             Title="{Binding Title}"
+             mc:Ignorable="d"
+             x:Class="ga_forms.Views.HealthSelectionPage"
+             Visual="Material"
+             Shell.TabBarIsVisible="False">
+
+    <ContentPage.BindingContext>
+        <vm:HealthSelectionViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <!--CameraView-->
+            <Image Grid.Row="0" Source="user64.png"/>
+
+            <!--TabBar-->
+            <FlexLayout Grid.Row="1" 
+                        Direction="Row" AlignItems="Center" JustifyContent="SpaceEvenly"
+                        BackgroundColor="{StaticResource Light2}">
+                <ImageButton Command="{Binding GoBackCommand}" Source="tab_back.png"
+                         WidthRequest="80" HeightRequest="60" Padding="15"
+                         CornerRadius="30" VerticalOptions="Center" HorizontalOptions="Center"
+                         BackgroundColor="{StaticResource Light2}"/>
+                <Button
+                    x:Name="CameraButton"
+                    Command="{Binding SaveCommand}"
+                    WidthRequest="80" HeightRequest="80"
+                    CornerRadius="40" VerticalOptions="Center" HorizontalOptions="Center"
+                    ImageSource="done.png"
+                    BackgroundColor   ="{StaticResource Medium}"/>
+                
+            </FlexLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

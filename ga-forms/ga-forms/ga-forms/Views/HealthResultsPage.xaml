@@ -3,11 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:ga_forms.ViewModels"
+             Title="{Binding Title}"
              mc:Ignorable="d" 
              x:Class="ga_forms.Views.HealthResultsPage"
              Visual="Material"
              Shell.NavBarIsVisible="false"
              Shell.TabBarIsVisible="false">
+
+    <ContentPage.BindingContext>
+        <vm:HealthResultsViewModel />
+    </ContentPage.BindingContext>
+    
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -59,12 +66,12 @@
                          CornerRadius="30" VerticalOptions="Center" HorizontalOptions="Center"
                          BackgroundColor="{StaticResource Light2}"/>
                 <Button
-                    x:Name="CameraButton"
+                    x:Name="CameraButton" Command="{Binding SaveCommand}"
                     WidthRequest="80" HeightRequest="80"
                     CornerRadius="40" VerticalOptions="Center" HorizontalOptions="Center"
                     ImageSource="save.png"
                     BackgroundColor   ="{StaticResource Medium}"/>
-                <ImageButton Source="tab_home.png"
+                <ImageButton Source="tab_home.png" Command="{Binding GoHomeCommand}"
                         WidthRequest="80" HeightRequest="60" Padding="15"
                         CornerRadius="30" VerticalOptions="Center" HorizontalOptions="Center"
                         BackgroundColor="{StaticResource Light2}"/>

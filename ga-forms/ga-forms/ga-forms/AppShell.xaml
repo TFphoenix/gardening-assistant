@@ -35,7 +35,10 @@
         <ShellContent Title="Health" Icon="tab_health.png" Route="HealthCameraPage" ContentTemplate="{DataTemplate views:HealthCameraPage}" />
         <ShellContent Title="Decorate" Icon="tab_decorate.png" Route="DecoratePage" ContentTemplate="{DataTemplate views:DecoratePage}" />
     </TabBar>
-
+    
+    <ShellContent Route="HealthResultsPage" ContentTemplate="{DataTemplate views:HealthResultsPage}" />
+    <ShellContent Route="HealthSelectionPage" ContentTemplate="{DataTemplate views:HealthSelectionPage}" />
+    
     <!--
         If you would like to navigate to this content you can do so by calling
         await Shell.Current.GoToAsync("//PlantDetailPage");
