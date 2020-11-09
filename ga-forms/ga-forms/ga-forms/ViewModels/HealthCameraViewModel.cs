@@ -25,9 +25,10 @@ namespace ga_forms.ViewModels
             //TODO
         }
 
-        private void TakeSnapshot(object obj)
+        private async void TakeSnapshot(object obj)
         {
             //TODO
+            await Shell.Current.GoToAsync($"//{nameof(HealthSelectionPage)}");
         }
 
         private async void OnBack(object obj)
