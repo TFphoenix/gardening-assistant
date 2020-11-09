@@ -2,8 +2,14 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ga_forms.Views.HomePage"
+             xmlns:vm="clr-namespace:ga_forms.ViewModels"
+             Title="{Binding Title}"
              Shell.NavBarIsVisible="false"
              Visual="Material">
+
+    <ContentPage.BindingContext>
+        <vm:HomeViewModel />
+    </ContentPage.BindingContext>
 
     <StackLayout BackgroundColor="{StaticResource Light}">
         <Frame BackgroundColor="{StaticResource Dark}" Padding="24" CornerRadius="0">
