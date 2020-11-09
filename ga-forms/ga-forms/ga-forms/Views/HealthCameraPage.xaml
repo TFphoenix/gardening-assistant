@@ -4,6 +4,7 @@
              x:Class="ga_forms.Views.HealthCameraPage"
              xmlns:vm="clr-namespace:ga_forms.ViewModels"
              Title="{Binding Title}"
+             Visual="Material"
              Shell.NavBarIsVisible="false"
              Shell.TabBarIsVisible="false">
 
@@ -28,22 +29,20 @@
             <FlexLayout Grid.Row="1" 
                         Direction="Row" AlignItems="Center" JustifyContent="SpaceEvenly"
                         BackgroundColor="{StaticResource Light2}">
-                <Button Command="{Binding GoBackCommand}" ImageSource="tab_back.png"
-                        WidthRequest="120" HeightRequest="60"
-                        BackgroundColor="{StaticResource Light2}"/>
-                <ImageButton
+                <ImageButton Command="{Binding GoBackCommand}" Source="tab_back.png"
+                         WidthRequest="80" HeightRequest="60" Padding="15"
+                         CornerRadius="30" VerticalOptions="Center" HorizontalOptions="Center"
+                         BackgroundColor="{StaticResource Light2}"/>
+                <Button
                     x:Name="CameraButton"
                     Command="{Binding TakeSnapshotCommand}"
-                    WidthRequest      ="80"
-                    HeightRequest     ="80"
-                    CornerRadius      ="40"
-                    VerticalOptions   ="Center"
-                    HorizontalOptions ="Center"
-                    Source="camera64.png"
-                    Padding="20"
+                    WidthRequest="80" HeightRequest="80"
+                    CornerRadius="40" VerticalOptions="Center" HorizontalOptions="Center"
+                    ImageSource="camera40.png"
                     BackgroundColor   ="{StaticResource Medium}"/>
-                <Button Command="{Binding UploadCommand}" ImageSource="tab_upload.png"
-                        WidthRequest="120" HeightRequest="60"
+                <ImageButton Command="{Binding UploadCommand}" Source="tab_upload.png"
+                        WidthRequest="80" HeightRequest="60" Padding="15"
+                        CornerRadius="30" VerticalOptions="Center" HorizontalOptions="Center"
                         BackgroundColor="{StaticResource Light2}"/>
             </FlexLayout>
         </Grid>

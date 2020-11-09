@@ -22,7 +22,7 @@
             <Color x:Key="NeutralLight">#f8f8f8</Color>
 
             <!--Button-->
-            <Style TargetType="Button">
+            <Style x:Key="ButtonDefault" TargetType="Button">
                 <Setter Property="TextColor" Value="{StaticResource NeutralDark}"></Setter>
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
@@ -43,7 +43,7 @@
             </Style>
 
             <!--ImageButton-->
-            <Style TargetType="ImageButton">
+            <Style x:Key="ImageButtonDefault" TargetType="ImageButton">
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
                         <VisualStateGroup x:Name="ImageButtonCommonStates">
