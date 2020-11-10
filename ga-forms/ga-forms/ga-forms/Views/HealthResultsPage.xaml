@@ -14,7 +14,7 @@
     <ContentPage.BindingContext>
         <vm:HealthResultsViewModel />
     </ContentPage.BindingContext>
-    
+
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -33,23 +33,52 @@
             
             <!--DiseasesListView-->
 
-            <ScrollView Grid.Row="1" Margin="10">
-                <StackLayout>
-                    <Expander>
-                        <Expander.Header>
-                            <Label Text="Disease1" FontAttributes="Bold" FontSize="Medium" />
-                        </Expander.Header>
-                        <Grid Padding="10">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Image Source="save.png" Aspect="AspectFill" HeightRequest="120" WidthRequest="120" />
-                            <Label Grid.Column="1"
-               Text="Baboons are African and Arabian Old World monkeys belonging to the genus Papio, part of the subfamily Cercopithecinae."
-               FontAttributes="Italic" />
-                        </Grid>
-                    </Expander>
+            <ScrollView Grid.Row="1" Grid.ColumnSpan="2" Margin="20, 50, 20, 20">
+                <StackLayout BindableLayout.ItemsSource="{Binding DiseasesCollection}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                        <Frame CornerRadius="10" BackgroundColor="{StaticResource Medium}">
+                                <Expander>
+                                    <Expander.Header>
+                                        <Grid>
+                                            <Label Text="{Binding Name}"
+                   FontAttributes="Bold"
+                   FontSize="Medium" />
+                                            <Image Source="expand.png"
+                   HorizontalOptions="End"
+                   VerticalOptions="Start">
+                                                <Image.Triggers>
+                                                    <DataTrigger TargetType="Image"
+                                 Binding="{Binding Source={RelativeSource AncestorType={x:Type Expander}}, Path=IsExpanded}"
+                                 Value="True">
+                                                        <Setter Property="Source"
+                                Value="collapse.png" />
+                                                    </DataTrigger>
+                                                </Image.Triggers>
+                                            </Image>
+                                        </Grid>
+                                    </Expander.Header>
+                                    <Expander.ContentTemplate>
+                                    <DataTemplate>
+                                        <Grid Padding="10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <Image Source="{Binding ImageUrl}"
+                       Aspect="AspectFill"
+                       HeightRequest="120"
+                       WidthRequest="120" />
+                                            <Label Grid.Column="1"
+                       Text="{Binding Details}"
+                       FontAttributes="Italic" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </Expander.ContentTemplate>
+                            </Expander>
+                        </Frame>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
                 </StackLayout>
             </ScrollView>
 
