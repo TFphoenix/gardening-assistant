@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Acr.UserDialogs;
 using ga_forms.Models;
 using ga_forms.Views;
 using Xamarin.Forms;
@@ -44,19 +46,44 @@ namespace ga_forms.ViewModels
         {
             await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
         }
+
+        private void OnNewPlant()
+        {
+            //TODO
+        }
+
+        private void OnExistingPlant()
+        {
+            //TODO
+        }
+        private void OnCancel()
+        {
+            //TODO
+        }
+
         private async void OnSave(object obj)
         {
-            // TODO
-            string action = await App.Current.MainPage.DisplayActionSheet("Save To", "Cancel", null, "Existing Plant", "New Plant");
-            switch (action)
+            using (var progress = UserDialogs.Instance.Progress("Saving..."))
             {
-                case "Existing Plant":
-                    break;
-                case "New Plant":
-                    break;
-                default:
-                    break;
+                for (var i = 0; i < 100; i++)
+                {
+                    progress.PercentComplete = i;
+
+                    await Task.Delay(20);
+                }
             }
+
+            ActionSheetConfig actionSheet = new ActionSheetConfig();
+
+            List<ActionSheetOption> Options = new List<ActionSheetOption>();
+            Options.Add(new ActionSheetOption("New Plant", new Action(OnNewPlant), "new_plant.png"));
+            Options.Add(new ActionSheetOption("Existing Plant", new Action(OnExistingPlant), "tab_plants.png"));
+            Options.Add(new ActionSheetOption("Cancel", new Action(OnCancel), "cancel.png"));
+
+            actionSheet.Options = Options;
+            actionSheet.Title = "Save To";
+
+            UserDialogs.Instance.ActionSheet(actionSheet);
         }
     }
 }
