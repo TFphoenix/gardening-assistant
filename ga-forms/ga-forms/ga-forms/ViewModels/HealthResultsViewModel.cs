@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading.Tasks;
 using ga_forms.Models;
 using ga_forms.Views;
 using Xamarin.Forms;
@@ -9,7 +10,7 @@ using Xamarin.Forms;
 namespace ga_forms.ViewModels
 {
     class HealthResultsViewModel : ViewModel
-    {
+    { 
         private ObservableCollection<DiseaseInfo> diseases;
         public ObservableCollection<DiseaseInfo> DiseasesCollection
         {
@@ -46,6 +47,16 @@ namespace ga_forms.ViewModels
         private async void OnSave(object obj)
         {
             // TODO
+            string action = await App.Current.MainPage.DisplayActionSheet("Save To", "Cancel", null, "Existing Plant", "New Plant");
+            switch (action)
+            {
+                case "Existing Plant":
+                    break;
+                case "New Plant":
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

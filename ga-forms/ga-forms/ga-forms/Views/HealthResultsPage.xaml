@@ -92,7 +92,7 @@
             <FlexLayout Grid.Row="2" Grid.ColumnSpan="2" 
                         Direction="Row" AlignItems="Center" JustifyContent="SpaceEvenly"
                         BackgroundColor="{StaticResource Light2}">
-                <ImageButton Command="{Binding GoBackCommand}" Source="tab_back.png"
+                <ImageButton Command="{Binding GoBackCommand}" CommandParameter="popuplayout" Source="tab_back.png"
                          WidthRequest="80" HeightRequest="60" Padding="15"
                          CornerRadius="30" VerticalOptions="Center" HorizontalOptions="Center"
                          BackgroundColor="{StaticResource Light2}"/>
