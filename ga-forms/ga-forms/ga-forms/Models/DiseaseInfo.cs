@@ -35,6 +35,10 @@ namespace ga_forms.Models
                         return "unknow.png";
                 }
             }
+            set
+            {
+
+            }
         }
 
     }

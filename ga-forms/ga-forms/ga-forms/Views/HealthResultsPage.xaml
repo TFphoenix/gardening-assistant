@@ -18,7 +18,7 @@
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="80"></RowDefinition>
+                <RowDefinition Height="130"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="60"></RowDefinition>
             </Grid.RowDefinitions>
@@ -41,10 +41,16 @@
                                 <Expander>
                                     <Expander.Header>
                                         <Grid>
-                                            <Label Text="{Binding Name}"
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="20"></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Image Grid.Column="0" Source="{Binding IconUrl}" HorizontalOptions="Start" VerticalOptions="Start"></Image>
+                                            <Label Text="{Binding Name}" Grid.Column="1" 
                    FontAttributes="Bold"
                    FontSize="Medium" />
-                                            <Image Source="expand.png"
+                                            <Image Source="expand.png" Grid.Column="2"
                    HorizontalOptions="End"
                    VerticalOptions="Start">
                                                 <Image.Triggers>
