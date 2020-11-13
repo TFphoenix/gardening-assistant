@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ga_forms.Common.Enums;
 
 namespace ga_forms.Models
 {
