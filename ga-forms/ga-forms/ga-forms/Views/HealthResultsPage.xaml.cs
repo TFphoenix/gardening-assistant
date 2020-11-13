@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using ga_forms.Common;
+using ga_forms.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace ga_forms.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-public partial class HealthResultsPage : ContentPage
-{
-    public HealthResultsPage()
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class HealthResultsPage : ContentPage
     {
-        InitializeComponent();
+        public HealthResultsPage()
+        {
+            InitializeComponent();
+            //BindingContext = DependencyInjectionManager.ServiceProvider.GetService<HealthResultsViewModel>();
+        }
     }
-}
 }

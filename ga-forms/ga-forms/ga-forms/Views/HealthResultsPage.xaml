@@ -27,17 +27,17 @@
             </Grid.ColumnDefinitions>
 
             <!--ResultsView-->
-            
+
             <Image Grid.Row="0" Grid.Column="0" Source="tab_plants.png" Margin="0, 20, 0, 0"/>
             <Image Grid.Row="0" Grid.Column="1" Source="tab_plants.png" Margin="0, 20, 0, 0"/>
-            
+
             <!--DiseasesListView-->
 
             <ScrollView Grid.Row="1" Grid.ColumnSpan="2" Margin="20, 50, 20, 20">
                 <StackLayout BindableLayout.ItemsSource="{Binding DiseasesCollection}">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                        <Frame CornerRadius="10" BackgroundColor="{StaticResource Medium}">
+                            <Frame CornerRadius="10" BackgroundColor="{StaticResource Medium}">
                                 <Expander>
                                     <Expander.Header>
                                         <Grid>
@@ -65,24 +65,24 @@
                                         </Grid>
                                     </Expander.Header>
                                     <Expander.ContentTemplate>
-                                    <DataTemplate>
-                                        <Grid Padding="10">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <Image Source="{Binding ImageUrl}"
+                                        <DataTemplate>
+                                            <Grid Padding="10">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Image Source="{Binding ImageUrl}"
                        Aspect="AspectFill"
                        HeightRequest="120"
                        WidthRequest="120" />
-                                            <Label Grid.Column="1"
+                                                <Label Grid.Column="1"
                        Text="{Binding Details}"
                        FontAttributes="Italic" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </Expander.ContentTemplate>
-                            </Expander>
-                        </Frame>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </Expander.ContentTemplate>
+                                </Expander>
+                            </Frame>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </StackLayout>
@@ -108,6 +108,6 @@
                         BackgroundColor="{StaticResource Light2}"/>
             </FlexLayout>
         </Grid>
-        
+
     </ContentPage.Content>
 </ContentPage>

@@ -13,17 +13,20 @@ using Xamarin.Forms;
 namespace ga_forms.ViewModels
 {
     class HealthResultsViewModel : ViewModel
-    { 
-        private ObservableCollection<DiseaseInfo> diseases;
+    {
+        private ObservableCollection<DiseaseInfo> _diseases;
+        private ActionSheetConfig _saveDialogActionSheet;
+
         public ObservableCollection<DiseaseInfo> DiseasesCollection
         {
-            get { return diseases; }
-            set { SetProperty(ref diseases, value); }
+            get { return _diseases; }
+            set { SetProperty(ref _diseases, value); }
         }
 
         public Command GoBackCommand { get; }
         public Command GoHomeCommand { get; }
         public Command SaveCommand { get; }
+
         public HealthResultsViewModel()
         {
             DiseasesCollection = new ObservableCollection<DiseaseInfo> { new DiseaseInfo("Disease1", "user64.png", "Details about disease 1", DiseaseResultType.Ok),
@@ -37,8 +40,25 @@ namespace ga_forms.ViewModels
             Title = "Health Results Page";
             GoBackCommand = new Command(OnBack);
             GoHomeCommand = new Command(OnHome);
-            SaveCommand = new Command(OnSave);
+            SaveCommand = new Command(OnSave); ;
+            SaveDialogInit();
         }
+
+        private void SaveDialogInit()
+        {
+            _saveDialogActionSheet = new ActionSheetConfig();
+
+            List<ActionSheetOption> options = new List<ActionSheetOption>
+            {
+                new ActionSheetOption("New Plant", new Action(OnNewPlant), "new_plant.png"),
+                new ActionSheetOption("Existing Plant", new Action(OnExistingPlant), "tab_plants.png"),
+                new ActionSheetOption("Cancel", new Action(OnCancel), "cancel.png")
+            };
+
+            _saveDialogActionSheet.Options = options;
+            _saveDialogActionSheet.Title = "Save To";
+        }
+
         private async void OnBack(object obj)
         {
             await Shell.Current.GoToAsync($"//{nameof(HealthSelectionPage)}");
@@ -74,17 +94,7 @@ namespace ga_forms.ViewModels
                 }
             }
 
-            ActionSheetConfig actionSheet = new ActionSheetConfig();
-
-            List<ActionSheetOption> Options = new List<ActionSheetOption>();
-            Options.Add(new ActionSheetOption("New Plant", new Action(OnNewPlant), "new_plant.png"));
-            Options.Add(new ActionSheetOption("Existing Plant", new Action(OnExistingPlant), "tab_plants.png"));
-            Options.Add(new ActionSheetOption("Cancel", new Action(OnCancel), "cancel.png"));
-
-            actionSheet.Options = Options;
-            actionSheet.Title = "Save To";
-
-            UserDialogs.Instance.ActionSheet(actionSheet);
+            UserDialogs.Instance.ActionSheet(_saveDialogActionSheet);
         }
     }
 }

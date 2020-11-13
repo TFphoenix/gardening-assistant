@@ -1,4 +1,5 @@
 ﻿using System;
+using ga_forms.Common;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -8,9 +9,8 @@ namespace ga_forms
     {
         public App()
         {
-            
             InitializeComponent();
-
+            DependencyInjectionManager.Init();
             MainPage = new AppShell();
         }
 

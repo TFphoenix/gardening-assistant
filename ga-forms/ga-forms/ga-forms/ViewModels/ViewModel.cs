@@ -16,7 +16,7 @@ namespace ga_forms.ViewModels
             set { SetProperty(ref title, value); }
         }
 
-        // Method fot setting properties
+        // Method for setting properties
         protected bool SetProperty<T>(ref T backingStore, T value,
             [CallerMemberName] string propertyName = "",
             Action onChanged = null)
