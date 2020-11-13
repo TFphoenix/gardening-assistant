@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ga_forms.Views.HealthCameraPage"
+             xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
              xmlns:vm="clr-namespace:ga_forms.ViewModels"
+             x:Class="ga_forms.Views.HealthCameraPage"
              Title="{Binding Title}"
              Visual="Material"
              Shell.NavBarIsVisible="false"
@@ -23,7 +24,8 @@
             </Grid.ColumnDefinitions>
 
             <!--CameraView-->
-            <Image Grid.Row="0" Source="user64.png"/>
+            <!--<Image Grid.Row="0" Source="user64.png"/>-->
+            <xct:AvatarView Grid.Row="0" Text="DO" Size="46" Color="#FF3300" TextColor="White" />
 
             <!--TabBar-->
             <FlexLayout Grid.Row="1" 

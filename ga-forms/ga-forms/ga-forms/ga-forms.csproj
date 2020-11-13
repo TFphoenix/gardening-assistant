@@ -13,7 +13,8 @@
   <ItemGroup>
     <PackageReference Include="Acr.UserDialogs" Version="7.1.0.466" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.0" />
-    <PackageReference Include="Xamarin.Forms" Version="4.6.0.1141" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="1.0.0-pre4" />
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1687" />
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
   </ItemGroup>
 
@@ -58,5 +59,11 @@
 
   <ItemGroup>
     <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Xamarin.CommunityToolkit">
+      <HintPath>C:\Users\Teodor\.nuget\packages\xamarin.communitytoolkit\1.0.0-pre4\lib\monoandroid90\Xamarin.CommunityToolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>
