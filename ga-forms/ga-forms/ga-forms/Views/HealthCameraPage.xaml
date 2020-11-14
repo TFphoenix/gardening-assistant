@@ -17,15 +17,22 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition x:Name="TabBarRowDefinition" Height="60"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
             <!--CameraView-->
-            <!--<Image Grid.Row="0" Source="user64.png"/>-->
-            <xct:AvatarView Grid.Row="0" Text="DO" Size="46" Color="#FF3300" TextColor="White" />
+            <xct:CameraView
+                x:Name="CameraView"
+                CaptureOptions="Photo"
+                FlashMode="Off"
+                MediaCaptured="CameraView_MediaCaptured"
+                MediaCaptureFailed="CameraView_MediaCaptureFailed"
+                OnAvailable="CameraView_OnAvailable"
+                SavePhotoToFile="True"
+                Grid.Row="0"/>
 
             <!--TabBar-->
             <FlexLayout Grid.Row="1" 
@@ -37,7 +44,8 @@
                          BackgroundColor="{StaticResource Light2}"/>
                 <Button
                     x:Name="CameraButton"
-                    Command="{Binding TakeSnapshotCommand}"
+                    IsEnabled="False"
+                    Command="{Binding TakeSnapshotCommand, Source={x:Reference CameraView}}}"
                     WidthRequest="80" HeightRequest="80"
                     CornerRadius="40" VerticalOptions="Center" HorizontalOptions="Center"
                     ImageSource="camera40.png"
