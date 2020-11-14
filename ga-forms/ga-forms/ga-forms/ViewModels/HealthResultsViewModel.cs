@@ -44,7 +44,7 @@ namespace ga_forms.ViewModels
             SaveCommand = new Command(OnSave);
 
             _dialogBoxService = dialogBoxService;
-            _dialogBoxService.InitHealthResultsSave(OnNewPlant, OnExistingPlant, OnCancel);
+            _dialogBoxService.InitDialogBox(new DialogBoxService.HealthResultsSave(OnNewPlant, OnExistingPlant, OnCancel));
         }
 
         private async void OnBack(object obj)
