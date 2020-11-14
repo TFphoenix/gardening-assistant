@@ -45,7 +45,7 @@
                 <Button
                     x:Name="CameraButton"
                     IsEnabled="False"
-                    Command="{Binding TakeSnapshotCommand, Source={x:Reference CameraView}}}"
+                    Command="{Binding ShutterCommand, Source={x:Reference CameraView}}}"
                     WidthRequest="80" HeightRequest="80"
                     CornerRadius="40" VerticalOptions="Center" HorizontalOptions="Center"
                     ImageSource="camera40.png"

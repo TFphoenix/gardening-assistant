@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ga_forms.ViewModels;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -27,6 +28,8 @@ namespace ga_forms.Views
         private void CameraView_MediaCaptured(object sender, MediaCapturedEventArgs e)
         {
             //TODO: Export image
+            //e.Image
+            (BindingContext as HealthCameraViewModel)?.TakeSnapshot();
         }
 
         private void CameraView_MediaCaptureFailed(object sender, string e)

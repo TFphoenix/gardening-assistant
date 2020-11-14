@@ -11,10 +11,6 @@
              Shell.NavBarIsVisible="false"
              Shell.TabBarIsVisible="false">
 
-    <ContentPage.BindingContext>
-        <vm:HealthResultsViewModel />
-    </ContentPage.BindingContext>
-
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>

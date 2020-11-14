@@ -9,26 +9,24 @@ namespace ga_forms.ViewModels
     class HealthCameraViewModel : ViewModel
     {
         public Command GoBackCommand { get; }
-        public Command TakeSnapshotCommand { get; }
         public Command UploadCommand { get; }
 
         public HealthCameraViewModel()
         {
             Title = "Health Camera Page";
             GoBackCommand = new Command(OnBack);
-            TakeSnapshotCommand = new Command(TakeSnapshot);
             UploadCommand = new Command(UploadImage);
+        }
+
+        public async void TakeSnapshot()
+        {
+            // TODO: Revieve image
+            await Shell.Current.GoToAsync($"//{nameof(HealthSelectionPage)}");
         }
 
         private void UploadImage(object obj)
         {
             //TODO
-        }
-
-        private async void TakeSnapshot(object obj)
-        {
-            //TODO
-            await Shell.Current.GoToAsync($"//{nameof(HealthSelectionPage)}");
         }
 
         private async void OnBack(object obj)

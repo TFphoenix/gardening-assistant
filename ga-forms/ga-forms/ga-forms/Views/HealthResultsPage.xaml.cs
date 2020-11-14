@@ -16,7 +16,7 @@ namespace ga_forms.Views
         public HealthResultsPage()
         {
             InitializeComponent();
-            //BindingContext = DependencyInjectionManager.ServiceProvider.GetService<HealthResultsViewModel>();
+            BindingContext = DependencyInjectionManager.ServiceProvider.GetService<HealthResultsViewModel>();
         }
     }
 }
