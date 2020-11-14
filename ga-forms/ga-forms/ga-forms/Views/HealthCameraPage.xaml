@@ -9,10 +9,6 @@
              Shell.NavBarIsVisible="false"
              Shell.TabBarIsVisible="false">
 
-    <ContentPage.BindingContext>
-        <vm:HealthCameraViewModel />
-    </ContentPage.BindingContext>
-
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>

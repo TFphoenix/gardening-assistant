@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using ga_forms.Services;
 using ga_forms.Views;
 using Xamarin.Forms;
 
@@ -8,21 +10,32 @@ namespace ga_forms.ViewModels
 {
     class HealthCameraViewModel : ViewModel
     {
+        private readonly IImageManagerService _imageManagerService;
+
         public Command GoBackCommand { get; }
         public Command UploadCommand { get; }
 
-        public HealthCameraViewModel()
+        public HealthCameraViewModel(IImageManagerService imageManagerService)
         {
+            _imageManagerService = imageManagerService;
+
             Title = "Health Camera Page";
             GoBackCommand = new Command(OnBack);
             UploadCommand = new Command(UploadImage);
         }
 
-        public async void TakeSnapshot()
+        public async void OnSnapshot(ImageSource image, string path, byte[] imageData)
         {
-            // TODO: Revieve image
+            _imageManagerService.HealthInitialImage = image;
+
             await Shell.Current.GoToAsync($"//{nameof(HealthSelectionPage)}");
         }
+
+        //Task<Bitmap> GetBitmap(Xamarin.Forms.Image image)
+        //{
+        //    var handler = new ImageLoaderSourceHandler();
+        //    return handler.LoadImageAsync(image.Source);
+        //}
 
         private void UploadImage(object obj)
         {

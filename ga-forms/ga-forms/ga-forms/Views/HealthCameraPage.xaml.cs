@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ga_forms.Common;
 using ga_forms.ViewModels;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Essentials;
@@ -17,6 +18,7 @@ namespace ga_forms.Views
         public HealthCameraPage()
         {
             InitializeComponent();
+            BindingContext = DependencyInjectionManager.ServiceProvider.GetService<HealthCameraViewModel>();
             CameraButton.Margin = new Thickness(0, 0, 0, 30);
         }
 
@@ -27,9 +29,7 @@ namespace ga_forms.Views
 
         private void CameraView_MediaCaptured(object sender, MediaCapturedEventArgs e)
         {
-            //TODO: Export image
-            //e.Image
-            (BindingContext as HealthCameraViewModel)?.TakeSnapshot();
+            (BindingContext as HealthCameraViewModel)?.OnSnapshot(e.Image, e.Path, e.ImageData);
         }
 
         private void CameraView_MediaCaptureFailed(object sender, string e)
