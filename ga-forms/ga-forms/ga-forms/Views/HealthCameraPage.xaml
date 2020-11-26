@@ -13,7 +13,7 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition x:Name="TabBarRowDefinition" Height="60"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
@@ -41,11 +41,11 @@
                 <Button
                     x:Name="CameraButton"
                     IsEnabled="False"
-                    Command="{Binding ShutterCommand, Source={x:Reference CameraView}}}"
+                    Command="{Binding ShutterCommand, Source={x:Reference CameraView}}"
                     WidthRequest="80" HeightRequest="80"
                     CornerRadius="40" VerticalOptions="Center" HorizontalOptions="Center"
                     ImageSource="camera40.png"
-                    BackgroundColor   ="{StaticResource Medium}"/>
+                    BackgroundColor="{StaticResource Medium}"/>
                 <ImageButton Command="{Binding UploadCommand}" Source="tab_upload.png"
                         WidthRequest="80" HeightRequest="60" Padding="15"
                         CornerRadius="30" VerticalOptions="Center" HorizontalOptions="Center"

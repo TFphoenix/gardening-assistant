@@ -22,7 +22,7 @@ namespace ga_forms.Services
 
                 List<ActionSheetOption> options = new List<ActionSheetOption>
                 {
-                    new ActionSheetOption("New Plant", new Action(onNewPlant), "new_plant.png"),
+                    new ActionSheetOption("New Plant", new Action(onNewPlant), "add1.png"),
                     new ActionSheetOption("Existing Plant", new Action(onExistingPlant), "tab_plants.png"),
                     new ActionSheetOption("Cancel", new Action(onCancel), "cancel.png")
                 };

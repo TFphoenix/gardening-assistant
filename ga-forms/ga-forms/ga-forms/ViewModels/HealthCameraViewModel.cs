@@ -31,12 +31,6 @@ namespace ga_forms.ViewModels
             await Shell.Current.GoToAsync($"//{nameof(HealthSelectionPage)}");
         }
 
-        //Task<Bitmap> GetBitmap(Xamarin.Forms.Image image)
-        //{
-        //    var handler = new ImageLoaderSourceHandler();
-        //    return handler.LoadImageAsync(image.Source);
-        //}
-
         private void UploadImage(object obj)
         {
             //TODO

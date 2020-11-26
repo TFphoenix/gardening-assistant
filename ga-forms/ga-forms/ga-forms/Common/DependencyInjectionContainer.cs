@@ -18,6 +18,7 @@ namespace ga_forms.Common
             // Register ViewModels that use dependency injection
             services.AddTransient<HealthResultsViewModel>();
             services.AddTransient<HealthCameraViewModel>();
+            services.AddTransient<HealthSelectionViewModel>();
 
             return services;
         }
