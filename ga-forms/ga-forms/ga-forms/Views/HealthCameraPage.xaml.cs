@@ -27,14 +27,14 @@ namespace ga_forms.Views
             CameraButton.IsEnabled = e;
         }
 
-        private void CameraView_MediaCaptured(object sender, MediaCapturedEventArgs e)
+        private void CameraView_MediaCaptured(object sender, MediaCapturedEventArgs args)
         {
-            (BindingContext as HealthCameraViewModel)?.OnSnapshot(e.Image, e.Path, e.ImageData);
+            (BindingContext as HealthCameraViewModel)?.OnSnapshot(args.Path);
         }
 
         private void CameraView_MediaCaptureFailed(object sender, string e)
         {
-            //TODO: Error handling
+            //TODO: Handle error
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using ga_forms.Services;
 using ga_forms.Views;
+using SkiaSharp;
 using Xamarin.Forms;
 
 namespace ga_forms.ViewModels
@@ -29,6 +30,8 @@ namespace ga_forms.ViewModels
 
             _imageManagerService = imageManagerService;
         }
+
+        public SKBitmap GetCapturedImageBitmap() => _imageManagerService.HealthInitialImageBitmap;
 
         private void OnAutoBackground(object obj)
         {

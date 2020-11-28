@@ -26,7 +26,12 @@ namespace ga_forms.Views
             InitializeComponent();
             BindingContext = DependencyInjectionManager.ServiceProvider.GetService<HealthSelectionViewModel>();
             DoneButton.Margin = new Thickness(0, 0, 0, 30);
+        }
 
+        // On page appearing life hook
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
             InitializePaints();
             ImportHealthImage();
         }
@@ -42,9 +47,7 @@ namespace ga_forms.Views
         {
             try
             {
-                _backgroundBitmap =
-                    BitmapExtensions.LoadBitmapResource(typeof(HealthSelectionPage),
-                        "ga-forms.Resources.leaf_test.jpg");
+                _backgroundBitmap = (BindingContext as HealthSelectionViewModel)?.GetCapturedImageBitmap();
             }
             catch (Exception e)
             {

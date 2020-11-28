@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using SkiaSharp;
+using Xamarin.Forms;
 
 namespace ga_forms.Common
 {
@@ -16,6 +18,25 @@ namespace ga_forms.Common
                 return SKBitmap.Decode(stream);
             }
         }
+
+        public static async Task<SKBitmap> LoadBitmapFromGallery()
+        {
+            IPhotoLibrary photoLibrary = DependencyService.Get<IPhotoLibrary>();
+            using (Stream stream = await photoLibrary.PickPhotoAsync())
+            {
+                if (stream != null)
+                {
+                    return SKBitmap.Decode(stream);
+                }
+            }
+
+            throw new IOException("Failed to load bitmap from library");
+        }
+
+        //TODO
+        //public static SKBitmap LoadBitmapFromFile(string path)
+        //{
+        //}
 
         public static uint RgbaMakePixel(byte red, byte green, byte blue, byte alpha = 255)
         {
@@ -43,10 +64,10 @@ namespace ga_forms.Common
             alpha = (byte)(pixel >> 24);
         }
 
-        public static void DrawBitmap(this SKCanvas canvas, SKBitmap bitmap, SKRect dest, 
-                                      BitmapStretch stretch, 
-                                      BitmapAlignment horizontal = BitmapAlignment.Center, 
-                                      BitmapAlignment vertical = BitmapAlignment.Center, 
+        public static void DrawBitmap(this SKCanvas canvas, SKBitmap bitmap, SKRect dest,
+                                      BitmapStretch stretch,
+                                      BitmapAlignment horizontal = BitmapAlignment.Center,
+                                      BitmapAlignment vertical = BitmapAlignment.Center,
                                       SKPaint paint = null)
         {
             if (stretch == BitmapStretch.Fill)
@@ -71,7 +92,7 @@ namespace ga_forms.Common
                         break;
                 }
 
-                SKRect display = CalculateDisplayRect(dest, scale * bitmap.Width, scale * bitmap.Height, 
+                SKRect display = CalculateDisplayRect(dest, scale * bitmap.Width, scale * bitmap.Height,
                                                       horizontal, vertical);
 
                 canvas.DrawBitmap(bitmap, display, paint);
@@ -106,14 +127,14 @@ namespace ga_forms.Common
                         break;
                 }
 
-                SKRect display = CalculateDisplayRect(dest, scale * source.Width, scale * source.Height, 
+                SKRect display = CalculateDisplayRect(dest, scale * source.Width, scale * source.Height,
                                                       horizontal, vertical);
 
                 canvas.DrawBitmap(bitmap, source, display, paint);
             }
         }
 
-        static SKRect CalculateDisplayRect(SKRect dest, float bmpWidth, float bmpHeight, 
+        static SKRect CalculateDisplayRect(SKRect dest, float bmpWidth, float bmpHeight,
                                            BitmapAlignment horizontal, BitmapAlignment vertical)
         {
             float x = 0;
