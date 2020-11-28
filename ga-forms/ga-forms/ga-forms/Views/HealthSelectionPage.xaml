@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:ga_forms.ViewModels"
              xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+             xmlns:tt="clr-namespace:ga_forms.TouchTracking"
              Title="{Binding Title}"
              mc:Ignorable="d"
              x:Class="ga_forms.Views.HealthSelectionPage"
@@ -16,7 +17,7 @@
     <!--NavBar-->
     <Shell.TitleView>
         <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceBetween">
-            <ImageButton Command="{Binding UndoCommand}" Source="undo.png"
+            <ImageButton Clicked="Undo_OnClicked" Source="undo.png"
                          WidthRequest="80" HeightRequest="60" Padding="15"
                          CornerRadius="30" VerticalOptions="Center" HorizontalOptions="Center"
                          BackgroundColor="{StaticResource Light}"/>
@@ -39,9 +40,13 @@
             </Grid.ColumnDefinitions>
 
             <!--CanvasView-->
-            <skia:SKCanvasView x:Name="CanvasView" Grid.Row="0"
-                               PaintSurface="CanvasView_OnPaintSurface"
-                               Touch="CanvasView_OnTouch"/>
+            <Grid Grid.Row="0"
+                  BackgroundColor="{StaticResource Light}" VerticalOptions="FillAndExpand">
+                <skia:SKCanvasView x:Name="CanvasView" PaintSurface="CanvasView_OnPaintSurface"/>
+                <Grid.Effects>
+                    <tt:TouchEffect Capture="True" TouchAction="CanvasView_OnTouch" />
+                </Grid.Effects>
+            </Grid>
 
             <!--TabBar-->
             <FlexLayout Grid.Row="1" 

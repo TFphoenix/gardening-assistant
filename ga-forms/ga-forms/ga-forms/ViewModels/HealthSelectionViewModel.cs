@@ -13,7 +13,6 @@ namespace ga_forms.ViewModels
         // Commands
         public Command GoBackCommand { get; }
         public Command DoneCommand { get; }
-        public Command UndoCommand { get; }
         public Command AutoBackgroundCommand { get; }
 
         // Services
@@ -25,7 +24,6 @@ namespace ga_forms.ViewModels
             Title = "Health Selection Page";
             GoBackCommand = new Command(OnBack);
             DoneCommand = new Command(OnDone);
-            UndoCommand = new Command(OnUndo);
             AutoBackgroundCommand = new Command(OnAutoBackground);
 
             _imageManagerService = imageManagerService;
@@ -34,11 +32,6 @@ namespace ga_forms.ViewModels
         public SKBitmap GetCapturedImageBitmap() => _imageManagerService.HealthInitialImageBitmap;
 
         private void OnAutoBackground(object obj)
-        {
-            //TODO
-        }
-
-        private void OnUndo(object obj)
         {
             //TODO
         }
