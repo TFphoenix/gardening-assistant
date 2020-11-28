@@ -28,6 +28,8 @@
                 MediaCaptureFailed="CameraView_MediaCaptureFailed"
                 OnAvailable="CameraView_OnAvailable"
                 SavePhotoToFile="True"
+                HeightRequest="1280"
+                WidthRequest="720"
                 Grid.Row="0"/>
 
             <!--TabBar-->

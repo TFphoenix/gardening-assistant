@@ -33,10 +33,38 @@ namespace ga_forms.Common
             throw new IOException("Failed to load bitmap from library");
         }
 
-        //TODO
-        //public static SKBitmap LoadBitmapFromFile(string path)
-        //{
-        //}
+        public static SKBitmap RotateBitmap(string path, int degrees)
+        {
+            SKBitmap rotatedBitmap;
+
+            using (var bitmap = SKBitmap.Decode(path))
+            {
+                rotatedBitmap = new SKBitmap(bitmap.Height, bitmap.Width);
+
+                using (var surface = new SKCanvas(rotatedBitmap))
+                {
+                    surface.Translate(rotatedBitmap.Width, 0);
+                    surface.RotateDegrees(degrees);
+                    surface.DrawBitmap(bitmap, 0, 0);
+                }
+            }
+
+            return rotatedBitmap;
+        }
+
+        public static SKBitmap RotateBitmap(SKBitmap bitmap, int degrees)
+        {
+            var rotatedBitmap = new SKBitmap(bitmap.Height, bitmap.Width);
+
+            using (var surface = new SKCanvas(rotatedBitmap))
+            {
+                surface.Translate(rotatedBitmap.Width, 0);
+                surface.RotateDegrees(degrees);
+                surface.DrawBitmap(bitmap, 0, 0);
+            }
+
+            return rotatedBitmap;
+        }
 
         public static uint RgbaMakePixel(byte red, byte green, byte blue, byte alpha = 255)
         {

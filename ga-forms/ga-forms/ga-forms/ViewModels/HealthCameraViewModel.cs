@@ -30,7 +30,21 @@ namespace ga_forms.ViewModels
         public async void OnSnapshot(string path)
         {
             // Set Bitmap
-            _imageManagerService.HealthInitialImageBitmap = SKBitmap.Decode(path);
+            //SKBitmap rotatedBitmap;
+            //using (var bitmap = SKBitmap.Decode(path))
+            //{
+            //    rotatedBitmap = new SKBitmap(bitmap.Height, bitmap.Width);
+
+            //    using (var surface = new SKCanvas(rotatedBitmap))
+            //    {
+            //        surface.Translate(rotatedBitmap.Width, 0);
+            //        surface.RotateDegrees(90);
+            //        surface.DrawBitmap(bitmap, 0, 0);
+            //    }
+            //}
+
+            //_imageManagerService.HealthInitialImageBitmap = rotatedBitmap;
+            _imageManagerService.HealthInitialImageBitmap = BitmapExtensions.RotateBitmap(path, 90);
 
             await Shell.Current.GoToAsync($"//{nameof(HealthSelectionPage)}");
         }
