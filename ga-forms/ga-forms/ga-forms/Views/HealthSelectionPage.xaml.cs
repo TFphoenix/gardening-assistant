@@ -30,6 +30,7 @@ namespace ga_forms.Views
         private SKPaint _selectionPaint;
         private SKPaint _selectionPaintOutline;
         private SKPaint _selectionPaintFill;
+        private SKPaint _completedSelectionFill;
 
         // Members
         private bool _canDraw = true;
@@ -92,6 +93,12 @@ namespace ga_forms.Views
             {
                 Style = SKPaintStyle.Fill,
                 Color = Constants.SelectionFillColor
+            };
+
+            _completedSelectionFill = new SKPaint
+            {
+                Style = SKPaintStyle.Fill,
+                Color = SKColors.White
             };
         }
 
@@ -176,11 +183,13 @@ namespace ga_forms.Views
                 case TouchActionType.Released:
                     if (_inProgressPaths.ContainsKey(args.Id))
                     {
-                        // close path
+                        // auto-close path
                         SKPath path = _inProgressPaths[args.Id];
                         path.LineTo(_inProgressPaths[args.Id].GetPoint(0));
 
+                        // save path
                         _viewModel.SelectionPath = _inProgressPaths[args.Id];
+                        _viewModel.SelectionBitmap = GetCompletedSelectionBitmap(_inProgressPaths[args.Id]);
                         _completedPaths.Add(_inProgressPaths[args.Id]);
                         _inProgressPaths.Remove(args.Id);
 
@@ -235,6 +244,20 @@ namespace ga_forms.Views
             CanvasView.InvalidateSurface();
         }
 
+        // Get selection bitmap
+        SKBitmap GetCompletedSelectionBitmap(SKPath selectionPath)
+        {
+            SKBitmap completedSelectionBitmap = new SKBitmap(_selectionBitmap.Width, _selectionBitmap.Height);
+
+            using (SKCanvas completedSelectionCanvas = new SKCanvas(completedSelectionBitmap))
+            {
+                completedSelectionCanvas.Clear(SKColors.Black);
+                completedSelectionCanvas.DrawPath(selectionPath, _completedSelectionFill);
+            }
+
+            return completedSelectionBitmap;
+        }
+
         // Undo selection event
         private void Undo_OnClicked(object sender, EventArgs e)
         {
@@ -245,6 +268,7 @@ namespace ga_forms.Views
         private void UndoSelection()
         {
             _viewModel.SelectionPath = null;
+            _viewModel.SelectionBitmap = null;
             _completedPaths.Clear();
             _inProgressPaths.Clear();
             UpdateBitmap();

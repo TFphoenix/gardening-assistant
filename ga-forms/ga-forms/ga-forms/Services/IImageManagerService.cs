@@ -10,6 +10,7 @@ namespace ga_forms.Services
     {
         // Images
         SKBitmap HealthInitialImageBitmap { get; set; }
+        SKBitmap HealthSelectionImageBitmap { get; set; }
 
         // Paths
         SKPath HealthSelectionPath { get; set; }

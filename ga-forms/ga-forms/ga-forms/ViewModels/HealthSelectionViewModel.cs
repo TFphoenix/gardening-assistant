@@ -20,6 +20,7 @@ namespace ga_forms.ViewModels
 
         // Properties
         public SKPath SelectionPath { get; set; }
+        public SKBitmap SelectionBitmap { get; set; }
 
         // Ctor
         public HealthSelectionViewModel(IImageManagerService imageManagerService)
@@ -47,13 +48,14 @@ namespace ga_forms.ViewModels
 
         private async void OnDone(object obj)
         {
-            if (SelectionPath == null)
+            if (SelectionPath == null || SelectionBitmap == null)
             {
                 //TODO: Display dialog box that you first need to select a path
                 return;
             }
 
             _imageManagerService.HealthSelectionPath = SelectionPath;
+            _imageManagerService.HealthSelectionImageBitmap = SelectionBitmap;
             await Shell.Current.GoToAsync($"//{nameof(HealthResultsPage)}");
         }
     }
