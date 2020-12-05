@@ -162,6 +162,18 @@ namespace ga_forms.Common
             }
         }
 
+        public static Image GetImageFromBitmap(SKBitmap bitmap)
+        {
+            Image img = new Image();
+
+            SKImage image = SKImage.FromPixels(bitmap.PeekPixels());
+            SKData encoded = image.Encode();
+            Stream stream = encoded.AsStream();
+            img.Source = ImageSource.FromStream(() => stream);
+
+            return img;
+        }
+
         static SKRect CalculateDisplayRect(SKRect dest, float bmpWidth, float bmpHeight,
                                            BitmapAlignment horizontal, BitmapAlignment vertical)
         {
