@@ -277,16 +277,7 @@ namespace ga_forms.Views
             _canDraw = true;
         }
 
-        //TODO: Undo functionality
-        //void OnClearButtonClicked(object sender, EventArgs args)
-        //{
-        //    completedPaths.Clear();
-        //    inProgressPaths.Clear();
-        //    UpdateBitmap();
-        //    canvasView.InvalidateSurface();
-        //}
-
-        //TODO: Save functionality
+        // Save functionality (currently unnecessary)
         //async void OnSaveButtonClicked(object sender, EventArgs args)
         //{
         //    using (SKImage image = SKImage.FromBitmap(saveBitmap))
