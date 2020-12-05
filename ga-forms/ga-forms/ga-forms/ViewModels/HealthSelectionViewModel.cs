@@ -18,10 +18,14 @@ namespace ga_forms.ViewModels
         // Services
         private readonly IImageManagerService _imageManagerService;
 
+        // Properties
+        public SKPath SelectionPath { get; set; }
+
         // Ctor
         public HealthSelectionViewModel(IImageManagerService imageManagerService)
         {
             Title = "Health Selection Page";
+
             GoBackCommand = new Command(OnBack);
             DoneCommand = new Command(OnDone);
             AutoBackgroundCommand = new Command(OnAutoBackground);
@@ -43,6 +47,13 @@ namespace ga_forms.ViewModels
 
         private async void OnDone(object obj)
         {
+            if (SelectionPath == null)
+            {
+                //TODO: Display dialog box that you first need to select a path
+                return;
+            }
+
+            _imageManagerService.HealthSelectionPath = SelectionPath;
             await Shell.Current.GoToAsync($"//{nameof(HealthResultsPage)}");
         }
     }

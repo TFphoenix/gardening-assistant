@@ -9,11 +9,11 @@ namespace ga_forms.ViewModels
     class ViewModel : INotifyPropertyChanged
     {
         // Title of the view
-        string title = string.Empty;
+        string _title = string.Empty;
         public string Title
         {
-            get { return title; }
-            set { SetProperty(ref title, value); }
+            get => _title;
+            set => SetProperty(ref _title, value);
         }
 
         // Method for setting properties

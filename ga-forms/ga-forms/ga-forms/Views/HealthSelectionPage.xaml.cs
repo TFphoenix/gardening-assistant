@@ -31,12 +31,17 @@ namespace ga_forms.Views
         private SKPaint _selectionPaintOutline;
         private SKPaint _selectionPaintFill;
 
+        // Members
+        private bool _canDraw = true;
+        private readonly HealthSelectionViewModel _viewModel;
+
         // Ctor
         public HealthSelectionPage()
         {
             InitializePaints();
             InitializeComponent();
             BindingContext = DependencyInjectionManager.ServiceProvider.GetService<HealthSelectionViewModel>();
+            _viewModel = (HealthSelectionViewModel)BindingContext;
             DoneButton.Margin = new Thickness(0, 0, 0, 30);
         }
 
@@ -45,6 +50,13 @@ namespace ga_forms.Views
         {
             base.OnAppearing();
             ImportHealthImage();
+        }
+
+        // On page disappearing life hook
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            UndoSelection();
         }
 
         // Initialize paints
@@ -136,6 +148,8 @@ namespace ga_forms.Views
         // Canvas touch
         private void CanvasView_OnTouch(object sender, TouchActionEventArgs args)
         {
+            if (!_canDraw) return;
+
             switch (args.Type)
             {
                 case TouchActionType.Pressed:
@@ -144,6 +158,7 @@ namespace ga_forms.Views
                         SKPath path = new SKPath();
                         path.MoveTo(ConvertToPixel(args.Location));
                         _inProgressPaths.Add(args.Id, path);
+
                         UpdateBitmap();
                     }
                     break;
@@ -153,6 +168,7 @@ namespace ga_forms.Views
                     {
                         SKPath path = _inProgressPaths[args.Id];
                         path.LineTo(ConvertToPixel(args.Location));
+
                         UpdateBitmap();
                     }
                     break;
@@ -160,18 +176,29 @@ namespace ga_forms.Views
                 case TouchActionType.Released:
                     if (_inProgressPaths.ContainsKey(args.Id))
                     {
+                        // close path
+                        SKPath path = _inProgressPaths[args.Id];
+                        path.LineTo(_inProgressPaths[args.Id].GetPoint(0));
+
+                        _viewModel.SelectionPath = _inProgressPaths[args.Id];
                         _completedPaths.Add(_inProgressPaths[args.Id]);
                         _inProgressPaths.Remove(args.Id);
+
                         UpdateBitmap();
                     }
+
+                    _canDraw = false;
                     break;
 
                 case TouchActionType.Cancelled:
                     if (_inProgressPaths.ContainsKey(args.Id))
                     {
                         _inProgressPaths.Remove(args.Id);
+
                         UpdateBitmap();
                     }
+
+                    _canDraw = false;
                     break;
             }
         }
@@ -208,13 +235,22 @@ namespace ga_forms.Views
             CanvasView.InvalidateSurface();
         }
 
-        // Undo selection
+        // Undo selection event
         private void Undo_OnClicked(object sender, EventArgs e)
         {
+            UndoSelection();
+        }
+
+        // Undo selection
+        private void UndoSelection()
+        {
+            _viewModel.SelectionPath = null;
             _completedPaths.Clear();
             _inProgressPaths.Clear();
             UpdateBitmap();
             CanvasView.InvalidateSurface();
+
+            _canDraw = true;
         }
 
         //TODO: Undo functionality
