@@ -28,6 +28,7 @@ namespace ga_forms.Views
 
         // Paints
         private SKPaint _selectionPaint;
+        private SKPaint _selectionPaintOutline;
         private SKPaint _selectionPaintFill;
 
         // Ctor
@@ -52,8 +53,21 @@ namespace ga_forms.Views
             _selectionPaint = new SKPaint
             {
                 Style = SKPaintStyle.Stroke,
-                Color = SKColors.Red,
+                Color = Constants.SelectionStrokeColor,
                 StrokeWidth = Constants.SelectionStrokeWidth,
+                StrokeCap = SKStrokeCap.Round,
+                StrokeJoin = SKStrokeJoin.Round,
+                PathEffect = SKPathEffect.CreateDash(new float[]
+                {
+                    Constants.SelectionPathDashLength, Constants.SelectionPathGapLength
+                }, Constants.SelectionPathPhase)
+            };
+
+            _selectionPaintOutline = new SKPaint
+            {
+                Style = SKPaintStyle.Stroke,
+                Color = Constants.SelectionStrokeOutlineColor,
+                StrokeWidth = Constants.SelectionStrokeOutlineWidth,
                 StrokeCap = SKStrokeCap.Round,
                 StrokeJoin = SKStrokeJoin.Round,
                 PathEffect = SKPathEffect.CreateDash(new float[]
@@ -65,7 +79,7 @@ namespace ga_forms.Views
             _selectionPaintFill = new SKPaint
             {
                 Style = SKPaintStyle.Fill,
-                Color = new SKColor(80, 80, 80, 127)
+                Color = Constants.SelectionFillColor
             };
         }
 
@@ -179,12 +193,14 @@ namespace ga_forms.Views
                 foreach (SKPath path in _completedPaths)
                 {
                     saveBitmapCanvas.DrawPath(path, _selectionPaintFill);
+                    saveBitmapCanvas.DrawPath(path, _selectionPaintOutline);
                     saveBitmapCanvas.DrawPath(path, _selectionPaint);
                 }
 
                 foreach (SKPath path in _inProgressPaths.Values)
                 {
                     saveBitmapCanvas.DrawPath(path, _selectionPaintFill);
+                    saveBitmapCanvas.DrawPath(path, _selectionPaintOutline);
                     saveBitmapCanvas.DrawPath(path, _selectionPaint);
                 }
             }
