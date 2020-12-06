@@ -247,7 +247,7 @@ namespace ga_forms.Views
         // Get selection bitmap
         SKBitmap GetCompletedSelectionBitmap(SKPath selectionPath)
         {
-            SKBitmap completedSelectionBitmap = new SKBitmap(_selectionBitmap.Width, _selectionBitmap.Height);
+            SKBitmap completedSelectionBitmap = new SKBitmap(_backgroundBitmap.Width, _backgroundBitmap.Height);
 
             using (SKCanvas completedSelectionCanvas = new SKCanvas(completedSelectionBitmap))
             {
