@@ -17,7 +17,7 @@ namespace ga_forms.Models.ImageProcessing.Algorithms
             {
                 for (int y = 0; y < ProcessingImage.Height; y++)
                 {
-                    GreyLevels[ProcessingImage.GetPixel(y, x).Red] += 1;
+                    GreyLevels[ProcessingImage.GetPixel(x, y).Red] += 1;
                 }
             }
 
