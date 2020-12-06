@@ -75,8 +75,8 @@ namespace ga_forms.ViewModels
 
             // display
             ProcessingImageSource = BitmapExtensions.GetImageFromBitmap(_imageManagerService.HealthInitialImageBitmap).Source;
-            ProcessedImageSource = BitmapExtensions.GetImageFromBitmap(_blackSpotsPipeline.ResultImage).Source;
-
+            ProcessedImageSource = BitmapExtensions.GetImageFromBitmap(AlgorithmsPipeline.ResultImage).Source;
+            Console.WriteLine(DiseaseSeverity.DiseasePercentage() + "%");
         }
 
         public ObservableCollection<DiseaseInfo> DiseasesCollection
