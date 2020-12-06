@@ -63,6 +63,7 @@ namespace ga_forms.ViewModels
 
         public void StartProcessing()
         {
+
             // set
             // TODO: Make GetHealthSelectedBitmap() to work
             //SKBitmap healthSelectedBitmap = _imageManagerService.GetHealthSelectedBitmap();
@@ -75,6 +76,7 @@ namespace ga_forms.ViewModels
             // display
             ProcessingImageSource = BitmapExtensions.GetImageFromBitmap(_imageManagerService.HealthInitialImageBitmap).Source;
             ProcessedImageSource = BitmapExtensions.GetImageFromBitmap(_blackSpotsPipeline.ResultImage).Source;
+
         }
 
         public ObservableCollection<DiseaseInfo> DiseasesCollection
@@ -128,17 +130,17 @@ namespace ga_forms.ViewModels
         private async void OnSave(object obj)
         {
 
-            //using (var progress = UserDialogs.Instance.Progress("Saving..."))
-            //{
-            //    for (var i = 0; i < 100; i++)
-            //    {
-            //        progress.PercentComplete = i;
+            using (var progress = UserDialogs.Instance.Progress("Saving..."))
+            {
+                for (var i = 0; i < 100; i++)
+                {
+                    progress.PercentComplete = i;
 
-            //        await Task.Delay(20);
-            //    }
-            //}
+                    await Task.Delay(20);
+                }
+            }
 
-            //_dialogBoxService.DisplayDialogBox(DialogBoxType.HealthResultsSave);
+            _dialogBoxService.DisplayDialogBox(DialogBoxType.HealthResultsSave);
 
         }
     }

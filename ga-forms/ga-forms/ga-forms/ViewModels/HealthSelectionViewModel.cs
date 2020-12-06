@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Acr.UserDialogs;
 using ga_forms.Services;
 using ga_forms.Views;
 using SkiaSharp;
 using Xamarin.Forms;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace ga_forms.ViewModels
 {
@@ -56,7 +59,10 @@ namespace ga_forms.ViewModels
 
             _imageManagerService.HealthSelectionPath = SelectionPath;
             _imageManagerService.HealthSelectionImageBitmap = SelectionBitmap;
-            await Shell.Current.GoToAsync($"//{nameof(HealthResultsPage)}");
+
+            UserDialogs.Instance.ShowLoading("Processing...", MaskType.Black);
+            await Task.Delay(1);
+            await Shell.Current.GoToAsync($"//{nameof(HealthResultsPage)}").ContinueWith((task) => { UserDialogs.Instance.HideLoading(); });
         }
     }
 }
