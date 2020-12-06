@@ -13,7 +13,7 @@ namespace ga_forms.Models.ImageProcessing.Algorithms
         public void Execute()
         {
             ProcessedImage = new SKBitmap(ProcessingImage.Width, ProcessingImage.Height);
-            int sigma = 3;
+            int sigma = 1;
             double constant = 1d / (2 * Math.PI * sigma * sigma);
             for (int y = sigma; y < ProcessingImage.Height - sigma; y++)
             {
