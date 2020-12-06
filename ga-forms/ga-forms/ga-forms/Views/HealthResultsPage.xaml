@@ -24,8 +24,8 @@
 
             <!--ResultsView-->
 
-            <Image Grid.Row="0" Grid.Column="0" Source="tab_plants.png" Margin="0, 20, 0, 0"/>
-            <Image Grid.Row="0" Grid.Column="1" Source="tab_plants.png" Margin="0, 20, 0, 0"/>
+            <Image Grid.Row="0" Grid.Column="0" Source="{Binding ProcessingImageSource}" Margin="0, 20, 0, 0"/>
+            <Image Grid.Row="0" Grid.Column="1" Source="{Binding ProcessedImageSource}" Margin="0, 20, 0, 0"/>
 
             <!--DiseasesListView-->
 

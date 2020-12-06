@@ -18,5 +18,11 @@ namespace ga_forms.Views
             InitializeComponent();
             BindingContext = DependencyInjectionManager.ServiceProvider.GetService<HealthResultsViewModel>();
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            (BindingContext as HealthResultsViewModel)?.OnAppearing();
+        }
     }
 }

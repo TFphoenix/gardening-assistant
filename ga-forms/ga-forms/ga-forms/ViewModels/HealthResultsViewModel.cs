@@ -5,8 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
+using ga_forms.Common;
 using ga_forms.Common.Enums;
 using ga_forms.Models;
+using ga_forms.Models.ImageProcessing.Algorithms;
 using ga_forms.Services;
 using ga_forms.Views;
 using Xamarin.Forms;
@@ -15,20 +17,13 @@ namespace ga_forms.ViewModels
 {
     class HealthResultsViewModel : ViewModel
     {
+
         private ObservableCollection<DiseaseInfo> _diseases;
         private readonly IDialogBoxService _dialogBoxService;
+        private readonly IImageManagerService _imageManagerService;
 
-        public ObservableCollection<DiseaseInfo> DiseasesCollection
-        {
-            get { return _diseases; }
-            set { SetProperty(ref _diseases, value); }
-        }
-
-        public Command GoBackCommand { get; }
-        public Command GoHomeCommand { get; }
-        public Command SaveCommand { get; }
-
-        public HealthResultsViewModel(IDialogBoxService dialogBoxService)
+        //ctor
+        public HealthResultsViewModel(IDialogBoxService dialogBoxService, IImageManagerService imageManagerService)
         {
             DiseasesCollection = new ObservableCollection<DiseaseInfo> { new DiseaseInfo("Disease1", "user64.png", "Details about disease 1", DiseaseResultType.Ok),
                                                                          new DiseaseInfo("Disease2", "add64.png", "Details about disease 2", DiseaseResultType.Warning),
@@ -45,6 +40,41 @@ namespace ga_forms.ViewModels
 
             _dialogBoxService = dialogBoxService;
             _dialogBoxService.InitDialogBox(new DialogBoxService.HealthResultsSave(OnNewPlant, OnExistingPlant, OnCancel));
+
+            _imageManagerService = imageManagerService;
+        }
+
+        public void OnAppearing()
+        {
+            GrayscaleConvertor grayscaleConv = new GrayscaleConvertor();
+            grayscaleConv.ProcessingImage = _imageManagerService.HealthInitialImageBitmap;
+            grayscaleConv.Execute();
+            ProcessingImageSource = BitmapExtensions.GetImageFromBitmap(_imageManagerService.HealthInitialImageBitmap).Source;
+            ProcessedImageSource = BitmapExtensions.GetImageFromBitmap(grayscaleConv.ProcessedImage).Source;
+        }
+
+        public ObservableCollection<DiseaseInfo> DiseasesCollection
+        {
+            get { return _diseases; }
+            set { SetProperty(ref _diseases, value); }
+        }
+
+        public Command GoBackCommand { get; }
+        public Command GoHomeCommand { get; }
+        public Command SaveCommand { get; }
+
+        ImageSource processingImageSource = "";
+        public ImageSource ProcessingImageSource
+        {
+            get { return processingImageSource; }
+            set { SetProperty(ref processingImageSource, value); }
+        }
+
+        ImageSource processedImageSource = "";
+        public ImageSource ProcessedImageSource
+        {
+            get { return processedImageSource; }
+            set { SetProperty(ref processedImageSource, value); }
         }
 
         private async void OnBack(object obj)
@@ -73,17 +103,19 @@ namespace ga_forms.ViewModels
 
         private async void OnSave(object obj)
         {
-            using (var progress = UserDialogs.Instance.Progress("Saving..."))
-            {
-                for (var i = 0; i < 100; i++)
-                {
-                    progress.PercentComplete = i;
 
-                    await Task.Delay(20);
-                }
-            }
+            //using (var progress = UserDialogs.Instance.Progress("Saving..."))
+            //{
+            //    for (var i = 0; i < 100; i++)
+            //    {
+            //        progress.PercentComplete = i;
 
-            _dialogBoxService.DisplayDialogBox(DialogBoxType.HealthResultsSave);
+            //        await Task.Delay(20);
+            //    }
+            //}
+
+            //_dialogBoxService.DisplayDialogBox(DialogBoxType.HealthResultsSave);
+
         }
     }
 }
