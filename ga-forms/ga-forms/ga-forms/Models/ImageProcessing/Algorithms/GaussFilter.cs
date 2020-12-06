@@ -13,7 +13,7 @@ namespace ga_forms.Models.ImageProcessing.Algorithms
         public void Execute()
         {
             ProcessedImage = new SKBitmap(ProcessingImage.Width, ProcessingImage.Height);
-            int sigma = 1;
+            int sigma = 3;
             double constant = 1d / (2 * Math.PI * sigma * sigma);
             for (int y = sigma; y < ProcessingImage.Height - sigma; y++)
             {
@@ -25,20 +25,21 @@ namespace ga_forms.Models.ImageProcessing.Algorithms
                         for (int j = -sigma; j <= sigma; j++)
                         {
                             distanta = ((i * i) + (j * j)) / (2 * sigma * sigma);
-                            sumBeforeDivide = sumBeforeDivide + (byte)ProcessingImage.GetPixel(x,y) * (constant * Math.Exp(-distanta));
+                            sumBeforeDivide = sumBeforeDivide + ProcessingImage.GetPixel(x+i,y+i).Red * (constant * Math.Exp(-distanta));
                             suma = suma + constant * Math.Exp(-distanta);
                         }
                     }
                     for (int i = -sigma; i <= sigma; i++)
                         for (int j = -sigma; j <= sigma; j++)
                         {
-                            ProcessedImage.SetPixel(x, y, new SKColor((byte)(sumBeforeDivide / suma)));
+                            byte value = (byte)(sumBeforeDivide / suma);
+                            ProcessedImage.SetPixel(x, y, new SKColor(value, value, value));
                         }
 
                 }
             }
             for (int y = 0; y < sigma; y++)
-                for (int x = 0; x < ProcessedImage.Width; x++)
+                for (int x = 0; x < ProcessingImage.Width; x++)
                 {
                     ProcessedImage.SetPixel(x, y, ProcessingImage.GetPixel(x, y));
                     ProcessedImage.SetPixel(ProcessingImage.Width - x - 1, y, ProcessingImage.GetPixel(ProcessingImage.Width - x - 1, y));

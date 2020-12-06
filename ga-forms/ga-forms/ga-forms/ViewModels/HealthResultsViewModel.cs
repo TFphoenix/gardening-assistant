@@ -46,11 +46,11 @@ namespace ga_forms.ViewModels
 
         public void OnAppearing()
         {
-            GrayscaleConvertor grayscaleConv = new GrayscaleConvertor();
-            grayscaleConv.ProcessingImage = _imageManagerService.HealthInitialImageBitmap;
-            grayscaleConv.Execute();
+            GaussFilter gauss = new GaussFilter();
+            gauss.ProcessingImage = _imageManagerService.HealthInitialImageBitmap;
+            gauss.Execute();
             ProcessingImageSource = BitmapExtensions.GetImageFromBitmap(_imageManagerService.HealthInitialImageBitmap).Source;
-            ProcessedImageSource = BitmapExtensions.GetImageFromBitmap(grayscaleConv.ProcessedImage).Source;
+            ProcessedImageSource = BitmapExtensions.GetImageFromBitmap(gauss.ProcessedImage).Source;
         }
 
         public ObservableCollection<DiseaseInfo> DiseasesCollection
