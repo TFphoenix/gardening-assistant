@@ -20,6 +20,7 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
             <!--ResultsView-->
@@ -93,7 +94,7 @@
                          CornerRadius="30" VerticalOptions="Center" HorizontalOptions="Center"
                          BackgroundColor="{StaticResource Light2}"/>
                 <Button
-                    x:Name="CameraButton" Command="{Binding SaveCommand}"
+                    x:Name="SaveButton" Command="{Binding SaveCommand}"
                     WidthRequest="80" HeightRequest="80"
                     CornerRadius="40" VerticalOptions="Center" HorizontalOptions="Center"
                     ImageSource="save.png"

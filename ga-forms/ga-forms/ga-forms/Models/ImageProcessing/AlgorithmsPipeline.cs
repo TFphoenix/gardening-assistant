@@ -1,36 +1,34 @@
 ﻿using ga_forms.Models.ImageProcessing.Algorithms;
-using ga_forms.Services;
 using SkiaSharp;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace ga_forms.Models.ImageProcessing
 {
     class AlgorithmsPipeline
     {
-        private readonly IImageManagerService _imageManagerService;
-
         //ctor
-        public AlgorithmsPipeline(SKBitmap initialImage, List<IAlgorithm> algorithms, IImageManagerService imageManagerService)
+        public AlgorithmsPipeline(SKBitmap initialImage, List<IAlgorithm> algorithms)
         {
             InitialImage = initialImage;
             Algorithms = algorithms;
-            _imageManagerService = imageManagerService;
         }
 
         public SKBitmap InitialImage { get; set; }
         public SKBitmap ResultImage { get; set; }
         public List<IAlgorithm> Algorithms { get; set; }
+        public float Progress { get; set; }
 
-        public void Execute()
+        public async Task ExecutePipeline()
         {
-            InitialImage = _imageManagerService.HealthInitialImageBitmap;
+            Progress = 0.0f;
+            SKBitmap currentImage = InitialImage;
             foreach (IAlgorithm algorithm in Algorithms)
             {
-                algorithm.ProcessingImage = InitialImage;
-                algorithm.Execute();
-                InitialImage = algorithm.ProcessedImage;
+                algorithm.ProcessingImage = currentImage;
+                await Task.Run(algorithm.Execute);
+                currentImage = algorithm.ProcessedImage;
+                Progress += 1.0f / Algorithms.Count;
             }
         }
     }

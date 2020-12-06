@@ -17,6 +17,7 @@ namespace ga_forms.Views
         {
             InitializeComponent();
             BindingContext = DependencyInjectionManager.ServiceProvider.GetService<HealthResultsViewModel>();
+            SaveButton.Margin = new Thickness(0, 0, 0, 30);
         }
 
         protected override void OnAppearing()

@@ -46,11 +46,11 @@ namespace ga_forms.ViewModels
 
         public void OnAppearing()
         {
-            GaussFilter gauss = new GaussFilter();
-            gauss.ProcessingImage = _imageManagerService.HealthInitialImageBitmap;
-            gauss.Execute();
+            IAlgorithm algorithm = new GrayscaleConvertor();
+            algorithm.ProcessingImage = _imageManagerService.HealthInitialImageBitmap;
+            algorithm.Execute();
             ProcessingImageSource = BitmapExtensions.GetImageFromBitmap(_imageManagerService.HealthInitialImageBitmap).Source;
-            ProcessedImageSource = BitmapExtensions.GetImageFromBitmap(gauss.ProcessedImage).Source;
+            ProcessedImageSource = BitmapExtensions.GetImageFromBitmap(algorithm.ProcessedImage).Source;
         }
 
         public ObservableCollection<DiseaseInfo> DiseasesCollection
