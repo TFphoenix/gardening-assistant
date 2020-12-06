@@ -13,9 +13,9 @@ namespace ga_forms.Models.ImageProcessing.Algorithms
         public void Execute()
         {
             ProcessedImage = new SKBitmap(ProcessingImage.Width, ProcessingImage.Height);
-            for (int x = 0; x < ProcessingImage.Width; x++)
+            for (int x = 0; x < ProcessingImage.Width; ++x)
             {
-                for (int y = 0; y < ProcessingImage.Height; y++)
+                for (int y = 0; y < ProcessingImage.Height; ++y)
                 {
                     SKColor color = ProcessingImage.GetPixel(x, y);
                     double grayscale = color.Red * 0.3 + color.Green * 0.59 + color.Blue * 0.11;

@@ -23,7 +23,7 @@ namespace ga_forms.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            (BindingContext as HealthResultsViewModel)?.OnAppearing();
+            (BindingContext as HealthResultsViewModel)?.StartProcessing();
         }
     }
 }

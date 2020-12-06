@@ -8,23 +8,31 @@ using Acr.UserDialogs;
 using ga_forms.Common;
 using ga_forms.Common.Enums;
 using ga_forms.Models;
+using ga_forms.Models.ImageProcessing;
 using ga_forms.Models.ImageProcessing.Algorithms;
 using ga_forms.Services;
 using ga_forms.Views;
+using SkiaSharp;
 using Xamarin.Forms;
 
 namespace ga_forms.ViewModels
 {
     class HealthResultsViewModel : ViewModel
     {
-
         private ObservableCollection<DiseaseInfo> _diseases;
+        private AlgorithmsPipeline _blackSpotsPipeline;
+
         private readonly IDialogBoxService _dialogBoxService;
         private readonly IImageManagerService _imageManagerService;
 
         //ctor
         public HealthResultsViewModel(IDialogBoxService dialogBoxService, IImageManagerService imageManagerService)
         {
+            _imageManagerService = imageManagerService;
+            _dialogBoxService = dialogBoxService;
+            _dialogBoxService.InitDialogBox(new DialogBoxService.HealthResultsSave(OnNewPlant, OnExistingPlant, OnCancel));
+            InitializePipelines();
+
             DiseasesCollection = new ObservableCollection<DiseaseInfo> { new DiseaseInfo("Disease1", "user64.png", "Details about disease 1", DiseaseResultType.Ok),
                                                                          new DiseaseInfo("Disease2", "add64.png", "Details about disease 2", DiseaseResultType.Warning),
                                                                          new DiseaseInfo("Disease3", "tab_home.png", "Details about disease 3", DiseaseResultType.Error),
@@ -37,20 +45,36 @@ namespace ga_forms.ViewModels
             GoBackCommand = new Command(OnBack);
             GoHomeCommand = new Command(OnHome);
             SaveCommand = new Command(OnSave);
-
-            _dialogBoxService = dialogBoxService;
-            _dialogBoxService.InitDialogBox(new DialogBoxService.HealthResultsSave(OnNewPlant, OnExistingPlant, OnCancel));
-
-            _imageManagerService = imageManagerService;
         }
 
-        public void OnAppearing()
+        private void InitializePipelines()
         {
-            IAlgorithm algorithm = new GrayscaleConvertor();
-            algorithm.ProcessingImage = _imageManagerService.HealthInitialImageBitmap;
-            algorithm.Execute();
+            // Black spots pipeline
+            _blackSpotsPipeline = new AlgorithmsPipeline
+            (
+                new List<IAlgorithm>
+                {
+                    new GrayscaleConvertor(),
+                    //new GaussFilter()
+                    new Otsu()
+                }
+            );
+        }
+
+        public void StartProcessing()
+        {
+            // set
+            // TODO: Make GetHealthSelectedBitmap() to work
+            //SKBitmap healthSelectedBitmap = _imageManagerService.GetHealthSelectedBitmap();
+            //_blackSpotsPipeline.InitialImage = healthSelectedBitmap;
+            _blackSpotsPipeline.InitialImage = _imageManagerService.HealthInitialImageBitmap;
+
+            // execute
+            _blackSpotsPipeline.ExecutePipeline();
+
+            // display
             ProcessingImageSource = BitmapExtensions.GetImageFromBitmap(_imageManagerService.HealthInitialImageBitmap).Source;
-            ProcessedImageSource = BitmapExtensions.GetImageFromBitmap(algorithm.ProcessedImage).Source;
+            ProcessedImageSource = BitmapExtensions.GetImageFromBitmap(_blackSpotsPipeline.ResultImage).Source;
         }
 
         public ObservableCollection<DiseaseInfo> DiseasesCollection
