@@ -11,6 +11,7 @@ namespace ga_forms.Services
         public SKBitmap HealthInitialImageBitmap { get; set; }
         public SKBitmap HealthSelectionImageBitmap { get; set; }
         public SKPath HealthSelectionPath { get; set; }
+
         public SKBitmap GetHealthSelectedBitmap() 
         {
             SKBitmap selectedBitmap = new SKBitmap(HealthInitialImageBitmap.Width, HealthInitialImageBitmap.Height);
@@ -29,6 +30,28 @@ namespace ga_forms.Services
                 }
             }
             return selectedBitmap;
+        }
+
+        public double GetDiseasePercentage(SKBitmap resultImage)
+        {
+            int totalNumberOfPixels = 0;
+            int numberOfBlackPixels = 0;
+
+            for (int x = 0; x < resultImage.Width; ++x)
+            {
+                for (int y = 0; y < resultImage.Height; ++y)
+                {
+                    if (resultImage.GetPixel(x, y).Alpha != 0)
+                    {
+                        totalNumberOfPixels++;
+                        if (resultImage.GetPixel(x, y).Red == 0)
+                        {
+                            numberOfBlackPixels++;
+                        }
+                    }
+                }
+            }
+            return numberOfBlackPixels * 100 / totalNumberOfPixels;
         }
     }
 }

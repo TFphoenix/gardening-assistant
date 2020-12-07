@@ -5,8 +5,12 @@ using ga_forms.Common.Enums;
 
 namespace ga_forms.Models
 {
-    class DiseaseInfo 
+    class DiseaseInfo
     {
+        public string Name { get; set; }
+        public string ImageUrl { get; set; }
+        public string Details { get; set; }
+
         public DiseaseInfo(string name, string imageUrl, string details, DiseaseResultType diseaseResult)
         {
             Name = name;
@@ -15,10 +19,6 @@ namespace ga_forms.Models
             DiseaseResult = diseaseResult;
         }
 
-        public string Name { get; set; }
-        public string ImageUrl { get; set; }
-        public string Details { get; set; }
-        
         private DiseaseResultType DiseaseResult { get; set; }
         public string IconUrl
         {
@@ -35,10 +35,6 @@ namespace ga_forms.Models
                     default:
                         return "unknow.png";
                 }
-            }
-            set
-            {
-
             }
         }
 

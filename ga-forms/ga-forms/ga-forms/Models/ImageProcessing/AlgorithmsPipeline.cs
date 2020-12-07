@@ -9,7 +9,7 @@ namespace ga_forms.Models.ImageProcessing
     class AlgorithmsPipeline
     {
         public SKBitmap InitialImage { get; set; }
-        public static SKBitmap ResultImage { get; set; }
+        public SKBitmap ResultImage { get; set; }
         public List<IAlgorithm> Algorithms { get; set; }
         public float Progress { get; set; }
 
