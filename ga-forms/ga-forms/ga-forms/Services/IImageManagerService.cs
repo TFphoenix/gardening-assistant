@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SkiaSharp;
-using Xamarin.Forms;
+﻿using SkiaSharp;
 
 namespace ga_forms.Services
 {

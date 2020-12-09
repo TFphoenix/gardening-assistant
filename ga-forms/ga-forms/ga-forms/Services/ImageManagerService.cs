@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using ga_forms.Common;
 using SkiaSharp;
-using Xamarin.Forms;
 
 namespace ga_forms.Services
 {
@@ -12,23 +9,30 @@ namespace ga_forms.Services
         public SKBitmap HealthSelectionImageBitmap { get; set; }
         public SKPath HealthSelectionPath { get; set; }
 
-        public SKBitmap GetHealthSelectedBitmap() 
+        public SKBitmap GetHealthSelectedBitmap()
         {
-            SKBitmap selectedBitmap = new SKBitmap(HealthInitialImageBitmap.Width, HealthInitialImageBitmap.Height);
-            for(int x = 0; x < HealthInitialImageBitmap.Width; ++x)
+            SKBitmap initialImageStretched = new SKBitmap(HealthSelectionImageBitmap.Width, HealthSelectionImageBitmap.Height);
+            using (SKCanvas canvas = new SKCanvas(initialImageStretched))
             {
-                for (int y = 0; y < HealthInitialImageBitmap.Height; ++y)
+                canvas.DrawBitmap(
+                    HealthInitialImageBitmap,
+                    new SKRect(0, 0, HealthSelectionImageBitmap.Width, HealthSelectionImageBitmap.Height),
+                    BitmapStretch.Uniform);
+            }
+
+            SKBitmap selectedBitmap = new SKBitmap(HealthSelectionImageBitmap.Width, HealthSelectionImageBitmap.Height);
+
+            for (int x = 0; x < HealthSelectionImageBitmap.Width; ++x)
+            {
+                for (int y = 0; y < HealthSelectionImageBitmap.Height; ++y)
                 {
-                    if(HealthSelectionImageBitmap.GetPixel(x,y).Red == 0)
-                    {
-                        selectedBitmap.SetPixel(x,y, new SKColor(0,0,0,0));
-                    }
-                    else
-                    {
-                        selectedBitmap.SetPixel(x, y, HealthInitialImageBitmap.GetPixel(x, y));
-                    }
+                    selectedBitmap.SetPixel(x, y,
+                        HealthSelectionImageBitmap.GetPixel(x, y).Red == 0
+                            ? new SKColor(0, 0, 0, 0)
+                            : initialImageStretched.GetPixel(x, y));
                 }
             }
+
             return selectedBitmap;
         }
 
@@ -51,7 +55,7 @@ namespace ga_forms.Services
                     }
                 }
             }
-            return numberOfBlackPixels * 100 / totalNumberOfPixels;
+            return (double)numberOfBlackPixels * 100 / totalNumberOfPixels;
         }
     }
 }

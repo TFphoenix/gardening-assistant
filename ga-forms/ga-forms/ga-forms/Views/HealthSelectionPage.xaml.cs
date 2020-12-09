@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using ga_forms.Common;
+﻿using ga_forms.Common;
 using ga_forms.TouchTracking;
 using ga_forms.ViewModels;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
+using System;
+using System.Collections.Generic;
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace ga_forms.Views
 {
@@ -247,7 +242,7 @@ namespace ga_forms.Views
         // Get selection bitmap
         SKBitmap GetCompletedSelectionBitmap(SKPath selectionPath)
         {
-            SKBitmap completedSelectionBitmap = new SKBitmap(_backgroundBitmap.Width, _backgroundBitmap.Height);
+            SKBitmap completedSelectionBitmap = new SKBitmap(_selectionBitmap.Width, _selectionBitmap.Height);
 
             using (SKCanvas completedSelectionCanvas = new SKCanvas(completedSelectionBitmap))
             {

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Acr.UserDialogs;
+﻿using Acr.UserDialogs;
 using ga_forms.Services;
 using ga_forms.Views;
 using SkiaSharp;
-using Xamarin.Forms;
 using System.Threading.Tasks;
-using System.Threading;
+using Xamarin.Forms;
 
 namespace ga_forms.ViewModels
 {
