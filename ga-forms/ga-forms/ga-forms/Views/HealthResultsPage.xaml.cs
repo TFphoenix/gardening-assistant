@@ -19,6 +19,7 @@ namespace ga_forms.Views
         {
             base.OnAppearing();
             (BindingContext as HealthResultsViewModel)?.StartProcessing();
+            (BindingContext as HealthResultsViewModel)?.PopulateResults();
         }
     }
 }

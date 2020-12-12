@@ -30,7 +30,7 @@ namespace ga_forms.ViewModels
             _dialogBoxService.InitDialogBox(new DialogBoxService.HealthResultsSave(OnNewPlant, OnExistingPlant, OnCancel));
             InitializePipelines();
 
-            DiseasesCollection = new ObservableCollection<DiseaseInfo> { new DiseaseInfo("Disease1", "user64.png", "Details about disease 1", DiseaseResultType.Ok),
+            DiseasesCollection = new ObservableCollection<DiseaseInfo> { new DiseaseInfo("Black Spots", "user64.png", "Details about disease 1", DiseaseResultType.Ok),
                                                                          new DiseaseInfo("Disease2", "add64.png", "Details about disease 2", DiseaseResultType.Warning),
                                                                          new DiseaseInfo("Disease3", "tab_home.png", "Details about disease 3", DiseaseResultType.Error),
                                                                          new DiseaseInfo("Disease3", "tab_home.png", "Details about disease 3", DiseaseResultType.Error),
@@ -44,6 +44,10 @@ namespace ga_forms.ViewModels
             SaveCommand = new Command(OnSave);
         }
 
+        public void PopulateResults()
+        {
+            DiseasesCollection[0].Percentage = _imageManagerService.GetDiseasePercentage(_blackSpotsPipeline.ResultImage);
+        }
         private void InitializePipelines()
         {
             // Black spots pipeline
@@ -63,19 +67,20 @@ namespace ga_forms.ViewModels
 
             // set
             // TODO: Make GetHealthSelectedBitmap() to work
-            SKBitmap healthSelectedBitmap = _imageManagerService.GetHealthSelectedBitmap();
-            _blackSpotsPipeline.InitialImage = healthSelectedBitmap;
-            //_blackSpotsPipeline.InitialImage = _imageManagerService.HealthInitialImageBitmap;
+            //SKBitmap healthSelectedBitmap = _imageManagerService.GetHealthSelectedBitmap();
+            //_blackSpotsPipeline.InitialImage = healthSelectedBitmap;
+            _blackSpotsPipeline.InitialImage = _imageManagerService.HealthInitialImageBitmap;
 
             // execute
-            //_blackSpotsPipeline.ExecutePipeline();
+            _blackSpotsPipeline.ExecutePipeline();
 
             // display
             ProcessingImageSource = BitmapExtensions.GetImageFromBitmap(_imageManagerService.HealthSelectionImageBitmap).Source;
             //ProcessedImageSource = BitmapExtensions.GetImageFromBitmap(_blackSpotsPipeline.ResultImage).Source;
-            ProcessedImageSource = BitmapExtensions.GetImageFromBitmap(healthSelectedBitmap).Source;
+            ProcessedImageSource = BitmapExtensions.GetImageFromBitmap(_blackSpotsPipeline.ResultImage).Source;
             //Console.WriteLine(_imageManagerService.GetDiseasePercentage(_blackSpotsPipeline.ResultImage) + "%");
         }
+
 
         public ObservableCollection<DiseaseInfo> DiseasesCollection
         {

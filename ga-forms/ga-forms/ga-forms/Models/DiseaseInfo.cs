@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using ga_forms.Common.Enums;
+using ga_forms.Models.ImageProcessing;
+using ga_forms.Services;
 
 namespace ga_forms.Models
 {
@@ -10,6 +12,7 @@ namespace ga_forms.Models
         public string Name { get; set; }
         public string ImageUrl { get; set; }
         public string Details { get; set; }
+        public double Percentage { get; set; }
 
         public DiseaseInfo(string name, string imageUrl, string details, DiseaseResultType diseaseResult)
         {

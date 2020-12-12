@@ -67,12 +67,14 @@
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="Auto" />
                                                     <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="30*" />
                                                 </Grid.ColumnDefinitions>
                                                 <Image Source="{Binding ImageUrl}"
                        Aspect="AspectFill"
                        HeightRequest="120"
                        WidthRequest="120" />
-                                                <Label Grid.Column="1"
+                                                <Label Grid.Column="1" Text="{Binding Percentage}"></Label>
+                                                <Label Grid.Column="2"
                        Text="{Binding Details}"
                        FontAttributes="Italic" />
                                             </Grid>
