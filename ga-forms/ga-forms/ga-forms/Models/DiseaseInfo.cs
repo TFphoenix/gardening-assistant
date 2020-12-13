@@ -14,15 +14,9 @@ namespace ga_forms.Models
         public ImageSource ImgSource { get; set; }
         public string Details { get; set; }
         public double Percentage { get; set; }
-        private DiseaseResultType DiseaseResult { get; set; }
+        public DiseaseResultType DiseaseResult { get; set; }
 
-        public DiseaseInfo(string name, string details, DiseaseResultType diseaseResult)
-        {
-            Name = name;
-            Details = details;
-            DiseaseResult = diseaseResult;
-        }
-
+        private string _iconUrl;
         public string IconUrl
         {
             get
@@ -30,16 +24,32 @@ namespace ga_forms.Models
                 switch (DiseaseResult)
                 {
                     case DiseaseResultType.Ok:
-                        return "ok.png";
+                        _iconUrl = "ok.png";
+                        break;
                     case DiseaseResultType.Warning:
-                        return "warning.png";
+                        _iconUrl = "warning.png";
+                        break;
                     case DiseaseResultType.Error:
-                        return "error.png";
+                        _iconUrl = "error.png";
+                        break;
                     default:
-                        return "unknow.png";
+                        _iconUrl = "unknow.png";
+                        break;
                 }
+                return _iconUrl;
+            }
+            set
+            {
+                _iconUrl = value;
             }
         }
+        public DiseaseInfo(string name, string details, DiseaseResultType diseaseResult)
+        {
+            Name = name;
+            Details = details;
+            DiseaseResult = diseaseResult;
+        }
+        
 
     }
 }

@@ -50,6 +50,18 @@ namespace ga_forms.ViewModels
         {
             DiseasesCollection[0].Percentage = System.Math.Round(_imageManagerService.GetDiseasePercentage(healthSelectedBitmap, _blackSpotsPipeline.ResultImage),2);
             DiseasesCollection[0].ImgSource = BitmapExtensions.GetImageFromBitmap(_blackSpotsPipeline.ResultImage).Source;
+            if (DiseasesCollection[0].Percentage < 10.0)
+            {
+                DiseasesCollection[0].DiseaseResult = DiseaseResultType.Ok;
+            }
+            else if(DiseasesCollection[0].Percentage > 10.0 && DiseasesCollection[0].Percentage < 20.0)
+            {
+                DiseasesCollection[0].DiseaseResult = DiseaseResultType.Warning;
+            }
+            else if(DiseasesCollection[0].Percentage > 20.0)
+            {
+                DiseasesCollection[0].DiseaseResult = DiseaseResultType.Error;
+            }
         }
         private void InitializePipelines()
         {
