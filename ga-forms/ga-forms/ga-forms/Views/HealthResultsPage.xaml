@@ -69,7 +69,7 @@
                                                     <ColumnDefinition Width="Auto" />
                                                     <ColumnDefinition Width="30*" />
                                                 </Grid.ColumnDefinitions>
-                                                <Image Source="{Binding ImageUrl}"
+                                                <Image Source="{Binding ImgSource}"
                        Aspect="AspectFill"
                        HeightRequest="120"
                        WidthRequest="120" />

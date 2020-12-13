@@ -4,25 +4,25 @@ using System.Text;
 using ga_forms.Common.Enums;
 using ga_forms.Models.ImageProcessing;
 using ga_forms.Services;
+using Xamarin.Forms;
 
 namespace ga_forms.Models
 {
     class DiseaseInfo
     {
         public string Name { get; set; }
-        public string ImageUrl { get; set; }
+        public ImageSource ImgSource { get; set; }
         public string Details { get; set; }
         public double Percentage { get; set; }
+        private DiseaseResultType DiseaseResult { get; set; }
 
-        public DiseaseInfo(string name, string imageUrl, string details, DiseaseResultType diseaseResult)
+        public DiseaseInfo(string name, string details, DiseaseResultType diseaseResult)
         {
             Name = name;
-            ImageUrl = imageUrl;
             Details = details;
             DiseaseResult = diseaseResult;
         }
 
-        private DiseaseResultType DiseaseResult { get; set; }
         public string IconUrl
         {
             get

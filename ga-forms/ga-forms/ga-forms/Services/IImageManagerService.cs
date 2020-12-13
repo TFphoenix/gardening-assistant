@@ -12,6 +12,6 @@ namespace ga_forms.Services
         SKPath HealthSelectionPath { get; set; }
 
         SKBitmap GetHealthSelectedBitmap();
-        double GetDiseasePercentage(SKBitmap resultImage);
+        double GetDiseasePercentage(SKBitmap croppedImage, SKBitmap resultImage);
     }
 }

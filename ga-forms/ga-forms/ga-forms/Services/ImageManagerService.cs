@@ -36,7 +36,7 @@ namespace ga_forms.Services
             return selectedBitmap;
         }
 
-        public double GetDiseasePercentage(SKBitmap resultImage)
+        public double GetDiseasePercentage(SKBitmap croppedImage, SKBitmap resultImage)
         {
             int totalNumberOfPixels = 0;
             int numberOfBlackPixels = 0;
@@ -45,7 +45,7 @@ namespace ga_forms.Services
             {
                 for (int y = 0; y < resultImage.Height; ++y)
                 {
-                    if (resultImage.GetPixel(x, y).Alpha != 0)
+                    if (croppedImage.GetPixel(x,y).Alpha != 0)
                     {
                         totalNumberOfPixels++;
                         if (resultImage.GetPixel(x, y).Red == 0)
