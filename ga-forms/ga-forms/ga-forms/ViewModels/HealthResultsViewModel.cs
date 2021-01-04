@@ -18,7 +18,6 @@ namespace ga_forms.ViewModels
     {
         private ObservableCollection<DiseaseInfo> _diseases;
         private AlgorithmsPipeline _blackSpotsPipeline;
-        private SKBitmap healthSelectedBitmap;
 
         private readonly IDialogBoxService _dialogBoxService;
         private readonly IImageManagerService _imageManagerService;
@@ -27,7 +26,6 @@ namespace ga_forms.ViewModels
         public HealthResultsViewModel(IDialogBoxService dialogBoxService, IImageManagerService imageManagerService)
         {
             _imageManagerService = imageManagerService;
-            healthSelectedBitmap = _imageManagerService.GetHealthSelectedBitmap();
             _dialogBoxService = dialogBoxService;
             _dialogBoxService.InitDialogBox(new DialogBoxService.HealthResultsSave(OnNewPlant, OnExistingPlant, OnCancel));
             InitializePipelines();
@@ -48,7 +46,7 @@ namespace ga_forms.ViewModels
 
         public void PopulateResults()
         {
-            DiseasesCollection[0].Percentage = System.Math.Round(_imageManagerService.GetDiseasePercentage(healthSelectedBitmap, _blackSpotsPipeline.ResultImage),2);
+            DiseasesCollection[0].Percentage = System.Math.Round(_imageManagerService.GetDiseasePercentage(_imageManagerService.GetHealthSelectedBitmap(), _blackSpotsPipeline.ResultImage),2);
             DiseasesCollection[0].ImgSource = BitmapExtensions.GetImageFromBitmap(_blackSpotsPipeline.ResultImage).Source;
             if (DiseasesCollection[0].Percentage < 10.0)
             {
@@ -84,6 +82,7 @@ namespace ga_forms.ViewModels
 
             // set
             // TODO: Make GetHealthSelectedBitmap() to work
+            SKBitmap healthSelectedBitmap = _imageManagerService.GetHealthSelectedBitmap();
             _blackSpotsPipeline.InitialImage = healthSelectedBitmap;
 
             // execute
