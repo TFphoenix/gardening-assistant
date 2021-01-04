@@ -3,18 +3,60 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ga_forms.Views.DecoratePage"
              xmlns:vm="clr-namespace:ga_forms.ViewModels"
+             xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
              Title="{Binding Title}"
-             Visual="Material">
+             Visual="Material"
+             Shell.NavBarIsVisible="false"
+             Shell.TabBarIsVisible="false">
 
     <ContentPage.BindingContext>
         <vm:DecorateViewModel />
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Decorate Page"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <!--CameraView-->
+            <xct:CameraView
+                x:Name="CameraView"
+                CaptureOptions="Photo"
+                FlashMode="Off"
+                MediaCaptured="CameraView_MediaCaptured"
+                MediaCaptureFailed="CameraView_MediaCaptureFailed"
+                OnAvailable="CameraView_OnAvailable"
+                SavePhotoToFile="True"
+                HeightRequest="1280"
+                WidthRequest="720"
+                Grid.Row="0"/>
+
+            <!--TabBar-->
+            <FlexLayout Grid.Row="1" 
+                        Direction="Row" AlignItems="Center" JustifyContent="SpaceEvenly"
+                        BackgroundColor="{StaticResource Light2}">
+                <ImageButton Command="{Binding GoBackCommand}" Source="tab_back.png"
+                         WidthRequest="80" HeightRequest="60" Padding="15"
+                         CornerRadius="30" VerticalOptions="Center" HorizontalOptions="Center"
+                         BackgroundColor="{StaticResource Light2}"/>
+                <Button
+                    x:Name="CameraButton"
+                    IsEnabled="False"
+                    Command="{Binding ShutterCommand, Source={x:Reference CameraView}}"
+                    WidthRequest="80" HeightRequest="80"
+                    CornerRadius="40" VerticalOptions="Center" HorizontalOptions="Center"
+                    ImageSource="camera40.png"
+                    BackgroundColor="{StaticResource Medium}"/>
+                <ImageButton Command="{Binding UploadCommand}" Source="tab_upload.png"
+                        WidthRequest="80" HeightRequest="60" Padding="15"
+                        CornerRadius="30" VerticalOptions="Center" HorizontalOptions="Center"
+                        BackgroundColor="{StaticResource Light2}"/>
+            </FlexLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
