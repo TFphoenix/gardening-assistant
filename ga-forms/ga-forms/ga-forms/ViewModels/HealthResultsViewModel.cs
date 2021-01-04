@@ -62,6 +62,8 @@ namespace ga_forms.ViewModels
             {
                 DiseasesCollection[0].DiseaseResult = DiseaseResultType.Error;
             }
+
+            DiseasesCollection = new ObservableCollection<DiseaseInfo>(DiseasesCollection);
         }
         private void InitializePipelines()
         {
