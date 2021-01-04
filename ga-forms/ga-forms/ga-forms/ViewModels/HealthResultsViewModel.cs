@@ -7,6 +7,7 @@ using ga_forms.Models.ImageProcessing.Algorithms;
 using ga_forms.Services;
 using ga_forms.Views;
 using SkiaSharp;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -46,21 +47,24 @@ namespace ga_forms.ViewModels
 
         public void PopulateResults()
         {
-            DiseasesCollection[0].Percentage = System.Math.Round(_imageManagerService.GetDiseasePercentage(_imageManagerService.GetHealthSelectedBitmap(), _blackSpotsPipeline.ResultImage),2);
+            double percentage = System.Math.Round(_imageManagerService.GetDiseasePercentage(_imageManagerService.GetHealthSelectedBitmap(), _blackSpotsPipeline.ResultImage),2);
             DiseasesCollection[0].ImgSource = BitmapExtensions.GetImageFromBitmap(_blackSpotsPipeline.ResultImage).Source;
-            if (DiseasesCollection[0].Percentage < 10.0)
+            if (percentage < 10.0)
             {
                 DiseasesCollection[0].DiseaseResult = DiseaseResultType.Ok;
+                DiseasesCollection[0].Details = "Your plant is in a good state.\nPrevention for black spots disease:\n1. Baking soda spray\n2. Neem oil\n3. Sulfur";
             }
-            else if(DiseasesCollection[0].Percentage > 10.0 && DiseasesCollection[0].Percentage < 20.0)
+            else if(percentage > 10.0 && percentage < 20.0)
             {
                 DiseasesCollection[0].DiseaseResult = DiseaseResultType.Warning;
+                DiseasesCollection[0].Details = "Your plant seems to become affected by black spots disease.\n1. Provide good air circulation around and through your plant\n2. Remove any infected leaves.\n";
             }
-            else if(DiseasesCollection[0].Percentage > 20.0)
+            else if(percentage > 20.0)
             {
                 DiseasesCollection[0].DiseaseResult = DiseaseResultType.Error;
+                DiseasesCollection[0].Details = "Your plant is seriously affected. You need to be very careful!\n1. Provide good air circulation around and through your plant\n2. Avoid getting the leaves wet while watering.\n3. Remove any infected leaves.";
             }
-
+            DiseasesCollection[0].Percentage = "Severity:\n" + percentage + "%";
             DiseasesCollection = new ObservableCollection<DiseaseInfo>(DiseasesCollection);
         }
         private void InitializePipelines()

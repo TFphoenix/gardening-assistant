@@ -13,7 +13,7 @@ namespace ga_forms.Models
         public string Name { get; set; }
         public ImageSource ImgSource { get; set; }
         public string Details { get; set; }
-        public double Percentage { get; set; }
+        public string Percentage { get; set; }
         public DiseaseResultType DiseaseResult { get; set; }
 
         private string _iconUrl;
