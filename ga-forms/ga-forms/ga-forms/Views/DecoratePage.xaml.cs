@@ -16,9 +16,11 @@ namespace ga_forms.Views
     {
         public DecoratePage()
         {
-            InitializeComponent(); 
+            InitializeComponent();
+            BindingContext = DependencyInjectionManager.ServiceProvider.GetService<DecorateViewModel>();
             CameraButton.Margin = new Thickness(0, 0, 0, 30);
         }
+
         private void CameraView_OnAvailable(object sender, bool e)
         {
             CameraButton.IsEnabled = e;
@@ -26,7 +28,7 @@ namespace ga_forms.Views
 
         private void CameraView_MediaCaptured(object sender, MediaCapturedEventArgs args)
         {
-            (BindingContext as HealthCameraViewModel)?.OnSnapshot(args.Path);
+            (BindingContext as DecorateViewModel)?.OnSnapshot(args.Path);
         }
 
         private void CameraView_MediaCaptureFailed(object sender, string e)
