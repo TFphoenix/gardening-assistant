@@ -17,7 +17,7 @@
     <!--NavBar-->
     <Shell.TitleView>
         <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceBetween">
-            <ImageButton Source="undo.png"
+            <ImageButton Clicked="Undo_OnClicked" Source="undo.png"
                          WidthRequest="80" HeightRequest="60" Padding="15"
                          CornerRadius="30" VerticalOptions="Center" HorizontalOptions="Center"
                          BackgroundColor="{StaticResource Light}"/>
@@ -42,9 +42,9 @@
             <!--CanvasView-->
             <Grid Grid.Row="0"
                   BackgroundColor="{StaticResource Light}" VerticalOptions="FillAndExpand">
-                <skia:SKCanvasView x:Name="CanvasView"/>
+                <skia:SKCanvasView x:Name="CanvasView" PaintSurface="CanvasView_OnPaintSurface"/>
                 <Grid.Effects>
-                    <tt:TouchEffect Capture="True" />
+                    <tt:TouchEffect Capture="True" TouchAction="CanvasView_OnTouch"/>
                 </Grid.Effects>
             </Grid>
 

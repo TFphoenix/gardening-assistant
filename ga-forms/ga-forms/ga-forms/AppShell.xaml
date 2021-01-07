@@ -43,6 +43,6 @@
     <ShellContent Route="HealthResultsPage" ContentTemplate="{DataTemplate views:HealthResultsPage}" />
     <ShellContent Route="HealthSelectionPage" ContentTemplate="{DataTemplate views:HealthSelectionPage}" />
     <ShellContent Route="PlantDetailPage" ContentTemplate="{DataTemplate views:PlantsDetailPage}" />
-
+    <ShellContent Route="DecorateSelectionPage" ContentTemplate="{DataTemplate views:DecorateSelectionPage}" />
 
 </Shell>

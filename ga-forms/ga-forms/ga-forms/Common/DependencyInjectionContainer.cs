@@ -20,6 +20,7 @@ namespace ga_forms.Common
             services.AddTransient<HealthCameraViewModel>();
             services.AddTransient<HealthSelectionViewModel>();
             services.AddTransient<DecorateViewModel>();
+            services.AddTransient<DecorateSelectionViewModel>();
 
             return services;
         }

@@ -44,7 +44,7 @@ namespace ga_forms.ViewModels
             //_imageManagerService.HealthInitialImageBitmap = rotatedBitmap;
             _imageManagerService.HealthInitialImageBitmap = BitmapExtensions.RotateBitmap(path, 90);
 
-            await Shell.Current.GoToAsync($"//{nameof(HealthSelectionPage)}");
+            await Shell.Current.GoToAsync($"//{nameof(DecorateSelectionPage)}");
         }
 
         private async void UploadImage(object obj)
@@ -57,7 +57,7 @@ namespace ga_forms.ViewModels
                     // Set Bitmap
                     _imageManagerService.HealthInitialImageBitmap = SKBitmap.Decode(stream);
 
-                    await Shell.Current.GoToAsync($"//{nameof(HealthSelectionPage)}");
+                    await Shell.Current.GoToAsync($"//{nameof(DecorateSelectionPage)}");
                 }
             }
         }
