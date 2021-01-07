@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:ga_forms.ViewModels"
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+             xmlns:tt="clr-namespace:ga_forms.TouchTracking"
+             Title="{Binding Title}"
+             mc:Ignorable="d"
+             x:Class="ga_forms.Views.DecorateSelectionPage"
+             Visual="Material"
+             Shell.TabBarIsVisible="False"
+             Shell.BackgroundColor="{StaticResource Light}"
+             Shell.NavBarHasShadow="True">
+
+    <!--NavBar-->
+    <Shell.TitleView>
+        <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceBetween">
+            <ImageButton Source="undo.png"
+                         WidthRequest="80" HeightRequest="60" Padding="15"
+                         CornerRadius="30" VerticalOptions="Center" HorizontalOptions="Center"
+                         BackgroundColor="{StaticResource Light}"/>
+            <ImageButton Command="{Binding AutoBackgroundCommand}" Source="wand.png"
+                         WidthRequest="80" HeightRequest="60" Padding="15"
+                         CornerRadius="30" VerticalOptions="Center" HorizontalOptions="Center"
+                         BackgroundColor="{StaticResource Light}"/>
+        </FlexLayout>
+    </Shell.TitleView>
+
+    <ContentPage.Content>
+        <Grid>
+            <!--Grid definitions-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <!--CanvasView-->
+            <Grid Grid.Row="0"
+                  BackgroundColor="{StaticResource Light}" VerticalOptions="FillAndExpand">
+                <skia:SKCanvasView x:Name="CanvasView"/>
+                <Grid.Effects>
+                    <tt:TouchEffect Capture="True" />
+                </Grid.Effects>
+            </Grid>
+
+            <!--TabBar-->
+            <FlexLayout Grid.Row="1" 
+                        Direction="Row" AlignItems="Center" JustifyContent="SpaceEvenly"
+                        BackgroundColor="{StaticResource Light2}">
+                <ImageButton Command="{Binding GoBackCommand}" Source="tab_back.png"
+                             WidthRequest="80" HeightRequest="60" Padding="15"
+                             CornerRadius="30" VerticalOptions="Center" HorizontalOptions="Center"
+                             BackgroundColor="{StaticResource Light2}"/>
+                <Button
+                    x:Name="DoneButton"
+                    Command="{Binding DoneCommand}"
+                    WidthRequest="80" HeightRequest="80"
+                    CornerRadius="40" VerticalOptions="Center" HorizontalOptions="Center"
+                    ImageSource="done.png"
+                    BackgroundColor="{StaticResource Medium}"/>
+                <ImageButton IsEnabled="False"
+                             WidthRequest="80" HeightRequest="60" Padding="15"
+                             CornerRadius="30" VerticalOptions="Center" HorizontalOptions="Center"
+                             BackgroundColor="{StaticResource Light2}"/>
+
+            </FlexLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
