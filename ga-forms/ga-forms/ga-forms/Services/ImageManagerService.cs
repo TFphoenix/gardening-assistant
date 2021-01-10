@@ -8,6 +8,8 @@ namespace ga_forms.Services
         public SKBitmap HealthInitialImageBitmap { get; set; }
         public SKBitmap HealthSelectionImageBitmap { get; set; }
         public SKPath HealthSelectionPath { get; set; }
+        public SKBitmap DecorateInitialImageBitmap { get; set; }
+        public SKBitmap DecorateSelectionImageBitmap { get; set; }
 
         public SKBitmap GetHealthSelectedBitmap()
         {
@@ -56,6 +58,33 @@ namespace ga_forms.Services
                 }
             }
             return (double)numberOfBlackPixels * 100 / totalNumberOfPixels;
+        }
+
+        public SKBitmap GetDecorateSelectedBitmap()
+        {
+            SKBitmap initialImageStretched = new SKBitmap(DecorateSelectionImageBitmap.Width, DecorateSelectionImageBitmap.Height);
+            using (SKCanvas canvas = new SKCanvas(initialImageStretched))
+            {
+                canvas.DrawBitmap(
+                    DecorateInitialImageBitmap,
+                    new SKRect(0, 0, DecorateSelectionImageBitmap.Width, DecorateSelectionImageBitmap.Height),
+                    BitmapStretch.Uniform);
+            }
+
+            SKBitmap selectedBitmap = new SKBitmap(DecorateSelectionImageBitmap.Width, DecorateSelectionImageBitmap.Height);
+
+            for (int x = 0; x < DecorateSelectionImageBitmap.Width; ++x)
+            {
+                for (int y = 0; y < DecorateSelectionImageBitmap.Height; ++y)
+                {
+                    selectedBitmap.SetPixel(x, y,
+                        DecorateSelectionImageBitmap.GetPixel(x, y).Red == 0
+                            ? new SKColor(0, 0, 0, 0)
+                            : initialImageStretched.GetPixel(x, y));
+                }
+            }
+
+            return selectedBitmap;
         }
     }
 }
