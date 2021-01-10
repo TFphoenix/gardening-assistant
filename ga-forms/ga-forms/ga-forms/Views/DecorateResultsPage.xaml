@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             Title="{Binding Title}"
+             mc:Ignorable="d"
+             x:Class="ga_forms.Views.DecorateResultsPage"
+             Visual="Material"
+             Shell.NavBarIsVisible="false"
+             Shell.TabBarIsVisible="false">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.ColumnSpan="2" Grid.Row="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Text="Suggestions for decoration" FontSize="28"></Label>
+            <Image x:Name="img1" Source="logo.png" Grid.Row="1" Grid.Column="0" Margin="10,10,10,10"></Image>
+            <Image x:Name="img2" Source="logo.png" Grid.Row="1" Grid.Column="1" Margin="10,10,10,10"></Image>
+            <Image x:Name="img3" Source="logo.png" Grid.Row="2" Grid.Column="0" Margin="10,10,10,10"></Image>
+            <Image x:Name="img4" Source="logo.png" Grid.Row="2" Grid.Column="1" Margin="10,10,10,10"></Image>
+
+            <FlexLayout Grid.Row="3" Grid.ColumnSpan="2" 
+                        Direction="Row" AlignItems="Center" JustifyContent="SpaceBetween"
+                        BackgroundColor="{StaticResource Light2}">
+                <ImageButton Command="{Binding GoBackCommand}" CommandParameter="popuplayout" Source="tab_back.png"
+                         WidthRequest="80" HeightRequest="60" Padding="15"
+                         CornerRadius="30" VerticalOptions="Center" HorizontalOptions="Center"
+                         BackgroundColor="{StaticResource Light2}"/>
+                <ImageButton Source="tab_home.png" Command="{Binding GoHomeCommand}"
+                        WidthRequest="80" HeightRequest="60" Padding="15"
+                        CornerRadius="30" VerticalOptions="Center" HorizontalOptions="Center"
+                        BackgroundColor="{StaticResource Light2}"/>
+            </FlexLayout>
+        </Grid>
+
+    </ContentPage.Content>
+</ContentPage>
