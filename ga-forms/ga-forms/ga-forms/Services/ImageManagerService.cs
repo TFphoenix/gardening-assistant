@@ -10,6 +10,7 @@ namespace ga_forms.Services
         public SKPath HealthSelectionPath { get; set; }
         public SKBitmap DecorateInitialImageBitmap { get; set; }
         public SKBitmap DecorateSelectionImageBitmap { get; set; }
+        public SKPath DecorateSelectionPath { get; set; }
 
         public SKBitmap GetHealthSelectedBitmap()
         {

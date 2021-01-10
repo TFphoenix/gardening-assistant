@@ -12,6 +12,7 @@ namespace ga_forms.Services
 
         // Paths
         SKPath HealthSelectionPath { get; set; }
+        SKPath DecorateSelectionPath { get; set; }
 
         SKBitmap GetHealthSelectedBitmap();
         SKBitmap GetDecorateSelectedBitmap();

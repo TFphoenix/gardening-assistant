@@ -36,7 +36,7 @@ namespace ga_forms.ViewModels
             _imageManagerService = imageManagerService;
         }
 
-        public SKBitmap GetCapturedImageBitmap() => _imageManagerService.HealthInitialImageBitmap;
+        public SKBitmap GetCapturedImageBitmap() => _imageManagerService.DecorateInitialImageBitmap;
 
         private void OnAutoBackground(object obj)
         {
@@ -56,8 +56,8 @@ namespace ga_forms.ViewModels
                 return;
             }
 
-            _imageManagerService.HealthSelectionPath = SelectionPath;
-            _imageManagerService.HealthSelectionImageBitmap = SelectionBitmap;
+            _imageManagerService.DecorateSelectionPath = SelectionPath;
+            _imageManagerService.DecorateSelectionImageBitmap = SelectionBitmap;
 
             UserDialogs.Instance.ShowLoading("Processing...", MaskType.Black);
             await Task.Delay(1);

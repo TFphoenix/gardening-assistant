@@ -42,7 +42,7 @@ namespace ga_forms.ViewModels
             //}
 
             //_imageManagerService.HealthInitialImageBitmap = rotatedBitmap;
-            _imageManagerService.HealthInitialImageBitmap = BitmapExtensions.RotateBitmap(path, 90);
+            _imageManagerService.DecorateInitialImageBitmap = BitmapExtensions.RotateBitmap(path, 90);
 
             await Shell.Current.GoToAsync($"//{nameof(DecorateSelectionPage)}");
         }
@@ -55,7 +55,7 @@ namespace ga_forms.ViewModels
                 if (stream != null)
                 {
                     // Set Bitmap
-                    _imageManagerService.HealthInitialImageBitmap = SKBitmap.Decode(stream);
+                    _imageManagerService.DecorateInitialImageBitmap = SKBitmap.Decode(stream);
 
                     await Shell.Current.GoToAsync($"//{nameof(DecorateSelectionPage)}");
                 }
