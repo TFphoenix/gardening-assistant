@@ -1,4 +1,5 @@
 ﻿using SkiaSharp;
+using System;
 
 namespace ga_forms.Services
 {
@@ -17,5 +18,6 @@ namespace ga_forms.Services
         SKBitmap GetHealthSelectedBitmap();
         SKBitmap GetDecorateSelectedBitmap();
         double GetDiseasePercentage(SKBitmap croppedImage, SKBitmap resultImage);
+        Tuple<SKBitmap, SKBitmap> GetTriadImages(SKBitmap originalImage, SKBitmap croppedImage, int predominantColor);
     }
 }

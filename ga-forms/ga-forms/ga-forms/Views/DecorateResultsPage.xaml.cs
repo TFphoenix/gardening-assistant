@@ -23,6 +23,7 @@ namespace ga_forms.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            (BindingContext as DecorateResultsViewModel)?.DisplayImages();
         }
     }
 }

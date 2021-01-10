@@ -9,7 +9,7 @@ namespace ga_forms.Models.ImageProcessing.Algorithms
 {
     class HsvConvertor:IAlgorithm
     {
-        private int[] Histogram { get; set; }
+        private int[] histogram = new int[361];
         public SKBitmap ProcessingImage { get; set; }
         public SKBitmap ProcessedImage { get; set; }
         public void Execute()
@@ -56,13 +56,13 @@ namespace ga_forms.Models.ImageProcessing.Algorithms
                             h = h + 360;
                         }
                     }
-                    Histogram[Convert.ToInt32(h)]++;
+                    histogram[Convert.ToInt32(h)]++;
                 }
             }
         }
         public int GetPredominantColor()
         {
-            return Histogram.ToList().IndexOf(Histogram.Max());
+            return histogram.ToList().IndexOf(histogram.Max());
         }
     }
 }
