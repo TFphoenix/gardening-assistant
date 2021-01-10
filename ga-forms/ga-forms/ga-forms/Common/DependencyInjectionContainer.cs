@@ -21,6 +21,7 @@ namespace ga_forms.Common
             services.AddTransient<HealthSelectionViewModel>();
             services.AddTransient<DecorateViewModel>();
             services.AddTransient<DecorateSelectionViewModel>();
+            services.AddTransient<DecorateResultsViewModel>();
 
             return services;
         }

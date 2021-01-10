@@ -61,7 +61,7 @@ namespace ga_forms.ViewModels
 
             UserDialogs.Instance.ShowLoading("Processing...", MaskType.Black);
             await Task.Delay(1);
-            await Shell.Current.GoToAsync($"//{nameof(HealthResultsPage)}").ContinueWith((task) => { UserDialogs.Instance.HideLoading(); });
+            await Shell.Current.GoToAsync($"//{nameof(DecorateResultsPage)}").ContinueWith((task) => { UserDialogs.Instance.HideLoading(); });
         }
     }
 }

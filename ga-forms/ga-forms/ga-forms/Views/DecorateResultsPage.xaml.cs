@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ga_forms.Common;
+using ga_forms.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +17,12 @@ namespace ga_forms.Views
         public DecorateResultsPage()
         {
             InitializeComponent();
+            BindingContext = DependencyInjectionManager.ServiceProvider.GetService<DecorateResultsViewModel>();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
         }
     }
 }
