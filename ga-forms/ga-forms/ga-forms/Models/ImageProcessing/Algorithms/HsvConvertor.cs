@@ -9,7 +9,7 @@ namespace ga_forms.Models.ImageProcessing.Algorithms
 {
     class HsvConvertor:IAlgorithm
     {
-        private Dictionary<HueColor, int> Histogram { get; set; }
+        private int[] Histogram { get; set; }
         public SKBitmap ProcessingImage { get; set; }
         public SKBitmap ProcessedImage { get; set; }
         public void Execute()
@@ -56,36 +56,13 @@ namespace ga_forms.Models.ImageProcessing.Algorithms
                             h = h + 360;
                         }
                     }
-                    if(h >= 0 && h <= 60)
-                    {
-                        Histogram[HueColor.Red]++;
-                    }
-                    if(h>=61&& h<=120)
-                    {
-                        Histogram[HueColor.Yellow]++;
-                    }
-                    if(h>=121 && h<=180)
-                    {
-                        Histogram[HueColor.Green]++;
-                    }
-                    if(h>=181 && h<=240)
-                    {
-                        Histogram[HueColor.Cyan]++;
-                    }
-                    if(h>=241 && h<=300)
-                    {
-                        Histogram[HueColor.Blue]++;
-                    }
-                    if (h >= 301 && h <= 360)
-                    {
-                        Histogram[HueColor.Magenta]++;
-                    }
+                    Histogram[Convert.ToInt32(h)]++;
                 }
             }
         }
-        public HueColor GetPredominantColor()
+        public int GetPredominantColor()
         {
-            return Histogram.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
+            return Histogram.ToList().IndexOf(Histogram.Max());
         }
     }
 }
