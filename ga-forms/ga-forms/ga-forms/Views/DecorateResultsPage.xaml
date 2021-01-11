@@ -25,7 +25,7 @@
             <Image x:Name="img1" Source="{Binding FirstImageSource}" Grid.Row="1" Grid.Column="0" Margin="10,10,10,10"></Image>
             <Image x:Name="img2" Source="{Binding SecondImageSource}" Grid.Row="1" Grid.Column="1" Margin="10,10,10,10"></Image>
             <Image x:Name="img3" Source="{Binding ThirdImageSource}" Grid.Row="2" Grid.Column="0" Margin="10,10,10,10"></Image>
-            <Image x:Name="img4" Source="logo.png" Grid.Row="2" Grid.Column="1" Margin="10,10,10,10"></Image>
+            <Image x:Name="img4" Source="{Binding FourthImageSource}" Grid.Row="2" Grid.Column="1" Margin="10,10,10,10"></Image>
 
             <FlexLayout Grid.Row="3" Grid.ColumnSpan="2" 
                         Direction="Row" AlignItems="Center" JustifyContent="SpaceBetween"

@@ -89,11 +89,20 @@ namespace ga_forms.Services
             return selectedBitmap;
         }
 
-        public Tuple<SKBitmap,SKBitmap> GetTriadImages(SKBitmap originalImage, SKBitmap croppedImage, int predominantColor)
+        public Tuple<SKBitmap,SKBitmap, SKBitmap> GetDecorateImages(SKBitmap originalImage, SKBitmap croppedImage, int predominantColor)
         {
             SKBitmap firstImage = new SKBitmap(originalImage.Width, originalImage.Height);
             SKBitmap secondImage = new SKBitmap(originalImage.Width, originalImage.Height);
-            int firstColorHue = 0, secondColorHue = 0;
+            SKBitmap thirdImage = new SKBitmap(originalImage.Width, originalImage.Height);
+            int firstColorHue = 0, secondColorHue = 0, thirdColorHue=0;
+            if((predominantColor - 180) < 0)
+            {
+                thirdColorHue = 360 - 180 + predominantColor;
+            }
+            else
+            {
+                thirdColorHue = predominantColor - 180;
+            }
             if((predominantColor + 120) < 360 && (predominantColor - 120) > 0)
             {
                 firstColorHue = predominantColor + 120;
@@ -111,6 +120,7 @@ namespace ga_forms.Services
             }
             SKColor firstColor = SKColor.FromHsv(firstColorHue, 100, 60);
             SKColor secondColor = SKColor.FromHsv(secondColorHue, 100, 60);
+            SKColor thirdColor = SKColor.FromHsv(thirdColorHue, 100, 60);
             for(int x = 0; x < originalImage.Width; x++)
             {
                 for(int y = 0; y < originalImage.Height;y++)
@@ -119,15 +129,17 @@ namespace ga_forms.Services
                     {
                         firstImage.SetPixel(x, y, firstColor);
                         secondImage.SetPixel(x, y, secondColor);
+                        thirdImage.SetPixel(x, y, thirdColor);
                     }
                     else
                     {
                         firstImage.SetPixel(x, y, originalImage.GetPixel(x, y));
                         secondImage.SetPixel(x, y, originalImage.GetPixel(x, y));
+                        thirdImage.SetPixel(x, y, originalImage.GetPixel(x, y));
                     }
                 }
             }
-            return new Tuple<SKBitmap, SKBitmap>(firstImage, secondImage);
+            return new Tuple<SKBitmap, SKBitmap, SKBitmap>(firstImage, secondImage, thirdImage);
         }
     }
 }

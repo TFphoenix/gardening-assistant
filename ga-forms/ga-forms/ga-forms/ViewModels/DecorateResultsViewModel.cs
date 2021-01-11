@@ -34,6 +34,13 @@ namespace ga_forms.ViewModels
             get { return thirdImageSource; }
             set { SetProperty(ref thirdImageSource, value); }
         }
+
+        ImageSource fourthImageSource = "";
+        public ImageSource FourthImageSource
+        {
+            get { return fourthImageSource; }
+            set { SetProperty(ref fourthImageSource, value); }
+        }
         public Command GoBackCommand { get; }
         public Command GoHomeCommand { get; }
 
@@ -50,8 +57,9 @@ namespace ga_forms.ViewModels
             _hsvConvertor.ProcessingImage = _imageManagerService.DecorateInitialImageBitmap;
             _hsvConvertor.Execute();
             FirstImageSource = BitmapExtensions.GetImageFromBitmap(_imageManagerService.DecorateInitialImageBitmap).Source;
-            SecondImageSource = BitmapExtensions.GetImageFromBitmap(_imageManagerService.GetTriadImages(_imageManagerService.DecorateInitialImageBitmap, _imageManagerService.GetDecorateSelectedBitmap(), _hsvConvertor.GetPredominantColor()).Item1).Source;
-            ThirdImageSource = BitmapExtensions.GetImageFromBitmap(_imageManagerService.GetTriadImages(_imageManagerService.DecorateInitialImageBitmap, _imageManagerService.GetDecorateSelectedBitmap(), _hsvConvertor.GetPredominantColor()).Item2).Source;
+            SecondImageSource = BitmapExtensions.GetImageFromBitmap(_imageManagerService.GetDecorateImages(_imageManagerService.DecorateInitialImageBitmap, _imageManagerService.GetDecorateSelectedBitmap(), _hsvConvertor.GetPredominantColor()).Item1).Source;
+            ThirdImageSource = BitmapExtensions.GetImageFromBitmap(_imageManagerService.GetDecorateImages(_imageManagerService.DecorateInitialImageBitmap, _imageManagerService.GetDecorateSelectedBitmap(), _hsvConvertor.GetPredominantColor()).Item2).Source;
+            FourthImageSource = BitmapExtensions.GetImageFromBitmap(_imageManagerService.GetDecorateImages(_imageManagerService.DecorateInitialImageBitmap, _imageManagerService.GetDecorateSelectedBitmap(), _hsvConvertor.GetPredominantColor()).Item3).Source;
         }
         private async void OnBack(object obj)
         {
