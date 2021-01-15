@@ -6,6 +6,7 @@ namespace ga_forms.Models.ImageProcessing.Algorithms
     {
         public SKBitmap ProcessingImage { get; set; }
         public SKBitmap ProcessedImage { get; set; }
+
         public void Execute()
         {
             ProcessedImage = new SKBitmap(ProcessingImage.Width, ProcessingImage.Height);

@@ -22,7 +22,7 @@ namespace ga_forms.ViewModels
 
         // Algorithms Pipelines
         private AlgorithmsPipeline _blackSpotsPipeline;
-        private AlgorithmsPipeline _greyscalePipeline;
+        private AlgorithmsPipeline _testPipeline;
 
         // Services
         private readonly IDialogBoxService _dialogBoxService;
@@ -74,7 +74,7 @@ namespace ga_forms.ViewModels
 
             // Grayscale
             DiseasesCollection[1].ImgSource =
-                BitmapExtensions.GetImageFromBitmap(_greyscalePipeline.ResultImage).Source;
+                BitmapExtensions.GetImageFromBitmap(_testPipeline.ResultImage).Source;
 
             // Refresh Diseases GUI
             DiseasesCollection = new ObservableCollection<DiseaseInfo>(DiseasesCollection);
@@ -82,15 +82,6 @@ namespace ga_forms.ViewModels
 
         private void InitializePipelines()
         {
-            // Grayscale pipeline
-            _greyscalePipeline = new AlgorithmsPipeline
-            (
-                new List<IAlgorithm>
-                {
-                    new GrayscaleConvertor()
-                }
-            );
-
             // Black spots pipeline
             _blackSpotsPipeline = new AlgorithmsPipeline
             (
@@ -99,6 +90,16 @@ namespace ga_forms.ViewModels
                     new GrayscaleConvertor(),
                     //new GaussFilter()
                     new Otsu()
+                }
+            );
+
+            // Test pipeline
+            _testPipeline = new AlgorithmsPipeline
+            (
+                new List<IAlgorithm>
+                {
+                    new GrayscaleConvertor(),
+                    new Mean3x3Filter()
                 }
             );
         }
@@ -110,11 +111,11 @@ namespace ga_forms.ViewModels
 
             // set pipelines initial images
             _blackSpotsPipeline.InitialImage = healthSelectedBitmap;
-            _greyscalePipeline.InitialImage = healthSelectedBitmap;
+            //_testPipeline.InitialImage = healthSelectedBitmap;
 
             // execute pipelines
             _blackSpotsPipeline.ExecutePipeline();
-            _greyscalePipeline.ExecutePipeline();
+            //_testPipeline.ExecutePipeline();
 
             // display header images
             ProcessingImageSource = BitmapExtensions.GetImageFromBitmap(_imageManagerService.HealthInitialImageBitmap).Source;
