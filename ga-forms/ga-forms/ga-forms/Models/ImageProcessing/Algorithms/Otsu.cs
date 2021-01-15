@@ -2,7 +2,7 @@
 
 namespace ga_forms.Models.ImageProcessing.Algorithms
 {
-    class Otsu:IAlgorithm
+    class Otsu : IAlgorithm
     {
         public SKBitmap ProcessingImage { get; set; }
         public SKBitmap ProcessedImage { get; set; }
@@ -17,7 +17,11 @@ namespace ga_forms.Models.ImageProcessing.Algorithms
             {
                 for (int y = 0; y < ProcessingImage.Height; y++)
                 {
-                    GreyLevels[ProcessingImage.GetPixel(x, y).Red] += 1;
+                    SKColor pixel = ProcessingImage.GetPixel(x, y);
+                    if (pixel.Alpha != 0)
+                    {
+                        GreyLevels[pixel.Red] += 1;
+                    }
                 }
             }
 
@@ -100,13 +104,14 @@ namespace ga_forms.Models.ImageProcessing.Algorithms
             {
                 for (int x = 0; x < ProcessingImage.Width; x++)
                 {
-                    if (ProcessingImage.GetPixel(x, y).Red >= BestThreshold)
+                    SKColor pixel = ProcessingImage.GetPixel(x, y);
+                    if (pixel.Red >= BestThreshold)
                     {
-                        ProcessedImage.SetPixel(x, y, new SKColor(255,255,255));
+                        ProcessedImage.SetPixel(x, y, new SKColor(255, 255, 255, pixel.Alpha));
                     }
                     else
                     {
-                        ProcessedImage.SetPixel(x,y, new SKColor(0, 0, 0));
+                        ProcessedImage.SetPixel(x, y, new SKColor(0, 0, 0, pixel.Alpha));
                     }
                 }
             }

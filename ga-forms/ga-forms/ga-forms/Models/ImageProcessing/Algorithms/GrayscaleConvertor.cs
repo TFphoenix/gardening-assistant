@@ -20,7 +20,7 @@ namespace ga_forms.Models.ImageProcessing.Algorithms
                     SKColor color = ProcessingImage.GetPixel(x, y);
                     double grayscale = color.Red * 0.3 + color.Green * 0.59 + color.Blue * 0.11;
                     byte value = (byte)grayscale;
-                    ProcessedImage.SetPixel(x, y, new SKColor(value, value, value));
+                    ProcessedImage.SetPixel(x, y, new SKColor(value, value, value, color.Alpha));
                 }
             }
         }

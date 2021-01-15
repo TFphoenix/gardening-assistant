@@ -6,9 +6,12 @@ namespace ga_forms.Services
 {
     public class ImageManagerService : IImageManagerService
     {
+        // Health
         public SKBitmap HealthInitialImageBitmap { get; set; }
         public SKBitmap HealthSelectionImageBitmap { get; set; }
         public SKPath HealthSelectionPath { get; set; }
+
+        // Decorate
         public SKBitmap DecorateInitialImageBitmap { get; set; }
         public SKBitmap DecorateSelectionImageBitmap { get; set; }
         public SKPath DecorateSelectionPath { get; set; }

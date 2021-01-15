@@ -17,9 +17,14 @@ namespace ga_forms.ViewModels
 {
     class HealthResultsViewModel : ViewModel
     {
+        // Diseases
         private ObservableCollection<DiseaseInfo> _diseases;
-        private AlgorithmsPipeline _blackSpotsPipeline;
 
+        // Algorithms Pipelines
+        private AlgorithmsPipeline _blackSpotsPipeline;
+        private AlgorithmsPipeline _greyscalePipeline;
+
+        // Services
         private readonly IDialogBoxService _dialogBoxService;
         private readonly IImageManagerService _imageManagerService;
 
@@ -47,28 +52,45 @@ namespace ga_forms.ViewModels
 
         public void PopulateResults()
         {
-            double percentage = System.Math.Round(_imageManagerService.GetDiseasePercentage(_imageManagerService.GetHealthSelectedBitmap(), _blackSpotsPipeline.ResultImage),2);
+            // Black Spots
+            double percentage = System.Math.Round(_imageManagerService.GetDiseasePercentage(_imageManagerService.GetHealthSelectedBitmap(), _blackSpotsPipeline.ResultImage), 2);
             DiseasesCollection[0].ImgSource = BitmapExtensions.GetImageFromBitmap(_blackSpotsPipeline.ResultImage).Source;
             if (percentage < 10.0)
             {
                 DiseasesCollection[0].DiseaseResult = DiseaseResultType.Ok;
                 DiseasesCollection[0].Details = "Your plant is in a good state.\nPrevention for black spots disease:\n1. Baking soda spray\n2. Neem oil\n3. Sulfur";
             }
-            else if(percentage > 10.0 && percentage < 20.0)
+            else if (percentage > 10.0 && percentage < 20.0)
             {
                 DiseasesCollection[0].DiseaseResult = DiseaseResultType.Warning;
                 DiseasesCollection[0].Details = "Your plant seems to become affected by black spots disease.\n1. Provide good air circulation around and through your plant\n2. Remove any infected leaves.\n";
             }
-            else if(percentage > 20.0)
+            else if (percentage > 20.0)
             {
                 DiseasesCollection[0].DiseaseResult = DiseaseResultType.Error;
                 DiseasesCollection[0].Details = "Your plant is seriously affected. You need to be very careful!\n1. Provide good air circulation around and through your plant\n2. Avoid getting the leaves wet while watering.\n3. Remove any infected leaves.";
             }
             DiseasesCollection[0].Percentage = "Severity:\n" + percentage + "%";
+
+            // Grayscale
+            DiseasesCollection[1].ImgSource =
+                BitmapExtensions.GetImageFromBitmap(_greyscalePipeline.ResultImage).Source;
+
+            // Refresh Diseases GUI
             DiseasesCollection = new ObservableCollection<DiseaseInfo>(DiseasesCollection);
         }
+
         private void InitializePipelines()
         {
+            // Grayscale pipeline
+            _greyscalePipeline = new AlgorithmsPipeline
+            (
+                new List<IAlgorithm>
+                {
+                    new GrayscaleConvertor()
+                }
+            );
+
             // Black spots pipeline
             _blackSpotsPipeline = new AlgorithmsPipeline
             (
@@ -83,20 +105,20 @@ namespace ga_forms.ViewModels
 
         public void StartProcessing()
         {
-
-            // set
-            // TODO: Make GetHealthSelectedBitmap() to work
+            // set selected bitmap
             SKBitmap healthSelectedBitmap = _imageManagerService.GetHealthSelectedBitmap();
+
+            // set pipelines initial images
             _blackSpotsPipeline.InitialImage = healthSelectedBitmap;
+            _greyscalePipeline.InitialImage = healthSelectedBitmap;
 
-            // execute
+            // execute pipelines
             _blackSpotsPipeline.ExecutePipeline();
+            _greyscalePipeline.ExecutePipeline();
 
-            // display
-            ProcessingImageSource = BitmapExtensions.GetImageFromBitmap(_imageManagerService.GetHealthSelectedBitmap()).Source;
-            //ProcessedImageSource = BitmapExtensions.GetImageFromBitmap(_blackSpotsPipeline.ResultImage).Source;
-            ProcessedImageSource = BitmapExtensions.GetImageFromBitmap(_blackSpotsPipeline.ResultImage).Source;
-            //Console.WriteLine(_imageManagerService.GetDiseasePercentage(_blackSpotsPipeline.ResultImage) + "%");
+            // display header images
+            ProcessingImageSource = BitmapExtensions.GetImageFromBitmap(_imageManagerService.HealthInitialImageBitmap).Source;
+            ProcessedImageSource = BitmapExtensions.GetImageFromBitmap(healthSelectedBitmap).Source;
         }
 
 
