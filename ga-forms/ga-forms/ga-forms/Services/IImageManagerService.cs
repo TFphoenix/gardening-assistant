@@ -18,6 +18,6 @@ namespace ga_forms.Services
         SKBitmap GetHealthSelectedBitmap();
         SKBitmap GetDecorateSelectedBitmap();
         double GetDiseasePercentage(SKBitmap croppedImage, SKBitmap resultImage);
-        Tuple<SKBitmap, SKBitmap, SKBitmap> GetDecorateImages(SKBitmap originalImage, SKBitmap croppedImage, int predominantColor);
+        Tuple<SKBitmap, SKBitmap, SKBitmap> GetDecorateImages(SKBitmap croppedImage, int predominantColor);
     }
 }

@@ -28,6 +28,9 @@ namespace ga_forms.ViewModels
         private readonly IDialogBoxService _dialogBoxService;
         private readonly IImageManagerService _imageManagerService;
 
+        // Selected Bitmap
+        private SKBitmap _healthSelectedBitmap;
+
         //ctor
         public HealthResultsViewModel(IDialogBoxService dialogBoxService, IImageManagerService imageManagerService)
         {
@@ -53,7 +56,7 @@ namespace ga_forms.ViewModels
         public void PopulateResults()
         {
             // Black Spots
-            double percentage = System.Math.Round(_imageManagerService.GetDiseasePercentage(_imageManagerService.GetHealthSelectedBitmap(), _blackSpotsPipeline.ResultImage), 2);
+            double percentage = System.Math.Round(_imageManagerService.GetDiseasePercentage(_healthSelectedBitmap, _blackSpotsPipeline.ResultImage), 2);
             DiseasesCollection[0].ImgSource = BitmapExtensions.GetImageFromBitmap(_blackSpotsPipeline.ResultImage).Source;
             if (percentage < 10.0)
             {
@@ -107,10 +110,10 @@ namespace ga_forms.ViewModels
         public void StartProcessing()
         {
             // set selected bitmap
-            SKBitmap healthSelectedBitmap = _imageManagerService.GetHealthSelectedBitmap();
+            _healthSelectedBitmap = _imageManagerService.GetHealthSelectedBitmap();
 
             // set pipelines initial images
-            _blackSpotsPipeline.InitialImage = healthSelectedBitmap;
+            _blackSpotsPipeline.InitialImage = _healthSelectedBitmap;
             //_testPipeline.InitialImage = healthSelectedBitmap;
 
             // execute pipelines
@@ -119,7 +122,7 @@ namespace ga_forms.ViewModels
 
             // display header images
             ProcessingImageSource = BitmapExtensions.GetImageFromBitmap(_imageManagerService.HealthInitialImageBitmap).Source;
-            ProcessedImageSource = BitmapExtensions.GetImageFromBitmap(healthSelectedBitmap).Source;
+            ProcessedImageSource = BitmapExtensions.GetImageFromBitmap(_healthSelectedBitmap).Source;
         }
 
 

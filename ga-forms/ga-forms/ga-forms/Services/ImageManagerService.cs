@@ -8,11 +8,13 @@ namespace ga_forms.Services
     {
         // Health
         public SKBitmap HealthInitialImageBitmap { get; set; }
+        public SKBitmap HealthInitialImageStretchedBitmap { get; set; }
         public SKBitmap HealthSelectionImageBitmap { get; set; }
         public SKPath HealthSelectionPath { get; set; }
 
         // Decorate
         public SKBitmap DecorateInitialImageBitmap { get; set; }
+        public SKBitmap DecorateInitialImageStretchedBitmap { get; set; }
         public SKBitmap DecorateSelectionImageBitmap { get; set; }
         public SKPath DecorateSelectionPath { get; set; }
 
@@ -26,6 +28,8 @@ namespace ga_forms.Services
                     new SKRect(0, 0, HealthSelectionImageBitmap.Width, HealthSelectionImageBitmap.Height),
                     BitmapStretch.Uniform);
             }
+
+            HealthInitialImageStretchedBitmap = initialImageStretched;
 
             SKBitmap selectedBitmap = new SKBitmap(HealthSelectionImageBitmap.Width, HealthSelectionImageBitmap.Height);
 
@@ -76,6 +80,8 @@ namespace ga_forms.Services
                     BitmapStretch.Uniform);
             }
 
+            DecorateInitialImageStretchedBitmap = initialImageStretched;
+
             SKBitmap selectedBitmap = new SKBitmap(DecorateSelectionImageBitmap.Width, DecorateSelectionImageBitmap.Height);
 
             for (int x = 0; x < DecorateSelectionImageBitmap.Width; ++x)
@@ -92,8 +98,10 @@ namespace ga_forms.Services
             return selectedBitmap;
         }
 
-        public Tuple<SKBitmap, SKBitmap, SKBitmap> GetDecorateImages(SKBitmap originalImage, SKBitmap croppedImage, int predominantColor)
+        public Tuple<SKBitmap, SKBitmap, SKBitmap> GetDecorateImages(SKBitmap croppedImage, int predominantColor)
         {
+            SKBitmap originalImage = DecorateInitialImageStretchedBitmap;
+
             SKBitmap firstImage = new SKBitmap(originalImage.Width, originalImage.Height);
             SKBitmap secondImage = new SKBitmap(originalImage.Width, originalImage.Height);
             SKBitmap thirdImage = new SKBitmap(originalImage.Width, originalImage.Height);
@@ -145,5 +153,6 @@ namespace ga_forms.Services
             }
             return new Tuple<SKBitmap, SKBitmap, SKBitmap>(firstImage, secondImage, thirdImage);
         }
+
     }
 }

@@ -5,6 +5,7 @@ using ga_forms.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using SkiaSharp;
 using Xamarin.Forms;
 
 namespace ga_forms.ViewModels
@@ -47,19 +48,28 @@ namespace ga_forms.ViewModels
         public DecorateResultsViewModel(IImageManagerService imageManagerService)
         {
             _imageManagerService = imageManagerService;
-            Title = "Health Results Page";
+            Title = "Decorate Results Page";
+
             GoBackCommand = new Command(OnBack);
             GoHomeCommand = new Command(OnHome);
         }
 
         public void DisplayImages()
         {
+            // Determine predominant color
             _hsvConvertor.ProcessingImage = _imageManagerService.DecorateInitialImageBitmap;
             _hsvConvertor.Execute();
+
+            // Generate decorate images
+            var decorateImages = _imageManagerService.GetDecorateImages(
+                _imageManagerService.GetDecorateSelectedBitmap(),
+                _hsvConvertor.GetPredominantColor());
+
+            // Bind decorate images
             FirstImageSource = BitmapExtensions.GetImageFromBitmap(_imageManagerService.DecorateInitialImageBitmap).Source;
-            SecondImageSource = BitmapExtensions.GetImageFromBitmap(_imageManagerService.GetDecorateImages(_imageManagerService.DecorateInitialImageBitmap, _imageManagerService.GetDecorateSelectedBitmap(), _hsvConvertor.GetPredominantColor()).Item1).Source;
-            ThirdImageSource = BitmapExtensions.GetImageFromBitmap(_imageManagerService.GetDecorateImages(_imageManagerService.DecorateInitialImageBitmap, _imageManagerService.GetDecorateSelectedBitmap(), _hsvConvertor.GetPredominantColor()).Item2).Source;
-            FourthImageSource = BitmapExtensions.GetImageFromBitmap(_imageManagerService.GetDecorateImages(_imageManagerService.DecorateInitialImageBitmap, _imageManagerService.GetDecorateSelectedBitmap(), _hsvConvertor.GetPredominantColor()).Item3).Source;
+            SecondImageSource = BitmapExtensions.GetImageFromBitmap(decorateImages.Item1).Source;
+            ThirdImageSource = BitmapExtensions.GetImageFromBitmap(decorateImages.Item2).Source;
+            FourthImageSource = BitmapExtensions.GetImageFromBitmap(decorateImages.Item3).Source;
         }
         private async void OnBack(object obj)
         {
