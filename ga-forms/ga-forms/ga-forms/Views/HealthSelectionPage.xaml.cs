@@ -30,7 +30,6 @@ namespace ga_forms.Views
         // Members
         private bool _canDraw = true;
         private readonly HealthSelectionViewModel _viewModel;
-        private static readonly float RESCALE_FACTOR = 0.25f;
 
         // Ctor
         public HealthSelectionPage()
@@ -255,8 +254,8 @@ namespace ga_forms.Views
             // Rescaled image (360 x 470)
             completedSelectionBitmap = completedSelectionBitmap
                 .Resize(new SKSizeI(
-                    (int)(completedSelectionBitmap.Width * RESCALE_FACTOR),
-                    (int)(completedSelectionBitmap.Height * RESCALE_FACTOR)),
+                    (int)(completedSelectionBitmap.Width * Constants.RESCALE_FACTOR),
+                    (int)(completedSelectionBitmap.Height * Constants.RESCALE_FACTOR)),
                     SKFilterQuality.Medium);
             return completedSelectionBitmap;
         }

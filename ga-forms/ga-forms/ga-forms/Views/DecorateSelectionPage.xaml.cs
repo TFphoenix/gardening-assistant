@@ -244,12 +244,19 @@ namespace ga_forms.Views
         {
             SKBitmap completedSelectionBitmap = new SKBitmap(_selectionBitmap.Width, _selectionBitmap.Height);
 
+            // Resulting image (1440 x 1881)
             using (SKCanvas completedSelectionCanvas = new SKCanvas(completedSelectionBitmap))
             {
                 completedSelectionCanvas.Clear(SKColors.Black);
                 completedSelectionCanvas.DrawPath(selectionPath, _completedSelectionFill);
             }
 
+            // Rescaled image (360 x 470)
+            completedSelectionBitmap = completedSelectionBitmap
+                .Resize(new SKSizeI(
+                        (int)(completedSelectionBitmap.Width * Constants.RESCALE_FACTOR),
+                        (int)(completedSelectionBitmap.Height * Constants.RESCALE_FACTOR)),
+                    SKFilterQuality.Medium);
             return completedSelectionBitmap;
         }
 
