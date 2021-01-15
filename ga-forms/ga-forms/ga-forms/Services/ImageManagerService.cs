@@ -52,7 +52,7 @@ namespace ga_forms.Services
             {
                 for (int y = 0; y < resultImage.Height; ++y)
                 {
-                    if (croppedImage.GetPixel(x,y).Alpha != 0)
+                    if (croppedImage.GetPixel(x, y).Alpha != 0)
                     {
                         totalNumberOfPixels++;
                         if (resultImage.GetPixel(x, y).Red == 0)
@@ -92,13 +92,13 @@ namespace ga_forms.Services
             return selectedBitmap;
         }
 
-        public Tuple<SKBitmap,SKBitmap, SKBitmap> GetDecorateImages(SKBitmap originalImage, SKBitmap croppedImage, int predominantColor)
+        public Tuple<SKBitmap, SKBitmap, SKBitmap> GetDecorateImages(SKBitmap originalImage, SKBitmap croppedImage, int predominantColor)
         {
             SKBitmap firstImage = new SKBitmap(originalImage.Width, originalImage.Height);
             SKBitmap secondImage = new SKBitmap(originalImage.Width, originalImage.Height);
             SKBitmap thirdImage = new SKBitmap(originalImage.Width, originalImage.Height);
-            int firstColorHue = 0, secondColorHue = 0, thirdColorHue=0;
-            if((predominantColor - 180) < 0)
+            int firstColorHue = 0, secondColorHue = 0, thirdColorHue = 0;
+            if ((predominantColor - 180) < 0)
             {
                 thirdColorHue = 360 - 180 + predominantColor;
             }
@@ -106,29 +106,30 @@ namespace ga_forms.Services
             {
                 thirdColorHue = predominantColor - 180;
             }
-            if((predominantColor + 120) < 360 && (predominantColor - 120) > 0)
+            if ((predominantColor + 120) < 360 && (predominantColor - 120) > 0)
             {
                 firstColorHue = predominantColor + 120;
                 secondColorHue = predominantColor - 120;
             }
-            else if((predominantColor + 120 > 360) && (predominantColor - 120) > 0)
+            else if ((predominantColor + 120 > 360) && (predominantColor - 120) > 0)
             {
                 firstColorHue = 120 - 360 - predominantColor;
                 secondColorHue = predominantColor - 120;
             }
-            else if((predominantColor + 120) < 360 && (predominantColor - 120) < 0)
+            else if ((predominantColor + 120) < 360 && (predominantColor - 120) < 0)
             {
                 firstColorHue = predominantColor + 120;
                 secondColorHue = 360 - 120 + predominantColor;
             }
             SKColor firstColor = SKColor.FromHsv(firstColorHue, 100, 60);
+
             SKColor secondColor = SKColor.FromHsv(secondColorHue, 100, 60);
             SKColor thirdColor = SKColor.FromHsv(thirdColorHue, 100, 60);
-            for(int x = 0; x < originalImage.Width; x++)
+            for (int x = 0; x < originalImage.Width; x++)
             {
-                for(int y = 0; y < originalImage.Height;y++)
+                for (int y = 0; y < originalImage.Height; y++)
                 {
-                    if(croppedImage.GetPixel(x,y).Alpha != 0)
+                    if (croppedImage.GetPixel(x, y).Alpha != 0)
                     {
                         firstImage.SetPixel(x, y, firstColor);
                         secondImage.SetPixel(x, y, secondColor);

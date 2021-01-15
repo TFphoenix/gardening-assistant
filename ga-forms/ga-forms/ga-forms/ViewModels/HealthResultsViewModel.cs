@@ -73,8 +73,8 @@ namespace ga_forms.ViewModels
             DiseasesCollection[0].Percentage = "Severity:\n" + percentage + "%";
 
             // Grayscale
-            DiseasesCollection[1].ImgSource =
-                BitmapExtensions.GetImageFromBitmap(_testPipeline.ResultImage).Source;
+            //DiseasesCollection[1].ImgSource =
+            //    BitmapExtensions.GetImageFromBitmap(_testPipeline.ResultImage).Source;
 
             // Refresh Diseases GUI
             DiseasesCollection = new ObservableCollection<DiseaseInfo>(DiseasesCollection);
