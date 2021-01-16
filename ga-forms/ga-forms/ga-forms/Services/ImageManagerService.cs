@@ -1,6 +1,7 @@
 ﻿using ga_forms.Common;
 using SkiaSharp;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace ga_forms.Services
@@ -99,42 +100,39 @@ namespace ga_forms.Services
             return selectedBitmap;
         }
 
-        public Tuple<SKBitmap, SKBitmap, SKBitmap> GetDecorateImages(SKBitmap croppedImage, int predominantHue)
+        public Tuple<SKBitmap, SKBitmap, SKBitmap> GetDecorateImages(SKBitmap croppedImage, List<SKColor> dominantColors)
         {
             SKBitmap originalImage = DecorateInitialImageStretchedBitmap;
-            
             SKBitmap firstImage = new SKBitmap(originalImage.Width, originalImage.Height);
             SKBitmap secondImage = new SKBitmap(originalImage.Width, originalImage.Height);
             SKBitmap thirdImage = new SKBitmap(originalImage.Width, originalImage.Height);
 
-            int firstColorHue = 0, secondColorHue = 0, thirdColorHue = 0;
-
             // Complementary
-            if ((predominantHue - 180) < 0)
-            {
-                thirdColorHue = 360 - 180 + predominantHue;
-            }
-            else
-            {
-                thirdColorHue = predominantHue - 180;
-            }
+            SKColor firstComplementary = new SKColor((byte)(255 - dominantColors[0].Red), (byte)(255 - dominantColors[0].Green), (byte)(255 - dominantColors[0].Blue));
+            SKColor secondComplementary = new SKColor((byte)(255 - dominantColors[1].Red), (byte)(255 - dominantColors[1].Green), (byte)(255 - dominantColors[1].Blue));
+            SKColor thirdComplementary = new SKColor((byte)(255 - dominantColors[2].Red), (byte)(255 - dominantColors[2].Green), (byte)(255 - dominantColors[2].Blue));
+
+            // Hues
+            int firstColorHue = BitmapExtensions.RgbToHsv(firstComplementary).Hue;
+            int secondColorHue = BitmapExtensions.RgbToHsv(secondComplementary).Hue;
+            int thirdColorHue = BitmapExtensions.RgbToHsv(thirdComplementary).Hue;
 
             // Triad
-            if ((predominantHue + 120) < 360 && (predominantHue - 120) > 0)
-            {
-                firstColorHue = predominantHue + 120;
-                secondColorHue = predominantHue - 120;
-            }
-            else if ((predominantHue + 120 > 360) && (predominantHue - 120) > 0)
-            {
-                firstColorHue = 120 - 360 - predominantHue;
-                secondColorHue = predominantHue - 120;
-            }
-            else if ((predominantHue + 120) < 360 && (predominantHue - 120) < 0)
-            {
-                firstColorHue = predominantHue + 120;
-                secondColorHue = 360 - 120 + predominantHue;
-            }
+            //if ((predominantHue + 120) < 360 && (predominantHue - 120) > 0)
+            //{
+            //    firstColorHue = predominantHue + 120;
+            //    secondColorHue = predominantHue - 120;
+            //}
+            //else if ((predominantHue + 120 > 360) && (predominantHue - 120) > 0)
+            //{
+            //    firstColorHue = 120 - 360 - predominantHue;
+            //    secondColorHue = predominantHue - 120;
+            //}
+            //else if ((predominantHue + 120) < 360 && (predominantHue - 120) < 0)
+            //{
+            //    firstColorHue = predominantHue + 120;
+            //    secondColorHue = 360 - 120 + predominantHue;
+            //}
 
             for (int x = 0; x < originalImage.Width; x++)
             {
@@ -148,9 +146,9 @@ namespace ga_forms.Services
                         HsvColor hsv = BitmapExtensions.RgbToHsv(color);
 
                         // Determine modified colors
-                        SKColor firstColor = BitmapExtensions.HsvToRgb(new HsvColor(firstColorHue, hsv.S, hsv.V));
-                        SKColor secondColor = BitmapExtensions.HsvToRgb(new HsvColor(secondColorHue, hsv.S, hsv.V));
-                        SKColor thirdColor = BitmapExtensions.HsvToRgb(new HsvColor(thirdColorHue, hsv.S, hsv.V));
+                        SKColor firstColor = BitmapExtensions.HsvToRgb(new HsvColor(firstColorHue, hsv.Saturation, hsv.Value));
+                        SKColor secondColor = BitmapExtensions.HsvToRgb(new HsvColor(secondColorHue, hsv.Saturation, hsv.Value));
+                        SKColor thirdColor = BitmapExtensions.HsvToRgb(new HsvColor(thirdColorHue, hsv.Saturation, hsv.Value));
 
                         // Set modified colors
                         firstImage.SetPixel(x, y, firstColor);

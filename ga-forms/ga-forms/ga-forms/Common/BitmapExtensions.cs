@@ -198,72 +198,105 @@ namespace ga_forms.Common
             double cmax = Math.Max(r, Math.Max(g, b));
             double delta = cmax - cmin;
 
-            // h
-            int h = 0;
-            if (delta == 0)
-                h = 0;
-            else if (cmax == r)
-                h = (int)(60 * (Math.Abs(g - b) / delta % 6));
+            // hue (scaled)
+            double h = 0;
+            if (cmax == r)
+                h = (g - b) / delta;
             else if (cmax == g)
-                h = (int)(60 * (Math.Abs(b - r) / delta) + 2);
+                h = 2.0d + (b - r) / delta;
             else if (cmax == b)
-                h = (int)(60 * (Math.Abs(r - g) / delta) + 4);
+                h = 4.0 + (r - g) / delta;
 
-            // s
+            // hue (degrees)
+            h *= 60;
+            if (h < 0) h += 360;
+
+            // saturation
             double s;
             if (cmax == 0)
                 s = 0;
             else
                 s = delta / cmax;
 
-            // v
+            // value
             double v = cmax;
 
             // Return HSV
-            return new HsvColor(h, s, v);
+            return new HsvColor((int)h, s, v);
         }
 
         public static SKColor HsvToRgb(HsvColor hsv)
         {
             // Get HSV
-            int h = hsv.H;
-            double s = hsv.S;
-            double v = hsv.V;
-
-            // Auxiliary variables
-            double c = v * s;
-            double x = c * (1 - Math.Abs(h / 60) % 2 - 1);
-            double m = v - c;
+            int h = hsv.Hue;
+            double s = hsv.Saturation;
+            double v = hsv.Value;
 
             // r', g', b'
-            double r = 0, g = 0, b = 0;
-            if (0 <= h && h < 60)
+            double r, g, b;
+
+            if (h == 0 && s == 0)
             {
-                r = c; g = x; b = 0;
+                r = v * 255.0d;
+                g = v * 255.0d;
+                b = v * 255.0d;
             }
-            else if (60 <= h && h < 120)
+            else
             {
-                r = x; g = c; b = 0;
-            }
-            else if (120 <= h && h < 180)
-            {
-                r = 0; g = c; b = x;
-            }
-            else if (180 <= h && h < 240)
-            {
-                r = 0; g = x; b = c;
-            }
-            else if (240 <= h && h < 300)
-            {
-                r = x; g = 0; b = c;
-            }
-            else if (300 <= h && h < 360)
-            {
-                r = c; g = 0; b = x;
+                // aux1, aux2
+                double aux1, aux2;
+                if (v < 0.5d)
+                {
+                    aux1 = v * (1.0d + s);
+                }
+                else
+                {
+                    aux1 = v + s - v * s;
+                }
+                aux2 = 2.0d * v - aux1;
+
+                // aux: h
+                double aux_h = h / 360.0d;
+
+                // aux: r, g, b
+                var aux_r = aux_h + 0.333d;
+                var aux_g = aux_h;
+                var aux_b = aux_h - 0.333d;
+
+                if (aux_r > 1) aux_r -= 1.0d;
+                else if (aux_r < 0) aux_r += 1.0d;
+                if (aux_g > 1) aux_g -= 1.0d;
+                else if (aux_g < 0) aux_g += 1.0d;
+                if (aux_b > 1) aux_b -= 1.0d;
+                else if (aux_b < 0) aux_b += 1.0d;
+
+                // red
+                if (6.0d * aux_r < 1) r = aux2 + (aux1 - aux2) * 6.0d * aux_r;
+                else if (2.0d * aux_r < 1) r = aux1;
+                else if (3.0d * aux_r < 2) r = aux2 + (aux1 - aux2) * (0.666d - aux_r) * 6.0d;
+                else r = aux2;
+
+                // green
+                if (6.0d * aux_g < 1) g = aux2 + (aux1 - aux2) * 6.0d * aux_g;
+                else if (2.0d * aux_g < 1) g = aux1;
+                else if (3.0d * aux_g < 2) g = aux2 + (aux1 - aux2) * (0.666d - aux_g) * 6.0d;
+                else g = aux2;
+
+                // blue
+                if (6.0d * aux_b < 1) b = aux2 + (aux1 - aux2) * 6.0d * aux_b;
+                else if (2.0d * aux_b < 1) b = aux1;
+                else if (3.0d * aux_b < 2) b = aux2 + (aux1 - aux2) * (0.666d - aux_b) * 6.0d;
+                else b = aux2;
             }
 
             // Return RGB
-            return new SKColor((byte)((r + m) * 255), (byte)((g + m) * 255), (byte)((b + m) * 255));
+            return new SKColor((byte)(255 * r), (byte)(255 * g), (byte)(255 * b));
+        }
+
+        // Color distances
+        public static double EuclideanDistance(SKColor c1, SKColor c2)
+        {
+            return Math.Sqrt(Math.Pow(c1.Red - c2.Red, 2) + Math.Pow(c1.Green - c2.Green, 2) + Math.Pow(c1.Blue - c2.Blue, 2));
         }
 
 
@@ -312,15 +345,15 @@ namespace ga_forms.Common
 
     public struct HsvColor
     {
-        public readonly int H;
-        public readonly double S;
-        public readonly double V;
+        public readonly int Hue;
+        public readonly double Saturation;
+        public readonly double Value;
 
-        public HsvColor(int h, double s, double v)
+        public HsvColor(int hue, double saturation, double value)
         {
-            H = h;
-            S = s;
-            V = v;
+            Hue = hue;
+            Saturation = saturation;
+            Value = value;
         }
     }
 

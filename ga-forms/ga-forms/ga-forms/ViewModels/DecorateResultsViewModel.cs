@@ -13,68 +13,101 @@ namespace ga_forms.ViewModels
     class DecorateResultsViewModel : ViewModel
     {
         private readonly IImageManagerService _imageManagerService;
-        private PredominantHueDetector _predominantHueDetector = new PredominantHueDetector();
+        private readonly DominantColorsDetector _dominantColorsDetector = new DominantColorsDetector();
 
-        ImageSource firstImageSource = "";
+        ImageSource _firstImageSource;
         public ImageSource FirstImageSource
         {
-            get { return firstImageSource; }
-            set { SetProperty(ref firstImageSource, value); }
+            get => _firstImageSource;
+            set => SetProperty(ref _firstImageSource, value);
         }
 
-        ImageSource secondImageSource = "";
+        ImageSource _secondImageSource;
         public ImageSource SecondImageSource
         {
-            get { return secondImageSource; }
-            set { SetProperty(ref secondImageSource, value); }
+            get => _secondImageSource;
+            set => SetProperty(ref _secondImageSource, value);
         }
 
-        ImageSource thirdImageSource = "";
+        ImageSource _thirdImageSource;
         public ImageSource ThirdImageSource
         {
-            get { return thirdImageSource; }
-            set { SetProperty(ref thirdImageSource, value); }
+            get => _thirdImageSource;
+            set => SetProperty(ref _thirdImageSource, value);
         }
 
-        ImageSource fourthImageSource = "";
+        ImageSource _fourthImageSource;
         public ImageSource FourthImageSource
         {
-            get { return fourthImageSource; }
-            set { SetProperty(ref fourthImageSource, value); }
+            get => _fourthImageSource;
+            set => SetProperty(ref _fourthImageSource, value);
         }
+
+        Tuple<ImageSource, ImageSource, ImageSource> _dominantColors;
+        public Tuple<ImageSource, ImageSource, ImageSource> DominantColors
+        {
+            get => _dominantColors;
+            set => SetProperty(ref _dominantColors, value);
+        }
+
         public Command GoBackCommand { get; }
         public Command GoHomeCommand { get; }
 
         public DecorateResultsViewModel(IImageManagerService imageManagerService)
         {
+            // General
             _imageManagerService = imageManagerService;
             Title = "Decorate Results Page";
 
+            // Commands
             GoBackCommand = new Command(OnBack);
             GoHomeCommand = new Command(OnHome);
+
+            // Image Sources
+            _firstImageSource = "";
+            _secondImageSource = "";
+            _thirdImageSource = "";
+            _fourthImageSource = "";
+            _dominantColors = new Tuple<ImageSource, ImageSource, ImageSource>("", "", "");
         }
 
         public void DisplayImages()
         {
-            // Determine predominant color
-            _predominantHueDetector.ProcessingImage = _imageManagerService.DecorateInitialImageBitmap;
-            _predominantHueDetector.Execute();
+            // Determine dominant colors
+            _dominantColorsDetector.ProcessingImage = _imageManagerService.DecorateInitialImageBitmap;
+            _dominantColorsDetector.Execute();
 
             // Generate decorate images
             var decorateImages = _imageManagerService.GetDecorateImages(
                 _imageManagerService.GetDecorateSelectedBitmap(),
-                _predominantHueDetector.PredominantHue);
+                _dominantColorsDetector.DominantColors);
 
             // Bind decorate images
             FirstImageSource = BitmapExtensions.GetImageFromBitmap(_imageManagerService.DecorateInitialImageBitmap).Source;
             SecondImageSource = BitmapExtensions.GetImageFromBitmap(decorateImages.Item1).Source;
             ThirdImageSource = BitmapExtensions.GetImageFromBitmap(decorateImages.Item2).Source;
             FourthImageSource = BitmapExtensions.GetImageFromBitmap(decorateImages.Item3).Source;
+
+            // Bind dominant colors
+            SKBitmap dominantBitmap1 = new SKBitmap(240, 120);
+            SKBitmap dominantBitmap2 = new SKBitmap(240, 120);
+            SKBitmap dominantBitmap3 = new SKBitmap(240, 120);
+            dominantBitmap1.Erase(_dominantColorsDetector.DominantColors[0]);
+            dominantBitmap2.Erase(_dominantColorsDetector.DominantColors[1]);
+            dominantBitmap3.Erase(_dominantColorsDetector.DominantColors[2]);
+            DominantColors = new Tuple<ImageSource, ImageSource, ImageSource>
+            (
+                BitmapExtensions.GetImageFromBitmap(dominantBitmap1).Source,
+                BitmapExtensions.GetImageFromBitmap(dominantBitmap2).Source,
+                BitmapExtensions.GetImageFromBitmap(dominantBitmap3).Source
+            );
         }
+
         private async void OnBack(object obj)
         {
             await Shell.Current.GoToAsync($"//{nameof(DecorateSelectionPage)}");
         }
+
         private async void OnHome(object obj)
         {
             await Shell.Current.GoToAsync($"//{nameof(HomePage)}");

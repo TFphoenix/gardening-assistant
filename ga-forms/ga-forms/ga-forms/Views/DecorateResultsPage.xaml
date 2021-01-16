@@ -13,6 +13,7 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition Height="70"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="60"></RowDefinition>
@@ -21,14 +22,30 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label Grid.ColumnSpan="2" Grid.Row="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Text="Suggestions for decoration" FontSize="28"></Label>
-            <Image x:Name="img1" Source="{Binding FirstImageSource}" Grid.Row="1" Grid.Column="0" Margin="10,10,10,10"></Image>
-            <Image x:Name="img2" Source="{Binding SecondImageSource}" Grid.Row="1" Grid.Column="1" Margin="10,10,10,10"></Image>
-            <Image x:Name="img3" Source="{Binding ThirdImageSource}" Grid.Row="2" Grid.Column="0" Margin="10,10,10,10"></Image>
-            <Image x:Name="img4" Source="{Binding FourthImageSource}" Grid.Row="2" Grid.Column="1" Margin="10,10,10,10"></Image>
 
-            <FlexLayout Grid.Row="3" Grid.ColumnSpan="2" 
+            <!--Title-->
+            <Label Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Text="Suggestions for decoration" FontSize="28"></Label>
+
+            <!--Dominant Colors-->
+            <StackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Center">
+                <Label FontSize="20" FontAttributes="Bold" HorizontalTextAlignment="Center" VerticalTextAlignment="Center">Dominant colors</Label>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Image Source="{Binding DominantColors.Item1}"/>
+                    <Image Source="{Binding DominantColors.Item2}"/>
+                    <Image Source="{Binding DominantColors.Item3}"/>
+                </StackLayout>
+            </StackLayout>
+
+            <!--Images-->
+            <Image Source="{Binding FirstImageSource}" Grid.Row="2" Grid.Column="0" Margin="10,10,10,10"/>
+            <Image Source="{Binding SecondImageSource}" Grid.Row="2" Grid.Column="1" Margin="10,10,10,10"/>
+            <Image Source="{Binding ThirdImageSource}" Grid.Row="3" Grid.Column="0" Margin="10,10,10,10"/>
+            <Image Source="{Binding FourthImageSource}" Grid.Row="3" Grid.Column="1" Margin="10,10,10,10"/>
+
+            <!--TabBar-->
+            <FlexLayout Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" 
                         Direction="Row" AlignItems="Center" JustifyContent="SpaceBetween"
+                        Padding="40,0"
                         BackgroundColor="{StaticResource Light2}">
                 <ImageButton Command="{Binding GoBackCommand}" CommandParameter="popuplayout" Source="tab_back.png"
                          WidthRequest="80" HeightRequest="60" Padding="15"

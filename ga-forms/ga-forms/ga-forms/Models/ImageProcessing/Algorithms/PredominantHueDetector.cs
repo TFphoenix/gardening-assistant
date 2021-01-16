@@ -26,7 +26,7 @@ namespace ga_forms.Models.ImageProcessing.Algorithms
             {
                 for (int y = 0; y < ProcessingImage.Height; y++)
                 {
-                    ++_histogram[BitmapExtensions.RgbToHsv(ProcessingImage.GetPixel(x, y)).H];
+                    ++_histogram[BitmapExtensions.RgbToHsv(ProcessingImage.GetPixel(x, y)).Hue];
                 }
             }
 

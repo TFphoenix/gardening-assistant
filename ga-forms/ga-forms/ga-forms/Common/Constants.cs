@@ -19,6 +19,7 @@ namespace ga_forms.Common
 
         // General
         public const float RESCALE_FACTOR = 0.25f;
+        public const string NO_PROCESSING_IMAGE = "This algorithm does not define a processing image";
         public const string NO_PROCESSED_IMAGE = "This algorithm does not define a processed image";
     }
 }
