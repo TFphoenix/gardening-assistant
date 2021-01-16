@@ -1,6 +1,7 @@
 ﻿using ga_forms.Common;
 using SkiaSharp;
 using System;
+using System.Drawing;
 
 namespace ga_forms.Services
 {
@@ -98,56 +99,70 @@ namespace ga_forms.Services
             return selectedBitmap;
         }
 
-        public Tuple<SKBitmap, SKBitmap, SKBitmap> GetDecorateImages(SKBitmap croppedImage, int predominantColor)
+        public Tuple<SKBitmap, SKBitmap, SKBitmap> GetDecorateImages(SKBitmap croppedImage, int predominantHue)
         {
             SKBitmap originalImage = DecorateInitialImageStretchedBitmap;
-
+            
             SKBitmap firstImage = new SKBitmap(originalImage.Width, originalImage.Height);
             SKBitmap secondImage = new SKBitmap(originalImage.Width, originalImage.Height);
             SKBitmap thirdImage = new SKBitmap(originalImage.Width, originalImage.Height);
+
             int firstColorHue = 0, secondColorHue = 0, thirdColorHue = 0;
-            if ((predominantColor - 180) < 0)
+
+            // Complementary
+            if ((predominantHue - 180) < 0)
             {
-                thirdColorHue = 360 - 180 + predominantColor;
+                thirdColorHue = 360 - 180 + predominantHue;
             }
             else
             {
-                thirdColorHue = predominantColor - 180;
+                thirdColorHue = predominantHue - 180;
             }
-            if ((predominantColor + 120) < 360 && (predominantColor - 120) > 0)
-            {
-                firstColorHue = predominantColor + 120;
-                secondColorHue = predominantColor - 120;
-            }
-            else if ((predominantColor + 120 > 360) && (predominantColor - 120) > 0)
-            {
-                firstColorHue = 120 - 360 - predominantColor;
-                secondColorHue = predominantColor - 120;
-            }
-            else if ((predominantColor + 120) < 360 && (predominantColor - 120) < 0)
-            {
-                firstColorHue = predominantColor + 120;
-                secondColorHue = 360 - 120 + predominantColor;
-            }
-            SKColor firstColor = SKColor.FromHsv(firstColorHue, 100, 60);
 
-            SKColor secondColor = SKColor.FromHsv(secondColorHue, 100, 60);
-            SKColor thirdColor = SKColor.FromHsv(thirdColorHue, 100, 60);
+            // Triad
+            if ((predominantHue + 120) < 360 && (predominantHue - 120) > 0)
+            {
+                firstColorHue = predominantHue + 120;
+                secondColorHue = predominantHue - 120;
+            }
+            else if ((predominantHue + 120 > 360) && (predominantHue - 120) > 0)
+            {
+                firstColorHue = 120 - 360 - predominantHue;
+                secondColorHue = predominantHue - 120;
+            }
+            else if ((predominantHue + 120) < 360 && (predominantHue - 120) < 0)
+            {
+                firstColorHue = predominantHue + 120;
+                secondColorHue = 360 - 120 + predominantHue;
+            }
+
             for (int x = 0; x < originalImage.Width; x++)
             {
                 for (int y = 0; y < originalImage.Height; y++)
                 {
+                    SKColor color = originalImage.GetPixel(x, y);
+
                     if (croppedImage.GetPixel(x, y).Alpha != 0)
                     {
+                        // Get HSV
+                        HsvColor hsv = BitmapExtensions.RgbToHsv(color);
+
+                        // Determine modified colors
+                        SKColor firstColor = BitmapExtensions.HsvToRgb(new HsvColor(firstColorHue, hsv.S, hsv.V));
+                        SKColor secondColor = BitmapExtensions.HsvToRgb(new HsvColor(secondColorHue, hsv.S, hsv.V));
+                        SKColor thirdColor = BitmapExtensions.HsvToRgb(new HsvColor(thirdColorHue, hsv.S, hsv.V));
+
+                        // Set modified colors
                         firstImage.SetPixel(x, y, firstColor);
                         secondImage.SetPixel(x, y, secondColor);
                         thirdImage.SetPixel(x, y, thirdColor);
                     }
                     else
                     {
-                        firstImage.SetPixel(x, y, originalImage.GetPixel(x, y));
-                        secondImage.SetPixel(x, y, originalImage.GetPixel(x, y));
-                        thirdImage.SetPixel(x, y, originalImage.GetPixel(x, y));
+                        // Set original colors
+                        firstImage.SetPixel(x, y, color);
+                        secondImage.SetPixel(x, y, color);
+                        thirdImage.SetPixel(x, y, color);
                     }
                 }
             }

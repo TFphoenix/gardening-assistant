@@ -63,7 +63,7 @@ namespace ga_forms.ViewModels
             // Generate decorate images
             var decorateImages = _imageManagerService.GetDecorateImages(
                 _imageManagerService.GetDecorateSelectedBitmap(),
-                _hsvConvertor.GetPredominantColor());
+                _hsvConvertor.PredominantHue);
 
             // Bind decorate images
             FirstImageSource = BitmapExtensions.GetImageFromBitmap(_imageManagerService.DecorateInitialImageBitmap).Source;
