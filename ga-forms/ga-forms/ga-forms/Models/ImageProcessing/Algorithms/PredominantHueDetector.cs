@@ -8,7 +8,7 @@ using ga_forms.Common;
 
 namespace ga_forms.Models.ImageProcessing.Algorithms
 {
-    class HsvConvertor : IAlgorithm
+    class PredominantHueDetector : IAlgorithm
     {
         public SKBitmap ProcessingImage { get; set; }
         public SKBitmap ProcessedImage { get; set; }

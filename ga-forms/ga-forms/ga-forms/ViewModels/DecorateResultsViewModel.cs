@@ -13,7 +13,7 @@ namespace ga_forms.ViewModels
     class DecorateResultsViewModel : ViewModel
     {
         private readonly IImageManagerService _imageManagerService;
-        private HsvConvertor _hsvConvertor = new HsvConvertor();
+        private PredominantHueDetector _predominantHueDetector = new PredominantHueDetector();
 
         ImageSource firstImageSource = "";
         public ImageSource FirstImageSource
@@ -57,13 +57,13 @@ namespace ga_forms.ViewModels
         public void DisplayImages()
         {
             // Determine predominant color
-            _hsvConvertor.ProcessingImage = _imageManagerService.DecorateInitialImageBitmap;
-            _hsvConvertor.Execute();
+            _predominantHueDetector.ProcessingImage = _imageManagerService.DecorateInitialImageBitmap;
+            _predominantHueDetector.Execute();
 
             // Generate decorate images
             var decorateImages = _imageManagerService.GetDecorateImages(
                 _imageManagerService.GetDecorateSelectedBitmap(),
-                _hsvConvertor.PredominantHue);
+                _predominantHueDetector.PredominantHue);
 
             // Bind decorate images
             FirstImageSource = BitmapExtensions.GetImageFromBitmap(_imageManagerService.DecorateInitialImageBitmap).Source;
