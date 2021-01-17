@@ -13,6 +13,7 @@ namespace ga_forms.Views
         public HomePage()
         {
             InitializeComponent();
+            CopyrightLabel.Text = "Copyright © 2021 Gabriela Burtan & Teodor Mihăescu\nTransylvania University of Brașov";
         }
     }
 }

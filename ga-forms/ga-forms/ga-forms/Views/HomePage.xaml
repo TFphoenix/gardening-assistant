@@ -11,12 +11,39 @@
         <vm:HomeViewModel />
     </ContentPage.BindingContext>
 
-    <StackLayout BackgroundColor="{StaticResource Light}">
-        <Frame BackgroundColor="{StaticResource Dark}" Padding="24" CornerRadius="0">
-            <Label Text="Welcome to Gardening Assistant!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
+    <Grid BackgroundColor="{StaticResource Light}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="130"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+
+        <!--Title-->
+        <Frame Grid.Row="0" BackgroundColor="{StaticResource Dark}" Padding="20" CornerRadius="0">
+            <Label Text="Welcome to Gardening Assistant!" HorizontalTextAlignment="Center" TextColor="{StaticResource NeutralLight}" FontSize="30"/>
         </Frame>
 
-        <Image Source="logo.png"></Image>
-    </StackLayout>
+        <!--Background Image-->
+        <Image Grid.Row="1" Margin="20" Visual="Normal" Source="ga_home"/>
+
+        <!--Information Footer-->
+        <Frame Grid.Row="2" BackgroundColor="{StaticResource Light1}" Padding="10" CornerRadius="0">
+            <StackLayout>
+                <FlexLayout JustifyContent="Center">
+                    <Image WidthRequest="64" Source="gabriela_burtan" Margin="0, 0, 10, 0"/>
+                    <StackLayout>
+                        <Label Text="Gabriela Burtan" Padding="0, 0, 40, 0" Margin="0" TextColor="{StaticResource Dark2}" FontSize="20"/>
+                        <Label Text="Teodor Mihăescu" Padding="40, 0, 0, 0" Margin="0" TextColor="{StaticResource Dark2}" FontSize="20"/>
+                    </StackLayout>
+                    <Image WidthRequest="64" Source="teodor_mihaescu" Margin="10, 0, 0, 0"/>
+                </FlexLayout>
+                <Label x:Name="CopyrightLabel" Text="Copyright © 2021 Gabriela Burtan, Teodor Mihăescu" Margin="0, 10, 0, 0" HorizontalTextAlignment="Center" TextColor="{StaticResource Dark}" FontSize="10"/>
+            </StackLayout>
+        </Frame>
+    </Grid>
 
 </ContentPage>
