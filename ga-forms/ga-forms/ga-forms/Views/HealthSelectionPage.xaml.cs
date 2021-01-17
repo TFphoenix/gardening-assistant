@@ -266,28 +266,12 @@ namespace ga_forms.Views
             // Auto select background
             SKBitmap autoSelectedBitmap = _viewModel.AutoBackgroundSelection(_viewModel.GetCapturedImageBitmap());
 
-            // Initialize final bitmap
-            SKBitmap completedSelectionBitmap = new SKBitmap(_selectionBitmap.Width, _selectionBitmap.Height);
-            SKRect backgroundDestination = new SKRect(0, 0, _selectionBitmap.Width, _selectionBitmap.Height);
-
-            //// Resulting image (1440 x 1881)
-            //using (SKCanvas completedSelectionCanvas = new SKCanvas(completedSelectionBitmap))
-            //{
-            //    completedSelectionCanvas.Clear(SKColors.Black);
-            //    completedSelectionCanvas.DrawBitmap(autoSelectedBitmap, backgroundDestination, BitmapStretch.Uniform);
-            //}
-
-            //// Rescaled image (360 x 470)
-            //completedSelectionBitmap = completedSelectionBitmap
-            //    .Resize(new SKSizeI(
-            //            (int)(completedSelectionBitmap.Width * Constants.RESCALE_FACTOR),
-            //            (int)(completedSelectionBitmap.Height * Constants.RESCALE_FACTOR)),
-            //        SKFilterQuality.Medium);
-
-            completedSelectionBitmap = autoSelectedBitmap.Resize(new SKSizeI(
-                        (int)(completedSelectionBitmap.Width * Constants.RESCALE_FACTOR),
-                        (int)(completedSelectionBitmap.Height * Constants.RESCALE_FACTOR)),
+            // Rescale image (360 x 470)
+            SKBitmap completedSelectionBitmap = autoSelectedBitmap.Resize(new SKSizeI(
+                        (int)(_selectionBitmap.Width * Constants.RESCALE_FACTOR),
+                        (int)(_selectionBitmap.Height * Constants.RESCALE_FACTOR)),
                 SKFilterQuality.Medium);
+
             return completedSelectionBitmap;
         }
 
