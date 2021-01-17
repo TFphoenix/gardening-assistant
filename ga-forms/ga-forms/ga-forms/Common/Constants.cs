@@ -17,6 +17,10 @@ namespace ga_forms.Common
         public static SKColor SelectionStrokeOutlineColor = new SKColor(248, 248, 248);
         public static SKColor SelectionFillColor = new SKColor(8, 28, 21, 127);
 
+        // HealthResults
+        public const byte HealthEuclideanDifference = 120;
+        public const byte HealthEuclideanDifferenceBlack = 70;
+
         // General
         public const float RESCALE_FACTOR = 0.25f;
         public const string NO_PROCESSING_IMAGE = "This algorithm does not define a processing image";

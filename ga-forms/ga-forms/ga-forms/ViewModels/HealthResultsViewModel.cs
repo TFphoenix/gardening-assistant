@@ -28,8 +28,9 @@ namespace ga_forms.ViewModels
         private readonly IDialogBoxService _dialogBoxService;
         private readonly IImageManagerService _imageManagerService;
 
-        // Selected Bitmap
+        // Private members
         private SKBitmap _healthSelectedBitmap;
+        private bool _isHealthy = false;
 
         //ctor
         public HealthResultsViewModel(IDialogBoxService dialogBoxService, IImageManagerService imageManagerService)
@@ -56,8 +57,17 @@ namespace ga_forms.ViewModels
         public void PopulateResults()
         {
             // Black Spots
-            double percentage = System.Math.Round(_imageManagerService.GetDiseasePercentage(_healthSelectedBitmap, _blackSpotsPipeline.ResultImage), 2);
-            DiseasesCollection[0].ImgSource = BitmapExtensions.GetImageFromBitmap(_blackSpotsPipeline.ResultImage).Source;
+            double percentage = 0.0d;
+            if (!_isHealthy)
+            {
+                percentage = System.Math.Round(_imageManagerService.GetDiseasePercentage(_healthSelectedBitmap, _blackSpotsPipeline.ResultImage), 2);
+                DiseasesCollection[0].ImgSource = BitmapExtensions.GetImageFromBitmap(_blackSpotsPipeline.ResultImage).Source;
+            }
+            else
+            {
+                DiseasesCollection[0].ImgSource = BitmapExtensions.GetImageFromBitmap(_imageManagerService.HealthSelectionImageBitmap).Source;
+            }
+
             if (percentage < 10.0)
             {
                 DiseasesCollection[0].DiseaseResult = DiseaseResultType.Ok;
@@ -74,10 +84,6 @@ namespace ga_forms.ViewModels
                 DiseasesCollection[0].Details = "Your plant is seriously affected. You need to be very careful!\n1. Provide good air circulation around and through your plant\n2. Avoid getting the leaves wet while watering.\n3. Remove any infected leaves.";
             }
             DiseasesCollection[0].Percentage = "Severity:\n" + percentage + "%";
-
-            // Grayscale
-            //DiseasesCollection[1].ImgSource =
-            //    BitmapExtensions.GetImageFromBitmap(_testPipeline.ResultImage).Source;
 
             // Refresh Diseases GUI
             DiseasesCollection = new ObservableCollection<DiseaseInfo>(DiseasesCollection);
@@ -112,17 +118,61 @@ namespace ga_forms.ViewModels
             // set selected bitmap
             _healthSelectedBitmap = _imageManagerService.GetHealthSelectedBitmap();
 
-            // set pipelines initial images
-            _blackSpotsPipeline.InitialImage = _healthSelectedBitmap;
-            //_testPipeline.InitialImage = healthSelectedBitmap;
-
-            // execute pipelines
-            _blackSpotsPipeline.ExecutePipeline();
-            //_testPipeline.ExecutePipeline();
-
             // display header images
             ProcessingImageSource = BitmapExtensions.GetImageFromBitmap(_imageManagerService.HealthInitialImageBitmap).Source;
             ProcessedImageSource = BitmapExtensions.GetImageFromBitmap(_healthSelectedBitmap).Source;
+
+            // Determine dominant colors from selected zone (leaf)
+            DominantColorsDetector dominantColorsDetector = new DominantColorsDetector
+            {
+                Filtering = DominantColorsDetector.FilteringMethod.White,
+                ProcessingImage = _healthSelectedBitmap
+            };
+            dominantColorsDetector.Execute();
+
+            // Check if leaf is healthy
+            const byte difference = Constants.HealthEuclideanDifference;
+            const byte differenceBlack = Constants.HealthEuclideanDifferenceBlack;
+            SKColor dominantColor1 = dominantColorsDetector.DominantColors[0];
+            SKColor dominantColor2 = dominantColorsDetector.DominantColors[1];
+            SKColor dominantColor3 = dominantColorsDetector.DominantColors[2];
+
+            // TODO: Remove
+            SKBitmap dominantBitmap1 = new SKBitmap(240, 120);
+            SKBitmap dominantBitmap2 = new SKBitmap(240, 120);
+            SKBitmap dominantBitmap3 = new SKBitmap(240, 120);
+            dominantBitmap1.Erase(dominantColor1);
+            dominantBitmap2.Erase(dominantColor2);
+            dominantBitmap3.Erase(dominantColor3);
+            DiseasesCollection[1].ImgSource = BitmapExtensions.GetImageFromBitmap(dominantBitmap1).Source;
+            DiseasesCollection[2].ImgSource = BitmapExtensions.GetImageFromBitmap(dominantBitmap2).Source;
+            DiseasesCollection[3].ImgSource = BitmapExtensions.GetImageFromBitmap(dominantBitmap3).Source;
+            // -----
+
+            double distance1 = BitmapExtensions.EuclideanDistance(dominantColor1, dominantColor2);
+            double distance2 = BitmapExtensions.EuclideanDistance(dominantColor1, dominantColor3);
+            double distance3 = BitmapExtensions.EuclideanDistance(dominantColor2, dominantColor3);
+            double distance1Black = BitmapExtensions.EuclideanDistance(dominantColor1, SKColors.Black);
+            double distance2Black = BitmapExtensions.EuclideanDistance(dominantColor2, SKColors.Black);
+            double distance3Black = BitmapExtensions.EuclideanDistance(dominantColor3, SKColors.Black);
+            if (distance1 < difference &&
+                distance2 < difference &&
+                distance3 < difference &&
+                distance1Black > differenceBlack &&
+                distance2Black > differenceBlack &&
+                distance3Black > differenceBlack)
+            {
+                _isHealthy = true;
+                return;
+            }
+
+            _isHealthy = false;
+
+            // set pipelines initial images
+            _blackSpotsPipeline.InitialImage = _healthSelectedBitmap;
+
+            // execute pipelines
+            _blackSpotsPipeline.ExecutePipeline();
         }
 
 
