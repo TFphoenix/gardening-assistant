@@ -9,6 +9,8 @@ namespace ga_forms.Models.ImageProcessing.Algorithms
     {
         public SKBitmap ProcessingImage { get; set; }
         public SKBitmap ProcessedImage { get; set; }
+
+        // IN
         public SKColor Color { get; set; }
         public float EstimatedDistance { get; set; }
 
@@ -20,6 +22,8 @@ namespace ga_forms.Models.ImageProcessing.Algorithms
 
         public void Execute()
         {
+            ProcessedImage = new SKBitmap(ProcessingImage.Info);
+
             for (int x = 0; x < ProcessingImage.Width; x++)
             {
                 for (int y = 0; y < ProcessingImage.Height; y++)
@@ -33,8 +37,8 @@ namespace ga_forms.Models.ImageProcessing.Algorithms
 
                     ProcessedImage.SetPixel(x, y,
                         distance <= EstimatedDistance
-                            ? new SKColor(255, 255, 255, pixel.Alpha)
-                            : new SKColor(0, 0, 0, pixel.Alpha));
+                            ? new SKColor(0, 0, 0, pixel.Alpha)
+                            : new SKColor(255, 255, 255, pixel.Alpha));
                 }
             }
         }

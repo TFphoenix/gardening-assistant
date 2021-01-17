@@ -21,7 +21,7 @@
                          WidthRequest="80" HeightRequest="60" Padding="15"
                          CornerRadius="30" VerticalOptions="Center" HorizontalOptions="Center"
                          BackgroundColor="{StaticResource Light}"/>
-            <ImageButton Command="{Binding AutoBackgroundCommand}" Source="wand.png"
+            <ImageButton Clicked="AutoBackground_OnClicked" Source="wand.png"
                          WidthRequest="80" HeightRequest="60" Padding="15"
                          CornerRadius="30" VerticalOptions="Center" HorizontalOptions="Center"
                          BackgroundColor="{StaticResource Light}"/>

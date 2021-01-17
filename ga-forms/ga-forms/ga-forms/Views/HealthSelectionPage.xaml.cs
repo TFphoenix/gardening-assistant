@@ -260,6 +260,37 @@ namespace ga_forms.Views
             return completedSelectionBitmap;
         }
 
+        // Get auto-selection bitmap
+        SKBitmap GetCompletedAutoSelectionBitmap()
+        {
+            // Auto select background
+            SKBitmap autoSelectedBitmap = _viewModel.AutoBackgroundSelection(_viewModel.GetCapturedImageBitmap());
+
+            // Initialize final bitmap
+            SKBitmap completedSelectionBitmap = new SKBitmap(_selectionBitmap.Width, _selectionBitmap.Height);
+            SKRect backgroundDestination = new SKRect(0, 0, _selectionBitmap.Width, _selectionBitmap.Height);
+
+            //// Resulting image (1440 x 1881)
+            //using (SKCanvas completedSelectionCanvas = new SKCanvas(completedSelectionBitmap))
+            //{
+            //    completedSelectionCanvas.Clear(SKColors.Black);
+            //    completedSelectionCanvas.DrawBitmap(autoSelectedBitmap, backgroundDestination, BitmapStretch.Uniform);
+            //}
+
+            //// Rescaled image (360 x 470)
+            //completedSelectionBitmap = completedSelectionBitmap
+            //    .Resize(new SKSizeI(
+            //            (int)(completedSelectionBitmap.Width * Constants.RESCALE_FACTOR),
+            //            (int)(completedSelectionBitmap.Height * Constants.RESCALE_FACTOR)),
+            //        SKFilterQuality.Medium);
+
+            completedSelectionBitmap = autoSelectedBitmap.Resize(new SKSizeI(
+                        (int)(completedSelectionBitmap.Width * Constants.RESCALE_FACTOR),
+                        (int)(completedSelectionBitmap.Height * Constants.RESCALE_FACTOR)),
+                SKFilterQuality.Medium);
+            return completedSelectionBitmap;
+        }
+
         // Undo selection event
         private void Undo_OnClicked(object sender, EventArgs e)
         {
@@ -277,6 +308,16 @@ namespace ga_forms.Views
             CanvasView.InvalidateSurface();
 
             _canDraw = true;
+        }
+
+        // Auto background event
+        private void AutoBackground_OnClicked(object sender, EventArgs e)
+        {
+            _canDraw = false;
+
+            _viewModel.SelectionBitmap = GetCompletedAutoSelectionBitmap();
+
+            _viewModel.ShowAutoBackgroundAlert();
         }
 
         // Save functionality (currently unnecessary)
