@@ -2,7 +2,7 @@
 <br>
 
 [![Gardening Assistant](https://lh3.googleusercontent.com/fife/ABSRlIpuqYKtm5Jh9SVb2US4FSQrDm7fkX7VyNau4-Wz6bRm7qqrbmZHI7drkB4kc3cHSkQ0slIp0wBxV0VDz1iugFSwZV6g5436X6QB7c2dJ5RzPTw1R-v_YOkkzI0Bi1oBgr7H78WOr6_vUy6_rsWmqh5hJk4-El-mejSJRk60DD8NB13OI4_HXjVDKJBU9OiQFMMNMcKpMf8qeaALK3bAx5KezMjyvQQv3PbaA2J_Rw2sPMDHvjJ2M_RGp2ia-WIlhsDpObTNxMeFpuMnkFkVWLCGlU1Iv3x04v7fJM5U5-j5VxkqrFk2CWmZgmc3JQSfKyL_JADZbzAaAdfWtIo4NQzwNyWqku-3MuB6cQWQwVu16kQwXtKKlhzYGriWNAsebT9fXp-BP0Ec4S4Uw-TnpIyatPSN9Nckf9PCMq7s928QaTFH6M_H06SwBqvN6UjfjC7YJwEoZItcTUUXmWhE3wmLihk0kTxtl8o8XrE7z9wI4q4JqTEMQ400AllCuTSKUghvE5mIa5Jen_lp1zvJAtfwplyftEDz_EmMmtjJ_AE9dJbKxjuKODDm6Z1Rc8khqme8BNYvP2f23oqDVVme9OuQFpcpsl9YDw2LJm__2KhHFP7F6tNzMwkCTyAxVsxc8eE3BJ-s1RrYJpuBbtmexeuzDCys0HiLa1OTy103P6EXlN9TS7ZIDErxJdRAgh1mXsQ05rRKTT-LhpClbtinrs_pJW461QlKIQ=w1176-h1007-ft)](https://youtu.be/5G7V_HSD6M0)
-> For the English version see: [README (EN)](TODO)
+> For the English version see: [README (EN)](README-EN.md)
 
 # Informații Generale
 
