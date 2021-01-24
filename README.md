@@ -1,7 +1,7 @@
 
 <br>
 
-![Gardening Assistant](showcase/logo.png)
+[![Gardening Assistant](showcase/logo.png)](https://youtu.be/5G7V_HSD6M0)
 > For the English version see: [README (EN)](README-EN.md)
 
 # Informații Generale
