@@ -1,5 +1,6 @@
 
 
+
 <br>
 
 [![Gardening Assistant](showcase/logo.png)](https://youtu.be/5G7V_HSD6M0)
@@ -7,12 +8,12 @@
 
 # General Presentation
 
-Gardening Assistant is a project made by Gabriela Burtan and Teodor Mihaescu in the 3rd
-year of Computer Science College from University of Transylvania Brasov for Mobile Applications Development and Image Processing subjects.
+Gardening Assistant is a project made by Gabriela Burtan and Teodor Mihăescu in the 3rd
+year of Computer Science College from Transylvania University of Brasov for Mobile Applications Development and Digital Image Processing subjects.
 
 The application is a mobile assistant for maintenance and embellishment of the garden. It has the following functionalities: disease detection of plants, suggestions for garden decoration based on analyzed data.
 
-The application is developed in Xamarin Forms Framework using C# as programming language (which interprets in Java language and compiles Android project).
+The application is developed in Xamarin Forms Framework using C# (which interprets the project in Java and then compiles the native Android project).
 
 > For more details you can watch:
 > [Gardening Assistant - Demo video](https://youtu.be/5G7V_HSD6M0)
@@ -28,7 +29,7 @@ The graphic interface consist of the following views:
 
 ## Images for testing
 
-To test the application you can use following images:
+To test the application you can use the following images:
 
 |<img src="showcase/leaf_blackspot_6.jpg" alt="" width="140"><br>Blackspots 1|<img src="showcase/leaf_blackspot_8.jfif" alt="" width="140"><br>Blackspots 2|<img src="showcase/leaf_blackspot_7.jfif" alt="" width="140"><br>Blackspots 3|
 |:-:|:-:|:-:|
@@ -52,20 +53,20 @@ Xamarin.Forms project is structured as below:
 <img src="showcase/structure_project.png" alt="Project Tree" width="">
 <br>
 Project's folders have the following functionalities:
-- **Common**: Here are all the shared classes which have more than one dependency in project, like Dependency Injection container, enums, constants, etc.
+- **Common**: Here are all the shared classes which have more than one dependency in the project, like the Dependency Injection container, enums, constants, etc.
 - **Models**: Here are project's models, classes which handle structural transfer of data, and also image processing algorithms and their pipeline
 - **Resources**: Here are some static resources
-- **Services**: Here are services, classes which handle the bussiness logic of the project like ImageManagerService, DialogBoxService, etc.
+- **Services**: Here are services, classes which handle the business logic of the project like ImageManagerService, DialogBoxService, etc.
 - **ViewModels**: Here are classes responsible with views logic and the bounded data 
 - **Views**: Here are the views, UI pages 
 - **App.xml**: Here is the main configuration file of the views
 - **AppShell.xaml**: Here is the navigation layout responsible with navigation through pages because the project implements Shell.Navigation
-- **AssemblyInfo.cs**: Here is information about application like version, name, permisions. 
+- **AssemblyInfo.cs**: Here is information about the application, like: version, name, permissions. 
 
 ## Future improvements
 - Implementation of functionalities for storage of plants data, creation of new plants, hints and details about current plants
 - Data persistence using user account and data base
-- Functionality for graphical schema generation and for specific statistics of a plant(health improvement)
+- Functionality for graphical schema generation and for specific statistics of a plant (health improvement)
 - Detection of multiple diseases (see [10 Common Plant Diseases (and How to Treat Them)](https://www.familyhandyman.com/list/most-common-plant-diseases/))
 - Algorithms for detection of brightness
 - Machine learning algorithms for specie recognition
@@ -89,8 +90,7 @@ For theme and visual style we used Material Design, available on [Xamarin.Forms.
 
 ## Background removal functionality
 
-For background removal and considering only the selected area(selected manually by the user or automatically
-by the background removal algorithm) we used SkiaSharp framework and we implemented an algorithm which:
+For background removal and selected area extraction (selected manually by the user or automatically by the background removal algorithm) we used SkiaSharp framework and we implemented an algorithm which:
 
 1. is touch-screen responsive
 
