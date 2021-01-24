@@ -28,7 +28,7 @@ Interfața grafică constă din următoarele view-uri:
 
 Pentru a testa aplicația puteți utiliza următoarele imagini:
 
-|<img src="showcase/leaf_blackspot_6.jpg" alt="" width="140"><br>Blackspots 1|<img src="showcase/leaf_blackspot_8.jpg" alt="" width="140"><br>Blackspots 2|<img src="showcase/leaf_blackspot_7.jfif" alt="" width="140"><br>Blackspots 3|
+|<img src="showcase/leaf_blackspot_6.jpg" alt="" width="140"><br>Blackspots 1|<img src="showcase/leaf_blackspot_8.jfif" alt="" width="140"><br>Blackspots 2|<img src="showcase/leaf_blackspot_7.jfif" alt="" width="140"><br>Blackspots 3|
 |:-:|:-:|:-:|
 |<img src="showcase/leaf_clean_0.jpg" alt="" width="140"><br>**Healthy 1**|<img src="showcase/leaf_clean_1.jpg" alt="" width="140"><br>**Healthy 2**|<img src="showcase/leaf_clean_2.jpg" alt="" width="140"><br>**Healthy 3**|
 |<img src="showcase/pot_1.jpg" alt="" width="140"><br>**Decorate 1**|<img src="showcase/img3.jfif" alt="" width="140"><br>**Decorate 2**|<img src="showcase/img13.jpg" alt="" width="140"><br>**Decorate 3**|
