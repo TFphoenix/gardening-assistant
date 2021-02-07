@@ -4,7 +4,7 @@
 <br>
 
 [![Gardening Assistant](showcase/logo.png)](https://youtu.be/5G7V_HSD6M0)
-> Pentru versiunea în română vezi: [README (RO)](README.md)
+> Pentru versiunea în română vezi: [README (RO)](README-RO.md)
 
 # General Presentation
 
